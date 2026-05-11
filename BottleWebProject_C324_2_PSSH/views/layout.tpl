@@ -17,9 +17,9 @@
                     <li><a href="/" class="nav-link">Главная</a></li>
                     <li><a href="/about" class="nav-link">О нас</a></li>
                     <li><a href="/contact" class="nav-link">Контакты</a></li>
-                    <li><a href="/sim1" class="nav-link">Движение тела</a></li>
-                    <li><a href="/sim2" class="nav-link">Теплопроводность</a></li>
-                    <li><a href="/sim3" class="nav-link">Парусная лодка</a></li>
+                    <li><a href="/projectile" class="nav-link">Движение тела</a></li>
+                    <li><a href="/heat" class="nav-link">Теплопроводность</a></li>
+                    <li><a href="/boat" class="nav-link">Парусная лодка</a></li>
                 </ul>
             </nav>
         </div>
