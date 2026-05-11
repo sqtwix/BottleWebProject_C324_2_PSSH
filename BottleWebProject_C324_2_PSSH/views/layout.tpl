@@ -3,47 +3,41 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ title }} - My Bottle Application</title>
-    <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
-    <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-    <script src="/static/scripts/modernizr-2.6.2.js"></script>
+    <title>{{ title }} - Физическая лаборатория</title>
+    <link rel="stylesheet" type="text/css" href="/static/content/style.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/home.css" />
 </head>
 
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <header class="main-header">
         <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a href="/" class="navbar-brand">Физическая лаборатория</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/home">Главная страница</a></li>
-                    <li><a href="/about">О нас</a></li>
-                    <li><a href="/contact">Контакты</a></li>
-                    <li><a href="">Симуляция 1</a></li>
-                    <li><a href="">Симуляция 2</a></li>
-                    <li><a href="">Симуляция 3</a></li>
+            <a href="/" class="app-brand">Физическая лаборатория</a>
+            <nav>
+                <ul class="nav-row">
+                    <li><a href="/" class="nav-link">Главная</a></li>
+                    <li><a href="/about" class="nav-link">О нас</a></li>
+                    <li><a href="/contact" class="nav-link">Контакты</a></li>
+                    <li><a href="/sim1" class="nav-link">Движение тела</a></li>
+                    <li><a href="/sim2" class="nav-link">Теплопроводность</a></li>
+                    <li><a href="/sim3" class="nav-link">Парусная лодка</a></li>
                 </ul>
-            </div>
+            </nav>
         </div>
-    </div>
+    </header>
 
-    <div class="container body-content">
-        {{!base}}
-        <hr />
+    <main class="container body-content">
+        <section class="fade-in">
+            {{!base}}
+        </section>
+        
+        <hr class="separator" />
+        
         <footer>
-            <p>&copy; {{ year }} - My Bottle Application</p>
+            <p>&copy; {{ year }} - Физическая лаборатория | Группа С324 | ГУАП</p>
         </footer>
-    </div>
+    </main>
 
     <script src="/static/scripts/jquery-1.10.2.js"></script>
-    <script src="/static/scripts/bootstrap.js"></script>
-    <script src="/static/scripts/respond.js"></script>
-
+    <script src="/static/scripts/navigation.js"></script>
 </body>
 </html>
