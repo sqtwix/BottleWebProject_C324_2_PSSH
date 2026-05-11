@@ -1,0 +1,98 @@
+/* Основные переменные для удобства */
+:root {
+    --bg-deep: #222831;      /* Самый темный - для фона страницы */
+    --bg-surface: #393E46;   /* Темно-серый - для карточек, навигации */
+    --accent-muted: #948979; /* Приглушенный беж - для границ, второстепенного текста */
+    --accent-bright: #DFD0B8;/* Светлый беж - для основного текста, заголовков, кнопок */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-deep);
+    color: var(--accent-bright);
+    line-height: 1.6;
+}
+
+/* Навигация */
+header {
+    background-color: var(--bg-surface);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid var(--accent-muted);
+}
+
+nav a {
+    color: var(--accent-bright);
+    text-decoration: none;
+    margin-right: 1.5rem;
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--accent-muted);
+}
+
+/* Заголовки */
+h1, h2, h3 {
+    color: var(--accent-bright);
+    margin-bottom: 1rem;
+}
+
+/* Контейнеры и карточки */
+.container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Кнопки */
+.btn {
+    display: inline-block;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.btn:hover {
+    opacity: 0.9;
+    background-color: var(--accent-muted);
+    color: white;
+}
+
+/* Формы */
+input, textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0 1rem 0;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    color: var(--accent-bright);
+    border-radius: 4px;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--accent-muted);
+    font-size: 0.9rem;
+}
