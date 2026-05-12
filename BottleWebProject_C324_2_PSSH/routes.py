@@ -42,8 +42,10 @@ def projectile():
 @route('/heat')
 @view('heat')
 def heat():
-    return dict()
-
+     return dict(
+        title='Теплопроводность стержня',
+        year=datetime.now().year
+    )
 @route('/boat')
 @view('boat')
 def boat():
