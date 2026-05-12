@@ -46,6 +46,7 @@ def heat():
         title='Теплопроводность стержня',
         year=datetime.now().year
     )
+
 @route('/boat')
 @view('boat')
 def boat():
