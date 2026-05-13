@@ -1,4 +1,27 @@
-/* Hero секция */
+/*
+
+    hero                - секция-герой с градиентным фоном и анимацией появления
+    hero h1             - главный заголовок в секции hero
+    hero p              - параграф в секции hero, центрированный с ограничением ширины
+    lab-info            - контейнер для информационных чипов лаборатории
+    info-chip           - стилизованный элемент с информацией (группа/тема)
+    students-grid       - сетка карточек студентов (адаптивная, auto-fit)
+    student-card        - карточка студента с градиентом и псевдоэлементом
+    student-card::before- левая декоративная полоса, расширяющаяся при ховере
+    student-card:hover  - анимация подъема карточки и тени
+    student-card-content- гибкий контейнер содержимого карточки
+    student-avatar      - круглая аватарка студента с буквами/инициалами
+    student-name        - имя студента (крупный яркий шрифт)
+    student-topic       - тема работы (мелкий текст с разделителем)
+    student-description - описание проекта студента (более светлый оттенок)
+    tags                - контейнер для тегов (flex-wrap)
+    tag                 - отдельный тег с полупрозрачным фоном
+    sim-link            - ссылка на симуляцию/работу с анимацией при ховере
+    sim-link:hover      - появление нижней границы и смещение вправо
+    @media (max-width)  - адаптация для мобильных устройств
+
+*/
+
 .hero {
     text-align: center;
     padding: 2.5rem;
@@ -33,7 +56,6 @@
     font-size: 0.85rem;
 }
 
-/* Сетка карточек */
 .students-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -41,7 +63,6 @@
     margin: 2rem 0;
 }
 
-/* Карточка студента */
 .student-card {
     background: linear-gradient(135deg, var(--bg-surface) 0%, #2d333b 100%);
     border: 1px solid var(--accent-muted);
