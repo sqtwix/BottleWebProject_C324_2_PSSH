@@ -49,7 +49,7 @@
     color: #ddd;
 }
 
-    /* Для красоты — скроллбар в стиле темы */
+    /* Настройки scroll-view */
     .modal-body::-webkit-scrollbar {
         width: 8px;
     }

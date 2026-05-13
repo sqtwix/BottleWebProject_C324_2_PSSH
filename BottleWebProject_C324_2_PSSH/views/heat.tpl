@@ -72,7 +72,7 @@
                 </div>
             </div>
         </fieldset>
-        <button type="button" class="btn btn-calc" id="calcBtn">💻 Рассчитать (демо)</button>
+        <button type="button" class="btn btn-calc" id="calcBtn">💻 Рассчитать</button>
     </form>
     <p class="note">* В текущей версии отображается только визуальная заглушка. Расчёт будет добавлен позже.</p>
 </section>
