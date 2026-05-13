@@ -1,0 +1,19 @@
+.animation-model-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.animation-model-card {
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #2d333b 100%);
+    border: 1px solid var(--accent-muted);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
