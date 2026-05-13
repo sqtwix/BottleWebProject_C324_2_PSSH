@@ -90,5 +90,8 @@
 
     <!--Подключение скрипта для обработкий действия на странице-->
     <script src="static/scripts/heat.js"></script>
+
+    <!--Подключение скрипта для работы модального окна-->
+    <script src="static/scripts/modal_logic.js"></script>
 </body>
 </html>

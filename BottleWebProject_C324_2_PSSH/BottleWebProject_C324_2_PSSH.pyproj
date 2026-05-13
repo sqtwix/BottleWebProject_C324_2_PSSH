@@ -29,9 +29,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.py" />
+    <Compile Include="backend\boat.py" />
+    <Compile Include="backend\heat.py" />
+    <Compile Include="backend\projectile.py" />
+    <Compile Include="controller\boat_controller.py" />
+    <Compile Include="controller\heat_controller.py" />
+    <Compile Include="controller\projectile_controller.py" />
     <Compile Include="routes.py" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="backend\" />
+    <Folder Include="controller\" />
+    <Folder Include="model\" />
+    <Folder Include="obj\" />
+    <Folder Include="obj\Any CPU\" />
+    <Folder Include="obj\Any CPU\Debug\" />
+    <Folder Include="obj\Debug\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
     <Folder Include="static\fonts\" />
@@ -39,6 +52,9 @@
     <Folder Include="views\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="backend\info.txt" />
+    <Content Include="controller\info.txt" />
+    <Content Include="model\info.txt" />
     <Content Include="requirements.txt" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
@@ -62,7 +78,9 @@
     <Content Include="static\scripts\jquery.validate.min.js" />
     <Content Include="static\scripts\jquery.validate.unobtrusive.js" />
     <Content Include="static\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="static\scripts\modal_logic.js" />
     <Content Include="static\scripts\modernizr-2.6.2.js" />
+    <Content Include="static\scripts\navigation.js" />
     <Content Include="static\scripts\respond.js" />
     <Content Include="static\scripts\respond.min.js" />
     <Content Include="static\scripts\_references.js" />
