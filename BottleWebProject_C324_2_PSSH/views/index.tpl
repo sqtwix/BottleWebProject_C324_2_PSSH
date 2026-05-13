@@ -44,7 +44,7 @@
         </div>
         <a href="/sim1" class="sim-link">Перейти к симуляции →</a>
     </div>
->
+
     <div class="student-card">
         <div class="student-card-content">
             <div class="student-avatar">СС</div>
