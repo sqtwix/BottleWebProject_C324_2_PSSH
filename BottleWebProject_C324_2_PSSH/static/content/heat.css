@@ -1,4 +1,4 @@
-/* === Дополнительные стили для стержня === */
+/* Дополнительные стили для стержня */
 
 /* Стили для визуализации стержня */
 .rod-container {
@@ -130,30 +130,3 @@
     font-size: 1.1rem;
     margin: 10px 0;
 }
-
-/* Стилизация кнопки закрытия модального окна */
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 1.8rem;
-    line-height: 1;
-    cursor: pointer;
-    color: var(--accent-muted);
-    transition: var(--transition-fast);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-    .modal-close:hover {
-        background-color: rgba(223, 208, 184, 0.15);
-        color: var(--accent-bright);
-        transform: scale(1.05);
-    }
-
-    .modal-close:active {
-        transform: scale(0.95);
-    }
