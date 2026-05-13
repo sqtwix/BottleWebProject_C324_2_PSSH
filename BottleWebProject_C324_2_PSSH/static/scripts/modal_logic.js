@@ -16,3 +16,21 @@ window.onclick = (event) => {
         modal.style.display = 'none';
     }
 };
+
+const modalExample = document.getElementById('exampleModal');
+const openBtnExample = document.getElementById('openExampleBtn');
+const closeBtnExample = document.getElementById('closeExampleBtn');
+
+openBtnExample.onclick = () => {
+    modalExample.style.display = 'flex';
+};
+
+closeBtnExample.onclick = () => {
+    modalExample.style.display = 'none';
+};
+
+window.onclick = (event) => {
+    if (event.target === modalExample) {
+        modalExample.style.display = 'none';
+    }
+};
