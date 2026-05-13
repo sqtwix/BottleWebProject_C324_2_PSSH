@@ -1,10 +1,10 @@
 % rebase('layout.tpl', title=title, year=year)
 
 <!-- Заголовок страницы -->
-<div class="page-header">
+<header class="page-header">
     <h1>Модель теплопроводности стержня</h1>
     <p class="subtitle">Стационарное распределение температуры при разных температурах на концах</p>
-</div>
+</header>
 
 <!-- Модальное окно теории -->
 <dialog id="theoryModal" class="modal">
