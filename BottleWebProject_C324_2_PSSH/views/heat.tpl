@@ -10,7 +10,7 @@
 <body>
 
     <!-- Модальное окно теории -->
-    <div id="theoryModal" class="modal">
+    <dialog id="theoryModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h3>📖 Теоретические основы</h3>
@@ -25,20 +25,8 @@
                 <p>Тепловой поток постоянен и определяется законом Фурье.</p>
             </div>
         </div>
-    </div>
+    </dialog>
 
-    <!-- Шапка сайта -->
-    <header class="main-header">
-        <div class="container">
-            <a href="/" class="app-brand">Теплофизика</a>
-            <ul class="nav-row">
-                <li><a href="/" class="nav-link">Главная</a></li>
-                <li><a href="/task2" class="nav-link">Сопротивление воздуха</a></li>
-                <li><a href="/task3" class="nav-link active">Теплопроводность</a></li>
-                <li><a href="/task5" class="nav-link">Парусная лодка</a></li>
-            </ul>
-        </div>
-    </header>
 
     <main class="container fade-in">
         <div style="display: flex; justify-content: space-between; align-items: center; margin: 1.5rem 0;">
@@ -47,7 +35,7 @@
         </div>
 
         <!-- Карточка с формой ввода -->
-        <div class="card">
+        <section class="card">
             <h2 style="margin-bottom: 1rem;">⚙️ Параметры модели</h2>
             <form id="paramsForm">
                 <div class="grid-2col">
@@ -71,7 +59,7 @@
                 <button type="button" class="btn btn-calc" id="calcBtn">💻 Рассчитать (демо)</button>
             </form>
             <p style="font-size: 0.8rem; margin-top: 0.8rem; color: var(--accent-muted);">* В текущей версии отображается только визуальная заглушка. Расчёт будет добавлен позже.</p>
-        </div>
+        </section>
 
         <!-- Визуализация стержня (красивый модуль) -->
         <div class="rod-container">

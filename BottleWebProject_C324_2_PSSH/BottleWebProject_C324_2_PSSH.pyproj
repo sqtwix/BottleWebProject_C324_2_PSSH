@@ -42,6 +42,7 @@
     <Content Include="requirements.txt" />
     <Content Include="static\content\bootstrap.css" />
     <Content Include="static\content\bootstrap.min.css" />
+    <Content Include="static\content\heat.css" />
     <Content Include="static\content\home.css" />
     <Content Include="static\content\site.css" />
     <Content Include="static\content\style.css" />
@@ -51,6 +52,7 @@
     <Content Include="static\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="static\scripts\bootstrap.js" />
     <Content Include="static\scripts\bootstrap.min.js" />
+    <Content Include="static\scripts\heat.js" />
     <Content Include="static\scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="static\scripts\jquery-1.10.2.js" />
     <Content Include="static\scripts\jquery-1.10.2.min.js" />
