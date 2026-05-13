@@ -47,4 +47,6 @@ def heat():
 @route('/boat')
 @view('boat')
 def boat():
-    return dict()
+    return dict(
+        title='Boat',
+        year=datetime.now().year)
