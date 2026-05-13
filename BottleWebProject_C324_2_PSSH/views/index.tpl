@@ -1,6 +1,5 @@
 % rebase('layout.tpl', title='Home Page', year=year)
 
-<!-- Hero секция -->
 <div class="hero">
     <h1>Лаборатория вычислительной физики</h1>
     <p>Численное моделирование физических процессов с использованием современных методов программирования</p>
@@ -12,7 +11,6 @@
     </div>
 </div>
 
-<!-- Карточки студентов -->
 <h2 style="text-align: center; margin: 2rem 0 1rem;">Наша команда</h2>
 <p style="text-align: center; margin-bottom: 2rem;">Каждый участник разработал собственную физическую симуляцию</p>
 
@@ -46,8 +44,7 @@
         </div>
         <a href="/sim1" class="sim-link">Перейти к симуляции →</a>
     </div>
-
-    <!-- Студент 2: Симоненко София -->
+>
     <div class="student-card">
         <div class="student-card-content">
             <div class="student-avatar">СС</div>
@@ -77,7 +74,6 @@
         <a href="/sim3" class="sim-link">Перейти к симуляции →</a>
     </div>
 
-    <!-- Студент 3: Шульга Иван -->
     <div class="student-card">
         <div class="student-card-content">
             <div class="student-avatar">ШИ</div>
@@ -108,7 +104,6 @@
     </div>
 </div>
 
-<!-- Дополнительный блок о проекте -->
 <div class="card" style="margin-top: 1rem;">
     <h3>О проекте</h3>
     <p>Данный сайт разработан в рамках учебной практики по профессиональному модулю 

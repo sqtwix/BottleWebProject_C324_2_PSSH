@@ -6,7 +6,6 @@
 </div>
 
 <div class="students-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-    <!-- Контактная информация -->
     <div class="card" style="height: 100%;">
         <h3>Наши реквизиты</h3>
         <div style="margin-top: 1.5rem;">
@@ -24,7 +23,6 @@
         </div>
     </div>
 
-    <!-- Форма обратной связи -->
     <div class="card" style="height: 100%;">
         <h3>Написать нам</h3>
         <form action="/send-message" method="post">
@@ -42,7 +40,6 @@
     </div>
 </div>
 
-<!-- Карта (заглушка) -->
 <div class="card">
     <h3>Как нас найти</h3>
     <div style="background: var(--bg-deep); height: 250px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
@@ -51,7 +48,6 @@
     <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-muted);">Ближайшее метро: Горьковская, Петроградская.</p>
 </div>
 
-<!-- Информация о разработчиках -->
 <div class="card">
     <h3>Разработчики сайта</h3>
     <div class="students-grid" style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
