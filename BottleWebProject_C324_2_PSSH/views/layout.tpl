@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="/static/content/style.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/home.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/heat.css" />
+    <link rel="stylesheet" type="text/css" href="/static/content/modal_window.css" />
+
 
 </head>
 
