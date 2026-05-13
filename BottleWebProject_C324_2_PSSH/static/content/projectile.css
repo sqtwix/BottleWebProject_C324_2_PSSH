@@ -1,0 +1,107 @@
+.header {
+    margin-bottom: 20px;
+}
+
+.header-center {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.paragraph {
+    margin-bottom: 20px;
+}
+
+.paragraph-center {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.projectile-module-grid {
+    width: 100%;
+    display: grid;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.projectile-module-column-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.projectile-module-row-grid {
+    display: grid;
+    padding: 1%;
+}
+
+.projectile-module-card {
+    width: 100%;
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #2d333b 100%);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.projectile-module-card-animated {
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #2d333b 100%);
+    border: 1px solid var(--accent-muted);
+    border-radius: 16px;
+    padding: 1.8rem;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.projectile-module-card-animated::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+}
+
+.projectile-module-card-animated:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.3);
+}
+
+.projectile-module-card-animated:hover::before {
+    width: 8px;
+}
+
+.div-border {
+    width: 100%;
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #2d333b 100%);
+    border: 1px solid var(--accent-muted);
+    border-radius: 16px;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.canvas-container {
+  display: inline-block;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#coordinateCanvas {
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
