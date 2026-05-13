@@ -120,7 +120,6 @@
     flex-wrap: wrap;
 }
 
-/* Опционально: кнопка “Теория” в стиле вашей темы */
 #openTheoryBtn {
     background: var(--bg-surface);
     color: var(--accent-bright);
@@ -131,3 +130,13 @@
         background: var(--accent-bright);
         color: var(--bg-deep);
     }
+
+.formula-box {
+    background: var(--bg-deep);
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
