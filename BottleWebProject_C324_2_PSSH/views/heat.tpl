@@ -5,7 +5,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h3>Теоретические основы: стационарная теплопроводность стержня</h3>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <button class="modal-close" id="closeTheoryBtn">&times;</button>
         </div>
         <div class="modal-body">
             <p><strong>Физическая постановка задачи</strong></p>
@@ -42,9 +42,45 @@
     </div>
 </dialog>
 
+<!-- Модальное окно примера -->
+<dialog id="exampleModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>📊 Пример расчёта: теплопроводность стержня</h3>
+            <button class="modal-close" id="closeExampleBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Условие задачи</strong></p>
+            <p>Медный стержень длиной <strong>L = 1.0 м</strong>. Левый конец нагрет до <strong>T<sub>L</sub> = 100 °C</strong>, правый конец охлаждён до <strong>T<sub>R</sub> = 20 °C</strong>. Боковая поверхность теплоизолирована. Найти распределение температуры и температуру в середине стержня.</p>
+
+            <p><strong>Решение по формуле</strong></p>
+            <p class="formula-box">T(x) = T<sub>L</sub> + (T<sub>R</sub> - T<sub>L</sub>) · x / L</p>
+            <p>Подставляем значения:</p>
+            <p class="formula-box">T(x) = 100 + (20 - 100) · x / 1 = 100 - 80x</p>
+
+            <p><strong>Температура в середине (x = 0.5 м)</strong></p>
+            <p class="formula-box">T(0.5) = 100 - 80·0.5 = 100 - 40 = <strong>60 °C</strong></p>
+
+            <p><strong>График</strong></p>
+            <p>Зависимость линейная: от 100 °C на левом конце до 20 °C на правом. В узлах стержня (при N=6) температуры:</p>
+            <ul style="margin-left: 1.5rem; color: #ddd;">
+                <li>x = 0.0 м → 100 °C</li>
+                <li>x = 0.2 м → 84 °C</li>
+                <li>x = 0.4 м → 68 °C</li>
+                <li>x = 0.6 м → 52 °C</li>
+                <li>x = 0.8 м → 36 °C</li>
+                <li>x = 1.0 м → 20 °C</li>
+            </ul>
+            <p>Тепловой поток направлен от горячего конца к холодному, его плотность <strong>q = -k·(T<sub>R</sub>-T<sub>L</sub>)/L</strong> (для меди k ≈ 380 Вт/(м·К), поток будет ~30 кВт/м²).</p>
+            <p><em>При изменении параметров в форме вы получите аналогичный расчёт для ваших значений.</em></p>
+        </div>
+    </div>
+</dialog>
+
 <div class="page-header">
     <h1>Модель теплопроводности стержня</h1>
         <button id="openTheoryBtn" class="btn">Теория</button>
+        <button id="openExampleBtn" class="btn">Пример</button>
 </div>
 
 <!-- Карточка с формой ввода -->
@@ -72,9 +108,8 @@
                 </div>
             </div>
         </fieldset>
-        <button type="button" class="btn btn-calc" id="calcBtn">💻 Рассчитать</button>
+        <button type="button" class="btn btn-calc" id="calcBtn">Рассчитать</button>
     </form>
-    <p class="note">* В текущей версии отображается только визуальная заглушка. Расчёт будет добавлен позже.</p>
 </section>
 
 <!-- Визуализация стержня (figure + figcaption) -->
