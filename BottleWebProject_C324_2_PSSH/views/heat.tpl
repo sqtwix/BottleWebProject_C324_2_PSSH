@@ -1,5 +1,11 @@
 % rebase('layout.tpl', title=title, year=year)
 
+<!-- Заголовок страницы -->
+<div class="page-header">
+    <h1>Модель теплопроводности стержня</h1>
+    <p class="subtitle">Стационарное распределение температуры при разных температурах на концах</p>
+</div>
+
 <!-- Модальное окно теории -->
 <dialog id="theoryModal" class="modal">
     <div class="modal-content">
@@ -46,7 +52,7 @@
 <dialog id="exampleModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3>📊 Пример расчёта: теплопроводность стержня</h3>
+            <h3>Пример расчёта: теплопроводность стержня</h3>
             <button class="modal-close" id="closeExampleBtn">&times;</button>
         </div>
         <div class="modal-body">
@@ -77,15 +83,27 @@
     </div>
 </dialog>
 
-<div class="page-header">
-    <h1>Модель теплопроводности стержня</h1>
-        <button id="openTheoryBtn" class="btn">Теория</button>
-        <button id="openExampleBtn" class="btn">Пример</button>
+<div class="students-grid">
+    <!-- Карточка "Теория" -->
+    <div class="card">
+        <div class="card-content">
+            <h2 class="card-title">Изучите теорию</h2>
+            <button id="openTheoryBtn" class="btn">Открыть теорию</button>
+        </div>
+    </div>
+
+    <!-- Карточка "Пример" -->
+    <div class="card">
+        <div class="card-content">
+            <h2 class="card-title">Посмотрите пример</h2>
+            <button id="openExampleBtn" class="btn">Смотреть пример</button>
+        </div>
+    </div>
 </div>
 
 <!-- Карточка с формой ввода -->
 <section class="card" aria-labelledby="params-heading">
-    <h2 id="params-heading">⚙️ Параметры модели</h2>
+    <h2 id="params-heading">Параметры модели</h2>
     <form id="paramsForm">
         <fieldset>
             <legend>Геометрия и тепловые граничные условия</legend>
@@ -114,20 +132,20 @@
 
 <!-- Визуализация стержня (figure + figcaption) -->
 <figure class="rod-container" aria-label="Визуализация температурного градиента стержня">
-    <h2 class="rod-title">🔘 Распределение температуры (демо-градиент)</h2>
-        <div class="rod-wrapper">
-            <div class="rod" id="rodVisual" style="background: linear-gradient(90deg, #ff4d4d, #4d4dff);"></div>
-        </div>
-        <figcaption class="rod-labels">
-            <span>❄️ Холодный конец (T<sub>L</sub>)</span>
-            <span>🔥 Горячий конец (T<sub>R</sub>)</span>
-        </figcaption>
-    <p class="rod-hint">⬅️ Левая/Правая границы — заданные температуры</p>
+    <h2 class="rod-title">Распределение температуры</h2>
+    <div class="rod-wrapper">
+        <div class="rod" id="rodVisual" style="background: linear-gradient(90deg, #ff4d4d, #4d4dff);"></div>
+    </div>
+    <figcaption class="rod-labels">
+        <span>❄️ Холодный конец (T<sub>L</sub>)</span>
+        <span>🔥 Горячий конец (T<sub>R</sub>)</span>
+    </figcaption>
+    <p class="rod-hint">Левая/Правая границы — заданные температуры</p>
 </figure>
 
 <!-- Место для графика температуры -->
 <div class="card">
-    <h2 style="margin-bottom: 1rem;">📈 График T(x)</h2>
+    <h2 style="margin-bottom: 1rem;">График T(x)</h2>
         <div class="chart-placeholder" id="chartPlaceholder">
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="10" y="70" width="80" height="5" fill="#948979"/>

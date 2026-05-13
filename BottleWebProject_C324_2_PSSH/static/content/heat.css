@@ -2,12 +2,18 @@
 
 /* Стили для визуализации стержня */
 .rod-container {
-    background-color: var(--bg-deep);
-    border-radius: 12px;
-    padding: 20px;
-    margin: 20px 0;
-    border: 1px solid var(--accent-muted);
+    background-color: var(--bg-surface);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+    margin: 1rem 0;
+    transition: var(--transition-fast);
 }
+
+.rod-container:hover {
+        border-color: var(--accent-muted);
+        transform: scale(1.01);
+    }
 
 .rod-title {
     text-align: center;
@@ -88,36 +94,88 @@
         opacity: 0.5;
     }
 
+.page-header {
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+}
+
+    .page-header h1 {
+        font-size: 2.2rem;
+        color: var(--accent-bright);
+        margin-bottom: 0.5rem;
+    }
+
+.subtitle {
+    color: var(--accent-muted);
+    font-size: 1rem;
+}
+
+/* Улучшение формы */
 .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1.2rem;
 }
 
     .form-group label {
         display: block;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.4rem;
         font-weight: 500;
         color: var(--accent-bright);
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
     }
 
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+    input:focus {
+        outline: none;
+        border-color: var(--accent-bright);
+        box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
+    }
+
+/* Кнопка "Рассчитать" */
 .btn-calc {
     width: 100%;
-    margin-top: 0.5rem;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    border: none;
+    margin-top: 0.8rem;
+    font-weight: bold;
+}
+
+    .btn-calc:hover {
+        background-color: #fff;
+        transform: translateY(-2px);
+    }
+
+/* Дополнительно: красивое оформление fieldset и legend */
+fieldset {
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    color: var(--accent-bright);
+    font-weight: 500;
 }
 
 .grid-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-}
-
-/* Стили для локального заголовка */
-.page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 1.5rem 0;
-    gap: 1rem;
-    flex-wrap: wrap;
 }
 
 /* Стиль текста с формулой*/
@@ -129,4 +187,66 @@
     font-family: monospace;
     font-size: 1.1rem;
     margin: 10px 0;
+}
+
+/* Улучшение формы */
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-weight: 500;
+        color: var(--accent-bright);
+        font-size: 0.9rem;
+        letter-spacing: 0.3px;
+    }
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+    input:focus {
+        outline: none;
+        border-color: var(--accent-bright);
+        box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
+    }
+
+/* Кнопка "Рассчитать" */
+.btn-calc {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    border: none;
+    margin-top: 0.8rem;
+    font-weight: bold;
+}
+
+    .btn-calc:hover {
+        background-color: #fff;
+        transform: translateY(-2px);
+    }
+
+/* Дополнительно: красивое оформление fieldset и legend */
+fieldset {
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    color: var(--accent-bright);
+    font-weight: 500;
 }
