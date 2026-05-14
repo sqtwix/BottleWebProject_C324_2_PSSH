@@ -37,7 +37,14 @@ def about():
 @route('/projectile')
 @view('projectile')
 def projectile():
-    return dict()
+    return dict(
+<<<<<<< HEAD
+        title="Бросок тела",
+=======
+        title='Движение тела',
+>>>>>>> a30fe0503a3af2f12c3eb68ecd96d91b95f75a9a
+        year=datetime.now().year
+    )
 
 @route('/heat')
 @view('heat')
