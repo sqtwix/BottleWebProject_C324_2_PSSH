@@ -1,36 +1,64 @@
-// --- Модальное окно: открытие / закрытие ---
-const modal = document.getElementById('theoryModal');
-const openBtn = document.getElementById('openTheoryBtn');
-const closeBtn = document.getElementById('closeTheoryBtn');
+// === Модальное окно: теория (theoryModal) ===
+const theoryModal = document.getElementById('theoryModal');
+const openTheoryBtn = document.getElementById('openTheoryBtn');
+const closeTheoryBtn = document.getElementById('closeTheoryBtn');
 
-openBtn.onclick = () => {
-    modal.style.display = 'flex';
-};
+// === Модальное окно: практика (practiceModal) ===
+const practiceModal = document.getElementById('practiceModal');
+const openPracticeBtn = document.getElementById('openPracticeBtn');
+const closePracticeBtn = document.getElementById('closePracticeBtn');
 
-closeBtn.onclick = () => {
-    modal.style.display = 'none';
-};
+// === Модальное окно: пример (exampleModal) ===
+const exampleModal = document.getElementById('exampleModal');
+const openExampleBtn = document.getElementById('openExampleBtn');
+const closeExampleBtn = document.getElementById('closeExampleBtn');
 
-window.onclick = (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
+// --- Функции для теории ---
+function openTheory() {
+    if (theoryModal) theoryModal.style.display = 'flex';
+}
+
+function closeTheory() {
+    if (theoryModal) theoryModal.style.display = 'none';
+}
+
+// --- Функции для практики ---
+function openPractice() {
+    if (practiceModal) practiceModal.style.display = 'flex';
+}
+
+function closePractice() {
+    if (practiceModal) practiceModal.style.display = 'none';
+}
+
+// --- Функции для примера ---
+function openExample() {
+    if (exampleModal) exampleModal.style.display = 'flex';
+}
+
+function closeExample() {
+    if (exampleModal) exampleModal.style.display = 'none';
+}
+
+// --- Назначение обработчиков (с проверкой существования элементов) ---
+if (openTheoryBtn) openTheoryBtn.onclick = openTheory;
+if (closeTheoryBtn) closeTheoryBtn.onclick = closeTheory;
+
+if (openPracticeBtn) openPracticeBtn.onclick = openPractice;
+if (closePracticeBtn) closePracticeBtn.onclick = closePractice;
+
+if (openExampleBtn) openExampleBtn.onclick = openExample;
+if (closeExampleBtn) closeExampleBtn.onclick = closeExample;
+
+// --- Закрытие при клике на фон (общий обработчик для всех модалок) ---
+window.onclick = function (event) {
+    if (theoryModal && event.target === theoryModal) {
+        theoryModal.style.display = 'none';
     }
-};
-
-const modalExample = document.getElementById('exampleModal');
-const openBtnExample = document.getElementById('openExampleBtn');
-const closeBtnExample = document.getElementById('closeExampleBtn');
-
-openBtnExample.onclick = () => {
-    modalExample.style.display = 'flex';
-};
-
-closeBtnExample.onclick = () => {
-    modalExample.style.display = 'none';
-};
-
-window.onclick = (event) => {
-    if (event.target === modalExample) {
-        modalExample.style.display = 'none';
+    if (practiceModal && event.target === practiceModal) {
+        practiceModal.style.display = 'none';
+    }
+    if (exampleModal && event.target === exampleModal) {
+        exampleModal.style.display = 'none';
     }
 };

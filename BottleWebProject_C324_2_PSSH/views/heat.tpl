@@ -83,7 +83,8 @@
     </div>
 </dialog>
 
-<div class="two-columns">
+<!--Кнопки открытия модальных окон-->
+<container class="two-columns">
     <section class="form-card">
         <button id="openTheoryBtn" class="btn" type="button">Изучите теорию</button>
     </section>
@@ -91,7 +92,7 @@
     <section class="form-card">
         <button id="openExampleBtn" class="btn" type="button">Просмотрите пример</button>
     </section>
-</div>
+</container>
 
 <!-- Карточка с формой ввода -->
 <section class="card" aria-labelledby="params-heading">

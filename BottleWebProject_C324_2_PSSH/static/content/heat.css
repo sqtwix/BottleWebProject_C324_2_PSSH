@@ -1,5 +1,78 @@
 /* Дополнительные стили для стержня */
 
+/* 
+    ОПИСАНИЕ ИНДИВИДУАЛЬНЫХ СТИЛЕЙ (МОДЕЛЬ ТЕПЛОПРОВОДНОСТИ)
+
+    .page-header        - контейнер заголовка страницы
+    .page-header h1     - стилизация главного заголовка (каскадное уточнение)
+    .subtitle           - стиль подзаголовка с описанием модели
+    .form-group         - контейнер для пары "метка - поле ввода"
+    .form-group label   - стилизация текстовых меток (доступность и шрифт)
+    input, select, textarea - общие стили для элементов ввода данных
+    input:focus         - визуальный отклик при фокусе на поле ввода
+    .rod-container      - основная карточка визуализации стержня
+    .rod-container:hover- эффект приближения карточки при наведении
+    .rod-title          - заголовок внутри блока визуализации
+    .rod-wrapper        - обертка для позиционирования стержня
+    .rod                - визуальный элемент стержня с градиентом температуры
+    .rod:hover          - анимация изменения размера стержня
+    .rod::before, ::after - псевдоэлементы для декоративных краев стержня
+    .rod-labels         - контейнер для подписей (холодный/горячий конец)
+    .chart-placeholder  - блок-заглушка для будущего графика (flex-контейнер)
+    .chart-placeholder svg - стилизация SVG-иконки внутри заглушки
+    .grid-2col          - сетка на 2 колонки для компактного размещения полей
+    .formula-box        - стилизованный блок для отображения физ. формул
+    .btn-calc           - стиль главной кнопки расчета (акцентный цвет)
+    #loadDataBtn        - уникальный стиль для кнопки загрузки из файла
+    fieldset, legend    - группировка связанных полей формы с рамкой
+    .two-columns        - макет сетки для кнопок открытия модальных окон
+    .two-columns .form-card - стилизация карточек кнопок внутри колонок
+*/
+
+/* Заголовки */
+.page-header {
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+}
+
+.page-header h1 {
+    font-size: 2.2rem;
+    color: var(--accent-bright);
+    margin-bottom: 0.5rem;
+}
+
+/*Стили форм*/
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: var(--accent-bright);
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+}
+
+/* Стили для всех полей */
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-bright);
+    box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
+}
+
 /* Стили для визуализации стержня */
 .rod-container {
     background-color: var(--bg-surface);
@@ -13,7 +86,7 @@
 .rod-container:hover {
         border-color: var(--accent-muted);
         transform: scale(1.01);
-    }
+}
 
 .rod-title {
     text-align: center;
@@ -39,28 +112,27 @@
     transition: var(--transition-fast);
 }
 
-    .rod:hover {
+.rod:hover {
         transform: scaleY(1.02);
         box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
-    }
+}
 
-    .rod::before {
-        position: absolute;
-        left: -25px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.8rem;
-        opacity: 0.7;
-    }
+.rod::before,
+.rod::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    opacity: 0.7;
+}
 
-    .rod::after {
-        position: absolute;
-        right: -25px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 1.8rem;
-        opacity: 0.7;
-    }
+.rod::before {
+    left: -25px;
+}
+
+.rod::after {
+    right: -25px;
+}
 
 .rod-labels {
     display: flex;
@@ -86,91 +158,19 @@
     gap: 10px;
 }
 
-    .chart-placeholder svg {
-        width: 80px;
-        height: 80px;
-        opacity: 0.5;
-    }
-
-.page-header {
-    text-align: center;
-    margin: 2rem 0 1rem 0;
+.chart-placeholder svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
 }
-
-    .page-header h1 {
-        font-size: 2.2rem;
-        color: var(--accent-bright);
-        margin-bottom: 0.5rem;
-    }
 
 .subtitle {
     color: var(--accent-muted);
     font-size: 1rem;
 }
 
-/* Улучшение формы */
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-    .form-group label {
-        display: block;
-        margin-bottom: 0.4rem;
-        font-weight: 500;
-        color: var(--accent-bright);
-        font-size: 0.9rem;
-        letter-spacing: 0.3px;
-    }
-
-input, select, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: var(--bg-deep);
-    border: 1px solid var(--accent-muted);
-    color: #fff;
-    border-radius: 6px;
-    font-size: 1rem;
-    transition: var(--transition-fast);
-}
-
-    input:focus {
-        outline: none;
-        border-color: var(--accent-bright);
-        box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
-    }
-
-/* Кнопка "Рассчитать" */
-.btn-calc {
-    width: 100%;
-    padding: 12px;
-    font-size: 1rem;
-    background-color: var(--accent-bright);
-    color: var(--bg-deep);
-    border: none;
-    margin-top: 0.8rem;
-    font-weight: bold;
-}
-
-    .btn-calc:hover {
-        background-color: #fff;
-        transform: translateY(-2px);
-    }
-
 /* Дополнительно: красивое оформление fieldset и legend */
-fieldset {
-    border: 1px solid var(--accent-muted);
-    border-radius: 8px;
-    padding: 1rem 1.2rem;
-    margin-bottom: 0.5rem;
-}
-
-legend {
-    padding: 0 0.5rem;
-    color: var(--accent-bright);
-    font-weight: 500;
-}
-
-.grid-2col {
+ .grid-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
@@ -187,42 +187,17 @@ legend {
     margin: 10px 0;
 }
 
-/* Улучшение формы */
-.form-group {
-    margin-bottom: 1.2rem;
-}
-
-    .form-group label {
-        display: block;
-        margin-bottom: 0.4rem;
-        font-weight: 500;
-        color: var(--accent-bright);
-        font-size: 0.9rem;
-        letter-spacing: 0.3px;
-    }
-
-input, select, textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: var(--bg-deep);
-    border: 1px solid var(--accent-muted);
-    color: #fff;
-    border-radius: 6px;
+/* Кнопка и модификации */
+.btn-calc, #loadDataBtn {
+    padding: 12px;
     font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
     transition: var(--transition-fast);
 }
 
-    input:focus {
-        outline: none;
-        border-color: var(--accent-bright);
-        box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
-    }
-
-/* Кнопка "Рассчитать" */
 .btn-calc {
     width: 100%;
-    padding: 12px;
-    font-size: 1rem;
     background-color: var(--accent-bright);
     color: var(--bg-deep);
     border: none;
@@ -230,10 +205,15 @@ input, select, textarea {
     font-weight: bold;
 }
 
-    .btn-calc:hover {
-        background-color: #fff;
-        transform: translateY(-2px);
-    }
+#loadDataBtn {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-calc:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+}
 
 /* Дополнительно: красивое оформление fieldset и legend */
 fieldset {
@@ -249,22 +229,7 @@ legend {
     font-weight: 500;
 }
 
-.doc-card {
-    background-color: var(--bg-surface);
-    border-radius: 12px;
-    padding: 2rem;
-    text-align: center;
-    border: 1px solid var(--accent-muted);
-    margin: 2rem 0;
-    transition: var(--transition-fast);
-}
-
-    .doc-card h2 {
-        color: var(--accent-bright);
-        margin-bottom: 1.5rem;
-        font-size: 1.5rem;
-    }
-
+/*Колонки для кнопок с теорией*/
 .two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -272,34 +237,19 @@ legend {
     margin-bottom: 2rem;
 }
 
-    .two-columns .form-card {
-        margin-bottom: 0;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-    }
-
-        .two-columns .form-card form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-            .two-columns .form-card form button {
-                margin-top: auto;
-            }
-
-.form-actions {
+.two-columns .form-card {
+    margin-bottom: 0;
     display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 1rem;
+    flex-direction: column;
+    height: 100%;
 }
 
-.btn-calc, #loadDataBtn {
+.two-columns .form-card form {
     flex: 1;
-    margin-top: 1rem;
-    justify-content: center;
-    width: 100%;
-    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.two-columns .form-card form button {
+    margin-top: auto;
 }
