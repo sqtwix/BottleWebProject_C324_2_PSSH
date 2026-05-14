@@ -45,7 +45,6 @@
     }
 
     .rod::before {
-        content: "⚡";
         position: absolute;
         left: -25px;
         top: 50%;
@@ -55,7 +54,6 @@
     }
 
     .rod::after {
-        content: "❄️";
         position: absolute;
         right: -25px;
         top: 50%;

@@ -1,5 +1,5 @@
-// --- Простая смена цвета стержня (демо) ---
-// Пока без логики, просто красивое изменение при нажатии кнопки "Рассчитать"
+// Смена цвета стержня
+// Пока без логики, просто изменение при нажатии кнопки "Рассчитать"
 const calcButton = document.getElementById('calcBtn');
 const rod = document.getElementById('rodVisual');
 const leftTempInput = document.getElementById('tempLeft');
@@ -25,7 +25,6 @@ calcButton.addEventListener('click', () => {
 
     rod.style.background = `linear-gradient(90deg, rgb(${rLeft}, 50, ${bLeft}), rgb(${rRight}, 50, ${bRight}))`;
 
-    // Показать временное уведомление в графике (симуляция)
     const chartDiv = document.getElementById('chartPlaceholder');
     chartDiv.innerHTML = `
                 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,3 +36,43 @@ calcButton.addEventListener('click', () => {
                 <p style="margin-top: 10px;">Демо-режим: при вводе T<sub>L</sub>=${leftVal}°C, T<sub>R</sub>=${rightVal}°C стержень меняет цвет.<br>Полноценный график будет построен позже.</p>
             `;
 });
+
+// Загрузка данных из файла
+const loadBtn = document.getElementById('loadDataBtn');
+if (loadBtn) {
+    // Создаём скрытый input для выбора файла
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.json, .txt, .csv'; 
+    fileInput.style.display = 'none';
+
+    loadBtn.addEventListener('click', () => {
+        fileInput.click();
+    });
+
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const content = e.target.result;
+                // Предполагаем, что файл в формате JSON
+                const data = JSON.parse(content);
+                // Заполняем поля формы, если данные есть
+                if (data.length !== undefined) document.getElementById('length').value = data.length;
+                if (data.tempLeft !== undefined) document.getElementById('tempLeft').value = data.tempLeft;
+                if (data.tempRight !== undefined) document.getElementById('tempRight').value = data.tempRight;
+                if (data.nodes !== undefined) document.getElementById('nodes').value = data.nodes;
+                // Можно вызвать автоматический расчёт (если есть функция)
+                // calcAndRender(); 
+            } catch (err) {
+                // Если не JSON, попробуем разобрать как CSV или просто текст
+                console.warn('Не удалось распарсить JSON, попробуйте другой формат');
+                alert('Ошибка чтения файла. Файл должен быть в формате JSON:\n{"length":1.0, "tempLeft":100, "tempRight":20, "nodes":50}');
+            }
+        };
+        reader.readAsText(file);
+    });
+}
