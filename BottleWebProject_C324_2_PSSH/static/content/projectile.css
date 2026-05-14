@@ -1,0 +1,559 @@
+/*
+
+    ОПИСАНИЕ СТИЛЕЙ projectile.css
+
+    .hero-section                - основной блок с заголовком страницы
+    .hero-content                - контент внутри hero-блока
+    .hero-content h1             - заголовок в hero-блоке
+    .hero-content p              - подзаголовок в hero-блоке
+
+    .graph-container             - контейнер для графика траектории
+    .graph-header                - шапка контейнера графика
+    .graph-header h2             - заголовок блока графика
+    .coordinate-badge            - бейдж статуса системы координат
+    .graph-wrapper               - обертка для canvas с отступами
+    .graph-canvas-container      - контейнер с тенью и скруглением для canvas
+    #coordinateCanvas            - само поле canvas для отрисовки графика
+
+    .bottom-panels               - сетка из двух колонок (результаты + ввод)
+    .results-panel               - панель с результатами расчетов
+    .input-panel                 - панель с полями ввода параметров
+    .panel-header-custom         - шапка панелей результатов и ввода
+    .panel-header-custom h3      - заголовок панели
+
+    .results-grid-custom         - сетка 2x2 для отображения результатов
+    .result-item                 - карточка отдельного результата
+    .result-item:hover           - анимация карточки результата при наведении
+    .result-label                - подпись результата (тип параметра)
+    .result-number               - числовое значение результата
+
+    .inputs-grid                 - сетка 2x2 для полей ввода
+    .input-field                 - контейнер одного поля с меткой
+    .input-field label           - текстовая метка поля ввода
+    .input-with-button           - контейнер поля ввода с кнопкой "Слч"
+    .input-with-button input     - стили текстового поля ввода
+    .input-with-button input:focus - фокус на поле ввода
+    .input-btn                   - кнопка "Слч" (случайное значение)
+    .input-btn:hover             - анимация кнопки при наведении
+    .input-btn:active            - анимация кнопки при нажатии
+
+    .button-group-custom         - контейнер для группы основных кнопок
+    .button-group-custom .btn    - стили кнопок внутри контейнера
+    .action-buttons              - контейнер для кнопок "Теория" и "Пример"
+
+    .btn-theory                  - кнопка открытия теории
+    .btn-theory:hover            - анимация кнопки теории
+    .btn-practice                - кнопка открытия примера расчета
+    .btn-practice:hover          - анимация кнопки примера
+
+    .btn-primary                 - основная кнопка (Рассчитать траекторию)
+    .btn-primary:hover           - анимация основной кнопки
+    .btn-secondary               - второстепенная кнопка (Сбросить параметры)
+    .btn-secondary:hover         - анимация второстепенной кнопки
+    .btn-accent                  - акцентная кнопка (Заполнить случайными)
+    .btn-accent:hover            - анимация акцентной кнопки
+
+    .separator-light             - тонкий разделитель в модальных окнах
+
+    .modal                       - затемненный фон модального окна
+    .modal-content               - содержимое модального окна
+    .modal-large                 - широкое модальное окно
+    .modal-header                - шапка модального окна
+    .modal-header h3             - заголовок модального окна
+    .modal-close                 - кнопка закрытия модального окна (крестик)
+    .modal-close:hover           - анимация кнопки закрытия
+    .modal-body                  - тело модального окна с контентом
+    .modal-body h4               - подзаголовок в теле модального окна
+    .modal-body p                - параграф в теле модального окна
+
+    .formula                     - стили для формул (моноширинный шрифт)
+    .formula-list                - маркированный список формул
+    .formula-list li             - элемент списка формул
+
+    @media (max-width: 1200px)   - адаптация для планшетов и ноутбуков
+    @media (max-width: 768px)    - адаптация для мобильных устройств
+
+    .header, .header-center       - общие стили заголовков
+    .paragraph, .paragraph-center - общие стили параграфов
+
+    @keyframes slideUp            - анимация появления модального окна
+
+*/
+
+.hero-section {
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #1e242c 100%);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.hero-content h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--accent-bright);
+}
+
+.hero-content p {
+    color: var(--accent-muted);
+    font-size: 1rem;
+}
+
+.graph-container {
+    background: var(--bg-surface);
+    border-radius: 16px;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.graph-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.graph-header h2 {
+    font-size: 1.3rem;
+    margin: 0;
+}
+
+.coordinate-badge {
+    background: rgba(223, 208, 184, 0.15);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    color: var(--accent-bright);
+}
+
+.graph-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background: #1a1e24;
+}
+
+.graph-canvas-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+#coordinateCanvas {
+    background: #ffffff;
+    border-radius: 8px;
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+}
+
+.bottom-panels {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
+}
+
+.results-panel,
+.input-panel {
+    background: var(--bg-surface);
+    border-radius: 16px;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+    overflow: hidden;
+}
+
+.panel-header-custom {
+    padding: 1rem 1.5rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.panel-header-custom h3 {
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.results-grid-custom {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.result-item {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.result-item:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.result-label {
+    font-size: 0.75rem;
+    color: var(--accent-muted);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-number {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--accent-bright);
+    font-family: 'Courier New', monospace;
+}
+
+.inputs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.input-field {
+    padding: 0;
+}
+
+.input-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-with-button {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.input-with-button input {
+    flex: 1;
+    margin-bottom: 0;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.input-with-button input:focus {
+    border-color: var(--accent-bright);
+    outline: none;
+}
+
+.input-btn {
+    min-width: 52px;
+    height: 42px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    color: var(--accent-bright);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.input-btn:hover {
+    background: var(--accent-muted);
+    border-color: var(--accent-bright);
+    color: var(--bg-deep);
+    transform: translateY(-1px);
+}
+
+.input-btn:active {
+    transform: translateY(1px);
+}
+
+.button-group-custom {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.button-group-custom .btn {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    border-top: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.btn-theory {
+    background: rgba(52, 152, 219, 0.2);
+    border: 1px solid #3498db;
+    color: #3498db;
+}
+
+.btn-theory:hover {
+    background: rgba(52, 152, 219, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn-practice {
+    background: rgba(46, 204, 113, 0.2);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+}
+
+.btn-practice:hover {
+    background: rgba(46, 204, 113, 0.35);
+    transform: translateY(-2px);
+}
+
+.btn-primary {
+    background: var(--accent-bright);
+    color: var(--bg-deep);
+    font-weight: bold;
+    border: none;
+}
+
+.btn-primary:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--accent-muted);
+    color: var(--accent-bright);
+}
+
+.btn-secondary:hover {
+    background: rgba(148, 137, 121, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-accent {
+    background: rgba(223, 208, 184, 0.15);
+    border: 1px solid var(--accent-bright);
+    color: var(--accent-bright);
+}
+
+.btn-accent:hover {
+    background: rgba(223, 208, 184, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-theory, .btn-practice,
+.btn-primary, .btn-secondary, .btn-accent {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.separator-light {
+    height: 1px;
+    background: rgba(148, 137, 121, 0.2);
+    margin: 1rem 0;
+}
+
+.modal-body h4 {
+    color: var(--accent-bright);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.formula {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.6rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0.7rem 0;
+    font-size: 1rem;
+}
+
+.formula-list {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.formula-list li {
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: var(--bg-surface);
+    border-radius: 16px;
+    border: 1px solid var(--accent-bright);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease;
+}
+
+.modal-large {
+    max-width: 700px;
+    width: 90%;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 1.2rem 1.8rem;
+    border-bottom: 1px solid var(--accent-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--accent-bright);
+    font-size: 1.4rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--accent-muted);
+    transition: all 0.2s ease;
+    line-height: 1;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.modal-close:hover {
+    color: #e74c3c;
+    background: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+}
+
+.modal-body {
+    padding: 1.8rem;
+    color: #ddd;
+    line-height: 1.6;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.modal-body p {
+    margin-bottom: 0.8rem;
+}
+
+@media (max-width: 1200px) {
+    .bottom-panels {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .graph-canvas-container {
+        overflow: hidden;
+    }
+    
+    #coordinateCanvas {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .inputs-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-grid-custom {
+        grid-template-columns: 1fr;
+    }
+    
+    .action-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .graph-header {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .hero-section {
+        margin-top: 1rem;
+    }
+    
+    .modal-large {
+        width: 95%;
+    }
+    
+    .modal-header h3 {
+        font-size: 1.2rem;
+    }
+}
+
+.header, .header-center, .paragraph, .paragraph-center {
+    margin-bottom: 20px;
+}
+
+.header-center, .paragraph-center {
+    text-align: center;
+}
