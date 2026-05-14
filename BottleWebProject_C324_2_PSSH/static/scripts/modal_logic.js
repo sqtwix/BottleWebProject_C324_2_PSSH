@@ -1,19 +1,19 @@
-// === Модальное окно: теория (theoryModal) ===
+// === РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ: С‚РµРѕСЂРёСЏ (theoryModal) ===
 const theoryModal = document.getElementById('theoryModal');
 const openTheoryBtn = document.getElementById('openTheoryBtn');
 const closeTheoryBtn = document.getElementById('closeTheoryBtn');
 
-// === Модальное окно: практика (practiceModal) ===
+// === РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ: РїСЂР°РєС‚РёРєР° (practiceModal) ===
 const practiceModal = document.getElementById('practiceModal');
 const openPracticeBtn = document.getElementById('openPracticeBtn');
 const closePracticeBtn = document.getElementById('closePracticeBtn');
 
-// === Модальное окно: пример (exampleModal) ===
+// === РњРѕРґР°Р»СЊРЅРѕРµ РѕРєРЅРѕ: РїСЂРёРјРµСЂ (exampleModal) ===
 const exampleModal = document.getElementById('exampleModal');
 const openExampleBtn = document.getElementById('openExampleBtn');
 const closeExampleBtn = document.getElementById('closeExampleBtn');
 
-// --- Функции для теории ---
+// --- Р¤СѓРЅРєС†РёРё РґР»СЏ С‚РµРѕСЂРёРё ---
 function openTheory() {
     if (theoryModal) theoryModal.style.display = 'flex';
 }
@@ -22,7 +22,7 @@ function closeTheory() {
     if (theoryModal) theoryModal.style.display = 'none';
 }
 
-// --- Функции для практики ---
+// --- Р¤СѓРЅРєС†РёРё РґР»СЏ РїСЂР°РєС‚РёРєРё ---
 function openPractice() {
     if (practiceModal) practiceModal.style.display = 'flex';
 }
@@ -31,7 +31,7 @@ function closePractice() {
     if (practiceModal) practiceModal.style.display = 'none';
 }
 
-// --- Функции для примера ---
+// --- Р¤СѓРЅРєС†РёРё РґР»СЏ РїСЂРёРјРµСЂР° ---
 function openExample() {
     if (exampleModal) exampleModal.style.display = 'flex';
 }
@@ -40,7 +40,7 @@ function closeExample() {
     if (exampleModal) exampleModal.style.display = 'none';
 }
 
-// --- Назначение обработчиков (с проверкой существования элементов) ---
+// --- РќР°Р·РЅР°С‡РµРЅРёРµ РѕР±СЂР°Р±РѕС‚С‡РёРєРѕРІ (СЃ РїСЂРѕРІРµСЂРєРѕР№ СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёСЏ СЌР»РµРјРµРЅС‚РѕРІ) ---
 if (openTheoryBtn) openTheoryBtn.onclick = openTheory;
 if (closeTheoryBtn) closeTheoryBtn.onclick = closeTheory;
 
@@ -50,7 +50,6 @@ if (closePracticeBtn) closePracticeBtn.onclick = closePractice;
 if (openExampleBtn) openExampleBtn.onclick = openExample;
 if (closeExampleBtn) closeExampleBtn.onclick = closeExample;
 
-// --- Закрытие при клике на фон (общий обработчик для всех модалок) ---
 window.onclick = function (event) {
     if (theoryModal && event.target === theoryModal) {
         theoryModal.style.display = 'none';

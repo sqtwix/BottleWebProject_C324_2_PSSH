@@ -1,0 +1,255 @@
+/* Дополнительные стили для стержня */
+
+/* 
+    ОПИСАНИЕ ИНДИВИДУАЛЬНЫХ СТИЛЕЙ (МОДЕЛЬ ТЕПЛОПРОВОДНОСТИ)
+
+    .page-header        - контейнер заголовка страницы
+    .page-header h1     - стилизация главного заголовка (каскадное уточнение)
+    .subtitle           - стиль подзаголовка с описанием модели
+    .form-group         - контейнер для пары "метка - поле ввода"
+    .form-group label   - стилизация текстовых меток (доступность и шрифт)
+    input, select, textarea - общие стили для элементов ввода данных
+    input:focus         - визуальный отклик при фокусе на поле ввода
+    .rod-container      - основная карточка визуализации стержня
+    .rod-container:hover- эффект приближения карточки при наведении
+    .rod-title          - заголовок внутри блока визуализации
+    .rod-wrapper        - обертка для позиционирования стержня
+    .rod                - визуальный элемент стержня с градиентом температуры
+    .rod:hover          - анимация изменения размера стержня
+    .rod::before, ::after - псевдоэлементы для декоративных краев стержня
+    .rod-labels         - контейнер для подписей (холодный/горячий конец)
+    .chart-placeholder  - блок-заглушка для будущего графика (flex-контейнер)
+    .chart-placeholder svg - стилизация SVG-иконки внутри заглушки
+    .grid-2col          - сетка на 2 колонки для компактного размещения полей
+    .formula-box        - стилизованный блок для отображения физ. формул
+    .btn-calc           - стиль главной кнопки расчета (акцентный цвет)
+    #loadDataBtn        - уникальный стиль для кнопки загрузки из файла
+    fieldset, legend    - группировка связанных полей формы с рамкой
+    .two-columns        - макет сетки для кнопок открытия модальных окон
+    .two-columns .form-card - стилизация карточек кнопок внутри колонок
+*/
+
+/* Заголовки */
+.page-header {
+    text-align: center;
+    margin: 2rem 0 1rem 0;
+}
+
+.page-header h1 {
+    font-size: 2.2rem;
+    color: var(--accent-bright);
+    margin-bottom: 0.5rem;
+}
+
+/*Стили форм*/
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    color: var(--accent-bright);
+    font-size: 0.9rem;
+    letter-spacing: 0.3px;
+}
+
+/* Стили для всех полей */
+input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--bg-deep);
+    border: 1px solid var(--accent-muted);
+    color: #fff;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent-bright);
+    box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
+}
+
+/* Стили для визуализации стержня */
+.rod-container {
+    background-color: var(--bg-surface);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+    margin: 1rem 0;
+    transition: var(--transition-fast);
+}
+
+.rod-container:hover {
+        border-color: var(--accent-muted);
+        transform: scale(1.01);
+}
+
+.rod-title {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 600;
+    color: var(--accent-bright);
+}
+
+.rod-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.rod {
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(90deg, #3b82f6, #ef4444);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    position: relative;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.rod:hover {
+        transform: scaleY(1.02);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
+}
+
+.rod::before,
+.rod::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.8rem;
+    opacity: 0.7;
+}
+
+.rod::before {
+    left: -25px;
+}
+
+.rod::after {
+    right: -25px;
+}
+
+.rod-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 12px;
+    font-size: 0.85rem;
+    color: var(--accent-muted);
+    padding: 0 10px;
+}
+
+/* Заглушка для графика */
+.chart-placeholder {
+    background-color: var(--bg-deep);
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    border: 1px dashed var(--accent-muted);
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.chart-placeholder svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.5;
+}
+
+.subtitle {
+    color: var(--accent-muted);
+    font-size: 1rem;
+}
+
+/* Дополнительно: красивое оформление fieldset и legend */
+ .grid-2col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Стиль текста с формулой*/
+.formula-box {
+    background: var(--bg-deep);
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 1.1rem;
+    margin: 10px 0;
+}
+
+/* Кнопка и модификации */
+.btn-calc, #loadDataBtn {
+    padding: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+}
+
+.btn-calc {
+    width: 100%;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    border: none;
+    margin-top: 0.8rem;
+    font-weight: bold;
+}
+
+#loadDataBtn {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+.btn-calc:hover {
+    background-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Дополнительно: красивое оформление fieldset и legend */
+fieldset {
+    border: 1px solid var(--accent-muted);
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+legend {
+    padding: 0 0.5rem;
+    color: var(--accent-bright);
+    font-weight: 500;
+}
+
+/*Колонки для кнопок с теорией*/
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.two-columns .form-card {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.two-columns .form-card form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.two-columns .form-card form button {
+    margin-top: auto;
+}
