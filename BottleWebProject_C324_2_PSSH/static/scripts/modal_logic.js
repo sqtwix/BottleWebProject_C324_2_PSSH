@@ -51,7 +51,7 @@ if (openExampleBtn) openExampleBtn.onclick = openExample;
 if (closeExampleBtn) closeExampleBtn.onclick = closeExample;
 
 // --- Закрытие при клике на фон (общий обработчик для всех модалок) ---
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (theoryModal && event.target === theoryModal) {
         theoryModal.style.display = 'none';
     }
