@@ -25,6 +25,10 @@
 <div class="two-columns">
     <div class="form-card">
         <h2>Результаты оптимизации</h2>
+            <label>Максимальная скорость (м/с):</label>
+            <input type="number" step="1" name="v_max" value="" readonly>
+            <label>Оптимальный угол паруса (град):</label>
+            <input type="number" step="1" name="theta_opt" value="" readonly>
     </div>
         <div class="form-card">
         <h2>Рассчитать для своих параметров</h2>
