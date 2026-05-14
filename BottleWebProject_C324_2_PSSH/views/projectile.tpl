@@ -1,49 +1,165 @@
-% rebase('layout.tpl', title='Home Page', year=year)
+% rebase('layout.tpl', title='Баллистический калькулятор', year=year)
 
-<div class="projectile-module-grid">
-    <div class="projectile-module-card">
-        <div class="projectile-module-row-grid">
-            <h1 class="header-center">Тело, брошенное под углом к горизонту</h1>
-            <p class="paragraph-center">Посмотрите, как ведет себя тело, брошенное под углом к горизонту, с учетм аэродинамического воздействия.</p>
-        </div>
+<div class="hero-section fade-in">
+    <div class="hero-content">
+        <h1>Баллистический калькулятор</h1>
+        <p>Моделирование движения тела, брошенного под углом к горизонту, с учетом сопротивления воздуха</p>
     </div>
-    <div class="projectile-module-card-animated">
-        <div class="projectile-module-row-grid">
-            <h1 class="header">Прочитайте теорию!</h1>
-            <p class="paragraph">Это поможешь вам разобраться в том, как ведет себя тела при броске под углом к горизонту с учетом аэродинимаического воздействия.</p>
-            <button class="btn">Теория</button>
-        </div>
-    </div>
-    <div class="projectile-module-card-animated">
-        <div class="projectile-module-row-grid">
-            <h1 class="header">Просмотрите практику!</h1>
-            <p class="paragraph">После прочтения теории рекомендую обратиться к практическому примеру для более лучшего понимания.</p>
-            <button class="btn">Практика</button>
-        </div>
-    </div>
-    <div class="projectile-module-card">
-        <h1 class="header">Модель</h1>
-        <div class="canvas-container">
-            <canvas id="coordinateCanvas" width="400" height="400"></canvas>
-        </div>
-        </div>
-            <div class="projectile-module-column-grid">
+</div>
 
-                <div class="projectile-module-card-animated">
-                    <h1>Рассчеты</h1>
+<div class="graph-container">
+    <div class="graph-header">
+        <h2>Траектория полета</h2>
+        <span class="coordinate-badge">Декартова система координат</span>
+    </div>
+    <div class="graph-wrapper">
+        <div class="graph-canvas-container">
+            <canvas id="coordinateCanvas" width="1400" height="700"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="bottom-panels">
+    <div class="results-panel">
+        <div class="panel-header-custom">
+            <h3>Результаты расчета</h3>
+        </div>
+        <div class="results-grid-custom">
+            <div class="result-item">
+                <div class="result-label">Максимальная высота</div>
+                <div class="result-number" id="maxHeight">0.00 м</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Дальность полета</div>
+                <div class="result-number" id="range">0.00 м</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Время полета</div>
+                <div class="result-number" id="flightTime">0.00 с</div>
+            </div>
+            <div class="result-item">
+                <div class="result-label">Конечная скорость</div>
+                <div class="result-number" id="finalSpeed">0.00 м/с</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="input-panel">
+        <div class="panel-header-custom">
+            <h3>Параметры модели</h3>
+        </div>
+        <div class="inputs-grid">
+            <div class="input-field">
+                <label>Масса объекта (кг)</label>
+                <div class="input-with-button">
+                    <input type="number" id="mass" placeholder="кг" value="1.0" step="0.1">
+                    <button class="input-btn random-btn" data-target="mass">Слч</button>
                 </div>
-
-                <div class="projectile-module-card-animated">
-                    <div class="projectile-module-row-grid">
-                        <h1 class="header">Введите данные</h1>
-                        <input placeholder="Введите массу объетка"/>
-                        <input placeholder="Введите коэфициент сопротивления воздуха"/>
-                        <input placeholder="Введите начальную скорость"/>
-                        <input placeholder="Введите угол броска тела"/>
-                        <input placeholder="Введите разность времени"/>
-                        <button class="btn">Рассчитать</button>
-                    </div>
+            </div>
+            
+            <div class="input-field">
+                <label>Коэффициент сопротивления</label>
+                <div class="input-with-button">
+                    <input type="number" id="drag" placeholder="Cd" value="0.1" step="0.01">
+                    <button class="input-btn random-btn" data-target="drag">Слч</button>
+                </div>
+            </div>
+            
+            <div class="input-field">
+                <label>Начальная скорость (м/с)</label>
+                <div class="input-with-button">
+                    <input type="number" id="velocity" placeholder="м/с" value="20.0" step="1.0">
+                    <button class="input-btn random-btn" data-target="velocity">Слч</button>
+                </div>
+            </div>
+            
+            <div class="input-field">
+                <label>Угол броска (градусы)</label>
+                <div class="input-with-button">
+                    <input type="number" id="angle" placeholder="градусы" value="45" step="5" min="0" max="90">
+                    <button class="input-btn random-btn" data-target="angle">Слч</button>
+                </div>
+            </div>
+            
+            <div class="input-field">
+                <label>Шаг времени (сек)</label>
+                <div class="input-with-button">
+                    <input type="number" id="deltaTime" placeholder="с" value="0.02" step="0.01">
+                    <button class="input-btn random-btn" data-target="deltaTime">Слч</button>
                 </div>
             </div>
         </div>
+        
+        <div class="button-group-custom">
+            <button class="btn btn-primary" id="calculateBtn">Рассчитать траекторию</button>
+            <button class="btn btn-secondary" id="resetBtn">Сбросить параметры</button>
+            <button class="btn btn-accent" id="randomAllBtn">Заполнить случайными</button>
+        </div>
+        
+        <div class="action-buttons">
+            <button class="btn btn-theory" id="openTheoryBtn">Теория</button>
+            <button class="btn btn-practice" id="openPracticeBtn">Пример расчета</button>
+        </div>
+    </div>
 </div>
+
+<div id="theoryModal" class="modal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h3>Теоретические основы</h3>
+            <button class="modal-close" id="closeTheoryBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <h4>Движение тела, брошенного под углом к горизонту</h4>
+            <p>Основные уравнения движения без учета сопротивления воздуха:</p>
+            <p class="formula">x(t) = v₀ · cos(θ) · t</p>
+            <p class="formula">y(t) = v₀ · sin(θ) · t - (g · t²)/2</p>
+            <p>где:</p>
+            <ul class="formula-list">
+                <li>v₀ — начальная скорость (м/с)</li>
+                <li>θ — угол броска (градусы)</li>
+                <li>g = 9.81 м/с² — ускорение свободного падения</li>
+                <li>t — время (с)</li>
+            </ul>
+            <div class="separator-light"></div>
+            <p><strong>Максимальная высота:</strong></p>
+            <p class="formula">H = (v₀² · sin²(θ)) / (2g)</p>
+            <p><strong>Дальность полета:</strong></p>
+            <p class="formula">L = (v₀² · sin(2θ)) / g</p>
+            <p><strong>Время полета:</strong></p>
+            <p class="formula">T = (2v₀ · sin(θ)) / g</p>
+        </div>
+    </div>
+</div>
+
+<div id="practiceModal" class="modal">
+    <div class="modal-content modal-large">
+        <div class="modal-header">
+            <h3>Пример расчета</h3>
+            <button class="modal-close" id="closePracticeBtn">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p><strong>Исходные данные:</strong></p>
+            <p>Начальная скорость: v₀ = 20 м/с</p>
+            <p>Угол броска: θ = 45°</p>
+            <p>Масса: m = 1 кг</p>
+            <p>Коэффициент сопротивления: 0.1 (для демонстрации)</p>
+            <div class="separator-light"></div>
+            <p><strong>Расчет без сопротивления воздуха:</strong></p>
+            <p>sin(45°) = 0.707, cos(45°) = 0.707</p>
+            <p>Время полета:</p>
+            <p class="formula">T = (2 · 20 · 0.707) / 9.81 = 2.88 с</p>
+            <p>Максимальная высота:</p>
+            <p class="formula">H = (20² · 0.707²) / (2 · 9.81) = 10.2 м</p>
+            <p>Дальность полета:</p>
+            <p class="formula">L = (20² · sin(90°)) / 9.81 = 40.8 м</p>
+            <div class="separator-light"></div>
+            <p><strong>Результат:</strong> Тело упадет на расстоянии 40.8 метров от точки броска через 2.88 секунд, поднявшись на высоту 10.2 метра.</p>
+            <div class="separator-light"></div>
+            <p><strong>Примечание:</strong> При учете сопротивления воздуха дальность и время полета уменьшаются, траектория становится асимметричной.</p>
+        </div>
+    </div>
+</div>
+
+<script src="/static/scripts/plain.js"></script>
+<script src="/static/scripts/modal_logic.js"></script>

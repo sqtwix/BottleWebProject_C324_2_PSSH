@@ -1,18 +1,55 @@
-// --- Модальное окно: открытие / закрытие ---
-const modal = document.getElementById('theoryModal');
-const openBtn = document.getElementById('openTheoryBtn');
-const closeBtn = document.getElementById('closeModalBtn');
+var theoryModal = document.getElementById('theoryModal');
+var practiceModal = document.getElementById('practiceModal');
+var openTheoryBtn = document.getElementById('openTheoryBtn');
+var openPracticeBtn = document.getElementById('openPracticeBtn');
+var closeTheoryBtn = document.getElementById('closeTheoryBtn');
+var closePracticeBtn = document.getElementById('closePracticeBtn');
 
-openBtn.onclick = () => {
-    modal.style.display = 'flex';
-};
+function openTheory() {
+    if (theoryModal) {
+        theoryModal.style.display = 'flex';
+    }
+}
 
-closeBtn.onclick = () => {
-    modal.style.display = 'none';
-};
+function openPractice() {
+    if (practiceModal) {
+        practiceModal.style.display = 'flex';
+    }
+}
 
-window.onclick = (event) => {
-    if (event.target === modal) {
-        modal.style.display = 'none';
+function closeTheory() {
+    if (theoryModal) {
+        theoryModal.style.display = 'none';
+    }
+}
+
+function closePractice() {
+    if (practiceModal) {
+        practiceModal.style.display = 'none';
+    }
+}
+
+if (openTheoryBtn) {
+    openTheoryBtn.onclick = openTheory;
+}
+
+if (openPracticeBtn) {
+    openPracticeBtn.onclick = openPractice;
+}
+
+if (closeTheoryBtn) {
+    closeTheoryBtn.onclick = closeTheory;
+}
+
+if (closePracticeBtn) {
+    closePracticeBtn.onclick = closePractice;
+}
+
+window.onclick = function(event) {
+    if (theoryModal && event.target === theoryModal) {
+        theoryModal.style.display = 'none';
+    }
+    if (practiceModal && event.target === practiceModal) {
+        practiceModal.style.display = 'none';
     }
 };
