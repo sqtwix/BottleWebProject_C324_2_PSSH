@@ -20,6 +20,7 @@
 
 <div class="form-card-def">
     <h2> Модель парусной лодки </h2>
+     <canvas class="canvas-boat" width="900" height="300"></canvas>
 </div>
 
 <div class="two-columns">
@@ -28,7 +29,7 @@
             <label>Максимальная скорость (м/с):</label>
             <input type="number" step="1" name="v_max" value="" readonly>
             <label>Оптимальный угол паруса (град):</label>
-            <input type="number" step="1" name="theta_opt" value="" readonly>
+            <input type="number" step="1" name="theta_opt" value="">
     </div>
         <div class="form-card">
         <h2>Рассчитать для своих параметров</h2>
@@ -54,7 +55,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2> Теоретические основы </h2>
-            <button class="modal-close" id="closeModalBtn">&times;</button>
+            <button class="modal-close" id="closeTheoryBtn">&times;</button>
         </div>
         <div class="modal-body">
             <p><strong> Модель движения парусной лодки </strong></p>
@@ -87,4 +88,3 @@
         </div>
     </div>
 </div>
-

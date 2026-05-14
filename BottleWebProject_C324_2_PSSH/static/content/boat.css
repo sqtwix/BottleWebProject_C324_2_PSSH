@@ -24,6 +24,7 @@
     margin-bottom: 2rem;
     min-height: 500px;
     display: flex;
+    flex-direction: column;
 }
 
 code {
@@ -69,3 +70,8 @@ input {
                 margin-top: auto;
             }
 
+canvas-boat {
+    background: var(--bg-deep);
+    border-radius: 12px;
+    border: 1px solid var(--accent-muted);
+}
