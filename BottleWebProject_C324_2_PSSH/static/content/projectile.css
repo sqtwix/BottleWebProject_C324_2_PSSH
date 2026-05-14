@@ -145,15 +145,17 @@
     padding: 16px;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
     width: 100%;
-    overflow-x: auto;
+    overflow: hidden;
+    box-sizing: border-box;
 }
 
 #coordinateCanvas {
     background: #ffffff;
     border-radius: 8px;
     display: block;
-    width: 1400px;
-    height: 700px;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
 }
 
 .bottom-panels {
@@ -506,12 +508,13 @@
     }
     
     .graph-canvas-container {
-        overflow-x: auto;
+        overflow: hidden;
     }
     
     #coordinateCanvas {
-        width: 1400px;
-        height: 700px;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
     }
 }
 

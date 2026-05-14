@@ -1,7 +1,11 @@
 var canvas = document.getElementById('coordinateCanvas');
 var ctx = canvas.getContext('2d');
 
-var padding = 80;
+// Уменьшаем размер canvas для устранения скролла
+canvas.width = 900;
+canvas.height = 500;
+
+var padding = 70;
 var width = canvas.width - padding * 2;
 var height = canvas.height - padding * 2;
 
@@ -30,7 +34,7 @@ function drawArrows() {
     ctx.save();
     ctx.fillStyle = '#2c3e50';
     
-    var arrowSize = 9;
+    var arrowSize = 8;
     
     ctx.beginPath();
     ctx.moveTo(originX + width, originY);
@@ -52,12 +56,12 @@ function drawLabels() {
     ctx.font = 'bold 14px "Segoe UI", Arial, sans-serif';
     ctx.fillStyle = '#2c3e50';
     
-    ctx.fillText('Расстояние X (м)', originX + width - 85, originY - 12);
-    ctx.fillText('Высота Y (м)', originX - 45, originY - height + 8);
+    ctx.fillText('Расстояние X (м)', originX + width - 85, originY - 10);
+    ctx.fillText('Высота Y (м)', originX - 30, originY - height - 8);
     
     ctx.font = '12px "Segoe UI", Arial, sans-serif';
     ctx.fillStyle = '#7f8c8d';
-    ctx.fillText('0', originX - 10, originY + 5);
+    ctx.fillText('0', originX - 12, originY + 5);
     
     ctx.restore();
 }
@@ -67,9 +71,11 @@ function drawGridAndTicks() {
     ctx.strokeStyle = '#e8ecef';
     ctx.lineWidth = 0.8;
     
-    var step = 80;
-    var tickLength = 7;
+    // Динамический шаг сетки в зависимости от размера canvas
+    var step = Math.min(70, width / 8);
+    var tickLength = 6;
     
+    // Вертикальные линии и засечки на оси X
     for (var x = originX + step; x < originX + width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, originY);
@@ -82,13 +88,14 @@ function drawGridAndTicks() {
         ctx.stroke();
         
         ctx.fillStyle = '#95a5a6';
-        ctx.font = '11px "Segoe UI", Arial, sans-serif';
+        ctx.font = '10px "Segoe UI", Arial, sans-serif';
         var value = Math.round(((x - originX) / step) * 10);
         if (value > 0 && value < 200) {
-            ctx.fillText(value, x - 6, originY + 22);
+            ctx.fillText(value, x - 5, originY + 18);
         }
     }
     
+    // Горизонтальные линии и засечки на оси Y
     for (var y = originY - step; y > originY - height; y -= step) {
         ctx.beginPath();
         ctx.moveTo(originX, y);
@@ -101,10 +108,10 @@ function drawGridAndTicks() {
         ctx.stroke();
         
         ctx.fillStyle = '#95a5a6';
-        ctx.font = '11px "Segoe UI", Arial, sans-serif';
+        ctx.font = '10px "Segoe UI", Arial, sans-serif';
         var value = Math.round(((originY - y) / step) * 10);
         if (value > 0 && value < 100) {
-            ctx.fillText(value, originX - 35, y + 4);
+            ctx.fillText(value, originX - 28, y + 4);
         }
     }
     

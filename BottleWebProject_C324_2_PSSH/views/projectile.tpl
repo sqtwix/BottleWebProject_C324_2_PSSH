@@ -14,7 +14,7 @@
     </div>
     <div class="graph-wrapper">
         <div class="graph-canvas-container">
-            <canvas id="coordinateCanvas" width="1400" height="700"></canvas>
+            <canvas id="coordinateCanvas" width="900" height="500"></canvas>
         </div>
     </div>
 </div>
@@ -94,7 +94,8 @@
             <button class="btn btn-primary" id="calculateBtn">Рассчитать траекторию</button>
             <button class="btn btn-secondary" id="resetBtn">Сбросить параметры</button>
             <button class="btn btn-accent" id="randomAllBtn">Заполнить случайными</button>
-            <button for="fileInput" class="btn btn-primary">Загрузить JSON</button>
+            <button class="btn btn-primary" id="saveJsonBtn">Сохранить JSON</button>
+            <button class="btn btn-primary" id="loadJsonBtn">Загрузить JSON</button>
             <input type="file" id="fileInput" accept=".json" style="display: none;">
         </div>
         
@@ -163,5 +164,5 @@
     </div>
 </div>
 
-<script src="/static/scripts/plain.js"></script>
-<script src="/static/scripts/modal_logic.js"></script>
+<script src="/static/scripts/plain.js?v=2"></script>
+<script src="/static/scripts/modal_logic.js?v=2"></script>
