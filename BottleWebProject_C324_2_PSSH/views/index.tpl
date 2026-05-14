@@ -44,11 +44,7 @@
         </div>
         <a href="/sim1" class="sim-link">Перейти к симуляции →</a>
     </div>
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> a30fe0503a3af2f12c3eb68ecd96d91b95f75a9a
     <div class="student-card">
         <div class="student-card-content">
             <div class="student-avatar">СС</div>

@@ -1,0 +1,77 @@
+
+.formula-box {
+    background: var(--bg-deep);
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+}
+
+.form-card {
+    background-color: rgba(0,0,0,0.2);
+    border: 1px solid var(--accent-muted);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    flex: 1;
+    gap: 20px;
+    margin-top: 1rem;
+}
+
+.form-card-def {
+    background-color: rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--accent-muted);
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+code {
+    background-color: var(--bg-deep);
+    color: var(--accent-bright);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+input {
+    color: var(--accent-bright); 
+}
+
+.header-center {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.paragraph-center {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.two-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+    .two-columns .form-card {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+        .two-columns .form-card form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+            .two-columns .form-card form button {
+                margin-top: auto;
+            }
+
+canvas-boat {
+    background: var(--bg-deep);
+    border-radius: 12px;
+    border: 1px solid var(--accent-muted);
+}

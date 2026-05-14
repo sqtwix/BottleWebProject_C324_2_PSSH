@@ -1,4 +1,4 @@
-/* Ìîäàëüíîå îêíî */
+/* ��������� ���� */
 .modal {
     display: none;
     position: fixed;
@@ -53,24 +53,22 @@
     background: none;
     border: none;
     font-size: 1.8rem;
-    line-height: 1;
     cursor: pointer;
     color: var(--accent-muted);
     transition: var(--transition-fast);
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
 }
 
     .modal-close:hover {
-        background-color: rgba(223, 208, 184, 0.15);
         color: var(--accent-bright);
-        transform: scale(1.05);
+        transform: scale(1.1);
     }
 
-    .modal-close:active {
-        transform: scale(0.95);
+.modal-body {
+    padding: 1.5rem;
+    color: #ddd;
+    line-height: 1.5;
+}
+
+    .modal-body p {
+        margin-bottom: 0.8rem;
     }

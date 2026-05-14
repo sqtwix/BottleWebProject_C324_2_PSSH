@@ -44,5 +44,7 @@
 
     <script src="/static/scripts/jquery-1.10.2.js"></script>
     <script src="/static/scripts/navigation.js"></script>
+    <script src="/static/scripts/modal_logic.js"></script>
+    <script src="/static/scripts/boat_logic.js"></script>
 </body>
 </html>
