@@ -119,6 +119,7 @@
             </div>
         </fieldset>
         <button type="button" class="btn btn-calc" id="calcBtn">Рассчитать</button>
+        <button type="button" class="btn" id="loadDataBtn">Загрузить данные из файла</button>
     </form>
 </section>
 
