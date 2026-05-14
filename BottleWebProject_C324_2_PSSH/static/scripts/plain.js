@@ -53,7 +53,6 @@ function drawLabels() {
     ctx.fillStyle = '#2c3e50';
     
     ctx.fillText('Расстояние X (м)', originX + width - 85, originY - 12);
-    
     ctx.fillText('Высота Y (м)', originX - 45, originY - height + 8);
     
     ctx.font = '12px "Segoe UI", Arial, sans-serif';
@@ -122,13 +121,42 @@ function drawCoordinateSystem() {
 
 drawCoordinateSystem();
 
+function validateAndGetFloat(id, defaultValue) {
+    var element = document.getElementById(id);
+    var value = parseFloat(element.value.replace(',', '.'));
+    if (isNaN(value)) {
+        element.value = defaultValue;
+        return defaultValue;
+    }
+    return value;
+}
+
 var randomBtns = document.querySelectorAll('.random-btn');
 for (var i = 0; i < randomBtns.length; i++) {
     randomBtns[i].addEventListener('click', function() {
         var targetId = this.dataset.target;
         var input = document.getElementById(targetId);
         if (input) {
-            var randomValue = (Math.random() * 100).toFixed(2);
+            var randomValue;
+            switch(targetId) {
+                case 'mass':
+                    randomValue = (Math.random() * 10 + 0.5).toFixed(2);
+                    break;
+                case 'drag':
+                    randomValue = (Math.random() * 0.5 + 0.05).toFixed(3);
+                    break;
+                case 'velocity':
+                    randomValue = (Math.random() * 50 + 10).toFixed(1);
+                    break;
+                case 'angle':
+                    randomValue = Math.floor(Math.random() * 85) + 5;
+                    break;
+                case 'deltaTime':
+                    randomValue = (Math.random() * 0.08 + 0.01).toFixed(3);
+                    break;
+                default:
+                    randomValue = (Math.random() * 100).toFixed(2);
+            }
             input.value = randomValue;
         }
     });
@@ -142,6 +170,7 @@ if (randomAllBtn) {
         document.getElementById('velocity').value = (Math.random() * 50 + 10).toFixed(1);
         document.getElementById('angle').value = Math.floor(Math.random() * 85) + 5;
         document.getElementById('deltaTime').value = (Math.random() * 0.08 + 0.01).toFixed(3);
+        calculateTrajectory();
     });
 }
 
@@ -153,31 +182,112 @@ if (resetBtn) {
         document.getElementById('velocity').value = '20.0';
         document.getElementById('angle').value = '45';
         document.getElementById('deltaTime').value = '0.02';
+        calculateTrajectory();
     });
+}
+
+function getCurrentData() {
+    return {
+        mass: parseFloat(document.getElementById('mass').value) || 1.0,
+        drag: parseFloat(document.getElementById('drag').value) || 0.1,
+        velocity: parseFloat(document.getElementById('velocity').value) || 20.0,
+        angle: parseFloat(document.getElementById('angle').value) || 45,
+        deltaTime: parseFloat(document.getElementById('deltaTime').value) || 0.02
+    };
+}
+
+function setDataToForm(data) {
+    if (data.mass !== undefined) document.getElementById('mass').value = data.mass;
+    if (data.drag !== undefined) document.getElementById('drag').value = data.drag;
+    if (data.velocity !== undefined) document.getElementById('velocity').value = data.velocity;
+    if (data.angle !== undefined) document.getElementById('angle').value = data.angle;
+    if (data.deltaTime !== undefined) document.getElementById('deltaTime').value = data.deltaTime;
+    calculateTrajectory();
+}
+
+var fileInput = document.getElementById('fileInput');
+if (fileInput) {
+    fileInput.addEventListener('change', function(event) {
+        var file = event.target.files[0];
+        if (file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    var data = JSON.parse(e.target.result);
+                    setDataToForm(data);
+                } catch (err) {
+                    alert('Ошибка при загрузке JSON: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+    });
+}
+
+var saveJsonBtn = document.getElementById('saveJsonBtn');
+if (saveJsonBtn) {
+    saveJsonBtn.addEventListener('click', function() {
+        var data = getCurrentData();
+        var jsonStr = JSON.stringify(data, null, 4);
+        var blob = new Blob([jsonStr], {type: 'application/json'});
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = 'projectile_data.json';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+    });
+}
+
+var labelFileInput = document.querySelector('label[for="fileInput"]');
+if (labelFileInput) {
+    labelFileInput.addEventListener('click', function() {
+        document.getElementById('fileInput').click();
+    });
+}
+
+function calculateTrajectory() {
+    var mass = validateAndGetFloat('mass', 1.0);
+    var drag = validateAndGetFloat('drag', 0.1);
+    var velocity = validateAndGetFloat('velocity', 20.0);
+    var angle = validateAndGetFloat('angle', 45.0);
+    var dt = validateAndGetFloat('deltaTime', 0.02);
+    
+    if (angle < 0) angle = 0;
+    if (angle > 90) angle = 90;
+    if (velocity < 0) velocity = 0;
+    
+    document.getElementById('angle').value = angle;
+    
+    var g = 9.81;
+    var rad = angle * Math.PI / 180;
+    var vx0 = velocity * Math.cos(rad);
+    var vy0 = velocity * Math.sin(rad);
+    
+    var timeOfFlight = (2 * vy0) / g;
+    var maxHeight = (vy0 * vy0) / (2 * g);
+    var range = vx0 * timeOfFlight;
+    var finalSpeed = Math.sqrt(vx0 * vx0 + (vy0 - g * timeOfFlight) * (vy0 - g * timeOfFlight));
+    
+    document.getElementById('maxHeight').innerHTML = maxHeight.toFixed(2) + ' м';
+    document.getElementById('range').innerHTML = range.toFixed(2) + ' м';
+    document.getElementById('flightTime').innerHTML = timeOfFlight.toFixed(2) + ' с';
+    document.getElementById('finalSpeed').innerHTML = finalSpeed.toFixed(2) + ' м/с';
 }
 
 var calculateBtn = document.getElementById('calculateBtn');
 if (calculateBtn) {
-    calculateBtn.addEventListener('click', function() {
-        var mass = parseFloat(document.getElementById('mass').value);
-        var drag = parseFloat(document.getElementById('drag').value);
-        var velocity = parseFloat(document.getElementById('velocity').value);
-        var angle = parseFloat(document.getElementById('angle').value);
-        var dt = parseFloat(document.getElementById('deltaTime').value);
-        
-        var g = 9.81;
-        var rad = angle * Math.PI / 180;
-        var vx0 = velocity * Math.cos(rad);
-        var vy0 = velocity * Math.sin(rad);
-        
-        var timeOfFlight = (2 * vy0) / g;
-        var maxHeight = (vy0 * vy0) / (2 * g);
-        var range = vx0 * timeOfFlight;
-        var finalSpeed = Math.sqrt(vx0 * vx0 + (vy0 - g * timeOfFlight) * (vy0 - g * timeOfFlight));
-        
-        document.getElementById('maxHeight').innerHTML = maxHeight.toFixed(2) + ' м';
-        document.getElementById('range').innerHTML = range.toFixed(2) + ' м';
-        document.getElementById('flightTime').innerHTML = timeOfFlight.toFixed(2) + ' с';
-        document.getElementById('finalSpeed').innerHTML = finalSpeed.toFixed(2) + ' м/с';
+    calculateBtn.addEventListener('click', calculateTrajectory);
+}
+
+for (var i = 0; i < document.querySelectorAll('.input-with-button input').length; i++) {
+    document.querySelectorAll('.input-with-button input')[i].addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            calculateTrajectory();
+        }
     });
 }
+
+calculateTrajectory();

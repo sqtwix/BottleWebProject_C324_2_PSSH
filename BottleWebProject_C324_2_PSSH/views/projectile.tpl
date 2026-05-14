@@ -52,7 +52,7 @@
             <div class="input-field">
                 <label>Масса объекта (кг)</label>
                 <div class="input-with-button">
-                    <input type="number" id="mass" placeholder="кг" value="1.0" step="0.1">
+                    <input type="text" id="mass" placeholder="кг" value="1.0" inputmode="decimal">
                     <button class="input-btn random-btn" data-target="mass">Слч</button>
                 </div>
             </div>
@@ -60,7 +60,7 @@
             <div class="input-field">
                 <label>Коэффициент сопротивления</label>
                 <div class="input-with-button">
-                    <input type="number" id="drag" placeholder="Cd" value="0.1" step="0.01">
+                    <input type="text" id="drag" placeholder="Cd" value="0.1" inputmode="decimal">
                     <button class="input-btn random-btn" data-target="drag">Слч</button>
                 </div>
             </div>
@@ -68,7 +68,7 @@
             <div class="input-field">
                 <label>Начальная скорость (м/с)</label>
                 <div class="input-with-button">
-                    <input type="number" id="velocity" placeholder="м/с" value="20.0" step="1.0">
+                    <input type="text" id="velocity" placeholder="м/с" value="20.0" inputmode="decimal">
                     <button class="input-btn random-btn" data-target="velocity">Слч</button>
                 </div>
             </div>
@@ -76,7 +76,7 @@
             <div class="input-field">
                 <label>Угол броска (градусы)</label>
                 <div class="input-with-button">
-                    <input type="number" id="angle" placeholder="градусы" value="45" step="5" min="0" max="90">
+                    <input type="text" id="angle" placeholder="градусы" value="45" inputmode="numeric">
                     <button class="input-btn random-btn" data-target="angle">Слч</button>
                 </div>
             </div>
@@ -84,7 +84,7 @@
             <div class="input-field">
                 <label>Шаг времени (сек)</label>
                 <div class="input-with-button">
-                    <input type="number" id="deltaTime" placeholder="с" value="0.02" step="0.01">
+                    <input type="text" id="deltaTime" placeholder="с" value="0.02" inputmode="decimal">
                     <button class="input-btn random-btn" data-target="deltaTime">Слч</button>
                 </div>
             </div>
@@ -94,6 +94,8 @@
             <button class="btn btn-primary" id="calculateBtn">Рассчитать траекторию</button>
             <button class="btn btn-secondary" id="resetBtn">Сбросить параметры</button>
             <button class="btn btn-accent" id="randomAllBtn">Заполнить случайными</button>
+            <button for="fileInput" class="btn btn-primary">Загрузить JSON</button>
+            <input type="file" id="fileInput" accept=".json" style="display: none;">
         </div>
         
         <div class="action-buttons">

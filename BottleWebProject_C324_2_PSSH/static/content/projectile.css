@@ -1,3 +1,85 @@
+/*
+
+    ОПИСАНИЕ СТИЛЕЙ projectile.css
+
+    .hero-section                - основной блок с заголовком страницы
+    .hero-content                - контент внутри hero-блока
+    .hero-content h1             - заголовок в hero-блоке
+    .hero-content p              - подзаголовок в hero-блоке
+
+    .graph-container             - контейнер для графика траектории
+    .graph-header                - шапка контейнера графика
+    .graph-header h2             - заголовок блока графика
+    .coordinate-badge            - бейдж статуса системы координат
+    .graph-wrapper               - обертка для canvas с отступами
+    .graph-canvas-container      - контейнер с тенью и скруглением для canvas
+    #coordinateCanvas            - само поле canvas для отрисовки графика
+
+    .bottom-panels               - сетка из двух колонок (результаты + ввод)
+    .results-panel               - панель с результатами расчетов
+    .input-panel                 - панель с полями ввода параметров
+    .panel-header-custom         - шапка панелей результатов и ввода
+    .panel-header-custom h3      - заголовок панели
+
+    .results-grid-custom         - сетка 2x2 для отображения результатов
+    .result-item                 - карточка отдельного результата
+    .result-item:hover           - анимация карточки результата при наведении
+    .result-label                - подпись результата (тип параметра)
+    .result-number               - числовое значение результата
+
+    .inputs-grid                 - сетка 2x2 для полей ввода
+    .input-field                 - контейнер одного поля с меткой
+    .input-field label           - текстовая метка поля ввода
+    .input-with-button           - контейнер поля ввода с кнопкой "Слч"
+    .input-with-button input     - стили текстового поля ввода
+    .input-with-button input:focus - фокус на поле ввода
+    .input-btn                   - кнопка "Слч" (случайное значение)
+    .input-btn:hover             - анимация кнопки при наведении
+    .input-btn:active            - анимация кнопки при нажатии
+
+    .button-group-custom         - контейнер для группы основных кнопок
+    .button-group-custom .btn    - стили кнопок внутри контейнера
+    .action-buttons              - контейнер для кнопок "Теория" и "Пример"
+
+    .btn-theory                  - кнопка открытия теории
+    .btn-theory:hover            - анимация кнопки теории
+    .btn-practice                - кнопка открытия примера расчета
+    .btn-practice:hover          - анимация кнопки примера
+
+    .btn-primary                 - основная кнопка (Рассчитать траекторию)
+    .btn-primary:hover           - анимация основной кнопки
+    .btn-secondary               - второстепенная кнопка (Сбросить параметры)
+    .btn-secondary:hover         - анимация второстепенной кнопки
+    .btn-accent                  - акцентная кнопка (Заполнить случайными)
+    .btn-accent:hover            - анимация акцентной кнопки
+
+    .separator-light             - тонкий разделитель в модальных окнах
+
+    .modal                       - затемненный фон модального окна
+    .modal-content               - содержимое модального окна
+    .modal-large                 - широкое модальное окно
+    .modal-header                - шапка модального окна
+    .modal-header h3             - заголовок модального окна
+    .modal-close                 - кнопка закрытия модального окна (крестик)
+    .modal-close:hover           - анимация кнопки закрытия
+    .modal-body                  - тело модального окна с контентом
+    .modal-body h4               - подзаголовок в теле модального окна
+    .modal-body p                - параграф в теле модального окна
+
+    .formula                     - стили для формул (моноширинный шрифт)
+    .formula-list                - маркированный список формул
+    .formula-list li             - элемент списка формул
+
+    @media (max-width: 1200px)   - адаптация для планшетов и ноутбуков
+    @media (max-width: 768px)    - адаптация для мобильных устройств
+
+    .header, .header-center       - общие стили заголовков
+    .paragraph, .paragraph-center - общие стили параграфов
+
+    @keyframes slideUp            - анимация появления модального окна
+
+*/
+
 .hero-section {
     background: linear-gradient(135deg, var(--bg-surface) 0%, #1e242c 100%);
     border-radius: 16px;
@@ -80,13 +162,7 @@
     gap: 1.5rem;
 }
 
-.results-panel {
-    background: var(--bg-surface);
-    border-radius: 16px;
-    border: 1px solid rgba(148, 137, 121, 0.2);
-    overflow: hidden;
-}
-
+.results-panel,
 .input-panel {
     background: var(--bg-surface);
     border-radius: 16px;
@@ -164,6 +240,7 @@
 .input-with-button {
     display: flex;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .input-with-button input {
@@ -174,6 +251,7 @@
     border-radius: 8px;
     padding: 0.7rem 0.8rem;
     font-size: 0.9rem;
+    color: #fff;
 }
 
 .input-with-button input:focus {
@@ -182,43 +260,56 @@
 }
 
 .input-btn {
-    width: 50px;
+    min-width: 52px;
+    height: 42px;
     background: var(--bg-deep);
     border: 1px solid var(--accent-muted);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     font-weight: bold;
     transition: all 0.2s ease;
     color: var(--accent-bright);
     text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .input-btn:hover {
     background: var(--accent-muted);
     border-color: var(--accent-bright);
-    transform: scale(1.02);
+    color: var(--bg-deep);
+    transform: translateY(-1px);
+}
+
+.input-btn:active {
+    transform: translateY(1px);
 }
 
 .button-group-custom {
     display: flex;
     flex-direction: column;
     gap: 0.7rem;
-    padding: 0 1.5rem 1rem 1.5rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.button-group-custom .btn {
+    width: 100%;
+    text-align: center;
+    display: block;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
 }
 
 .action-buttons {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    padding: 1rem 1.5rem 1.5rem 1.5rem;
+    gap: 0.7rem;
+    padding: 0 1.5rem 1.5rem 1.5rem;
     border-top: 1px solid rgba(148, 137, 121, 0.2);
-}
-
-.btn-theory, .btn-practice {
-    padding: 0.8rem;
-    font-size: 0.95rem;
-    font-weight: bold;
 }
 
 .btn-theory {
@@ -247,8 +338,7 @@
     background: var(--accent-bright);
     color: var(--bg-deep);
     font-weight: bold;
-    padding: 0.8rem;
-    font-size: 1rem;
+    border: none;
 }
 
 .btn-primary:hover {
@@ -260,7 +350,6 @@
     background: transparent;
     border: 1px solid var(--accent-muted);
     color: var(--accent-bright);
-    padding: 0.8rem;
 }
 
 .btn-secondary:hover {
@@ -272,12 +361,22 @@
     background: rgba(223, 208, 184, 0.15);
     border: 1px solid var(--accent-bright);
     color: var(--accent-bright);
-    padding: 0.8rem;
 }
 
 .btn-accent:hover {
     background: rgba(223, 208, 184, 0.25);
     transform: translateY(-2px);
+}
+
+.btn-theory, .btn-practice,
+.btn-primary, .btn-secondary, .btn-accent {
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
 }
 
 .separator-light {
@@ -322,7 +421,7 @@
     height: 100%;
     background-color: rgba(0, 0, 0, 0.85);
     backdrop-filter: blur(8px);
-    z-index: 1000;
+    z-index: 9999;
     justify-content: center;
     align-items: center;
 }
@@ -374,15 +473,17 @@
     transition: all 0.2s ease;
     line-height: 1;
     padding: 0;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
 }
 
 .modal-close:hover {
     color: #e74c3c;
+    background: rgba(255, 255, 255, 0.1);
     transform: scale(1.1);
 }
 
@@ -452,60 +553,4 @@
 
 .header-center, .paragraph-center {
     text-align: center;
-}
-
-.input-with-button {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-}
-
-.input-with-button input {
-    flex: 1;
-    margin-bottom: 0;
-    background: var(--bg-deep);
-    border: 1px solid var(--accent-muted);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 0.95rem;
-    color: #fff;
-    transition: all 0.2s ease;
-}
-
-.input-with-button input:focus {
-    border-color: var(--accent-bright);
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(223, 208, 184, 0.1);
-}
-
-.input-btn {
-    min-width: 52px;
-    height: 42px;
-    background: var(--bg-deep);
-    border: 1px solid var(--accent-muted);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 0.8rem;
-    font-weight: bold;
-    transition: all 0.2s ease;
-    color: var(--accent-bright);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.input-btn:hover {
-    background: var(--accent-muted);
-    border-color: var(--accent-bright);
-    color: var(--bg-deep);
-    transform: translateY(-1px);
-}
-
-.input-btn:active {
-    transform: translateY(1px);
-}
-
-.input-btn:focus {
-    outline: none;
-    border-color: var(--accent-bright);
-    box-shadow: 0 0 0 2px rgba(223, 208, 184, 0.2);
 }
