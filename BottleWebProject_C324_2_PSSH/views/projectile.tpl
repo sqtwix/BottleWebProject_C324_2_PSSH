@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 % rebase('layout.tpl', title='Баллистический калькулятор', year=year)
 
 <div class="hero-section fade-in">
@@ -166,3 +167,10 @@
 
 <script src="/static/scripts/plain.js?v=2"></script>
 <script src="/static/scripts/modal_logic.js?v=2"></script>
+=======
+% rebase('layout.tpl', title='Home Page', year=year)
+
+<div class="animation-model-card">
+    <canvas width="400" height="600"></canvas>
+</div>
+>>>>>>> a30fe0503a3af2f12c3eb68ecd96d91b95f75a9a
