@@ -83,22 +83,14 @@
     </div>
 </dialog>
 
-<div class="students-grid">
-    <!-- Карточка "Теория" -->
-    <div class="card">
-        <div class="card-content">
-            <h2 class="card-title">Изучите теорию</h2>
-            <button id="openTheoryBtn" class="btn">Открыть теорию</button>
-        </div>
-    </div>
+<div class="two-columns">
+    <section class="form-card">
+        <button id="openTheoryBtn" class="btn" type="button">Изучите теорию</button>
+    </section>
 
-    <!-- Карточка "Пример" -->
-    <div class="card">
-        <div class="card-content">
-            <h2 class="card-title">Посмотрите пример</h2>
-            <button id="openExampleBtn" class="btn">Смотреть пример</button>
-        </div>
-    </div>
+    <section class="form-card">
+        <button id="openExampleBtn" class="btn" type="button">Просмотрите пример</button>
+    </section>
 </div>
 
 <!-- Карточка с формой ввода -->
