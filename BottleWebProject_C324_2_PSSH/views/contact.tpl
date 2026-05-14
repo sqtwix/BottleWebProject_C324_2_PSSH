@@ -10,11 +10,11 @@
         <h3>Наши реквизиты</h3>
         <div style="margin-top: 1.5rem;">
             <p><strong>Адрес:</strong></p>
-            <p>190000, г. Санкт-Петербург,<br>ул. Ленина, д. 1 (временно)</p>
+            <p>190000, г. Санкт-Петербург,<br>Московский проспект 149 ВА</p>
         </div>
         <div style="margin-top: 1.5rem;">
             <p><strong>Телефон:</strong></p>
-            <p>+7 (812) 123-45-67</p>
+            <p>+7 (811) 223 11 55</p>
         </div>
         <div style="margin-top: 1.5rem;">
             <p><strong>Email:</strong></p>
@@ -38,14 +38,6 @@
             <button type="submit" class="btn">Отправить</button>
         </form>
     </div>
-</div>
-
-<div class="card">
-    <h3>Как нас найти</h3>
-    <div style="background: var(--bg-deep); height: 250px; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-        <p style="color: var(--accent-muted);">Карта временно недоступна</p>
-    </div>
-    <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--accent-muted);">Ближайшее метро: Горьковская, Петроградская.</p>
 </div>
 
 <div class="card">

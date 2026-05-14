@@ -5,7 +5,6 @@
     <p>Численное моделирование физических процессов с использованием современных методов программирования</p>
     <div class="lab-info">
         <span class="info-chip">Python + Bottle</span>
-        <span class="info-chip">Matplotlib</span>
         <span class="info-chip">Модульное тестирование</span>
         <span class="info-chip">NumPy/SciPy</span>
     </div>
@@ -42,7 +41,7 @@
                 <span class="tag">Время полёта</span>
             </div>
         </div>
-        <a href="/sim1" class="sim-link">Перейти к симуляции →</a>
+        <a href="/projectile" class="sim-link">Перейти к симуляции →</a>
     </div>
 
     <div class="student-card">
@@ -66,12 +65,11 @@
                 обеспечивающего максимальную установившуюся скорость лодки.
             </div>
             <div class="tags">
-                <span class="tag">График v(θ)</span>
                 <span class="tag">Максимальная скорость</span>
                 <span class="tag">Оптимальный угол</span>
             </div>
         </div>
-        <a href="/sim3" class="sim-link">Перейти к симуляции →</a>
+        <a href="/boat" class="sim-link">Перейти к симуляции →</a>
     </div>
 
     <div class="student-card">
@@ -97,10 +95,9 @@
             <div class="tags">
                 <span class="tag">Температурный профиль</span>
                 <span class="tag">График</span>
-                <span class="tag">Таблица значений</span>
             </div>
         </div>
-        <a href="/sim2" class="sim-link">Перейти к симуляции →</a>
+        <a href="/heat" class="sim-link">Перейти к симуляции →</a>
     </div>
 </div>
 
@@ -109,8 +106,8 @@
     <p>Данный сайт разработан в рамках учебной практики по профессиональному модулю 
     <strong>ПМ 02 «Осуществление интеграции программных модулей»</strong> студентами группы С324 
     факультета СПО №12 ГУАП.</p>
-    <p><strong>Технологический стек:</strong> Python 3, фреймворк Bottle, шаблонизатор SimpleTemplate, 
-    библиотеки NumPy и Matplotlib для численных расчётов и визуализации, система контроля версий Git.</p>
+    <p><strong>Технологический стек:</strong> Python 3, фреймворк Bottle, 
+    библиотеки NumPy идля численных расчётов, система контроля версий Git.</p>
     <p><strong>Особенности реализации:</strong> Модульная архитектура, unit-тестирование (unittest), 
     интеграция трёх независимых физических моделей в единое веб-приложение.</p>
 </div>
