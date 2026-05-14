@@ -17,7 +17,9 @@
     <!-- Студент 1: Прокудин Александр -->
     <div class="student-card">
         <div class="student-card-content">
-            <div class="student-avatar">АП</div>
+           <div class="student-avatar">
+                <img src="/static/images/aleks_dev_avatar.jpg" alt="Прокудин Александр">
+            </div>
             <div class="student-name">Прокудин Александр</div>
             <div class="student-topic">Физика 2D-движения с ветром</div>
             <div class="student-description">
@@ -46,7 +48,9 @@
 
     <div class="student-card">
         <div class="student-card-content">
-            <div class="student-avatar">СС</div>
+            <div class="student-avatar">
+                <img src="/static/images/sonay_dev_avatar.jpg" alt="София Симоненок">
+            </div>
             <div class="student-name">Симоненко София</div>
             <div class="student-topic">Гидродинамика и оптимизация</div>
             <div class="student-description">
@@ -74,7 +78,9 @@
 
     <div class="student-card">
         <div class="student-card-content">
-            <div class="student-avatar">ШИ</div>
+             <div class="student-avatar">
+                <img src="/static/images/ivan_dev_avatar.jpg" alt="Шульга Иван">
+            </div>
             <div class="student-name">Шульга Иван</div>
             <div class="student-topic">Теплофизика</div>
             <div class="student-description">

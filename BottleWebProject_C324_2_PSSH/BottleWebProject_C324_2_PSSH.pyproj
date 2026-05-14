@@ -43,6 +43,7 @@
     <Content Include="static\content\home.css" />
     <Content Include="static\content\modal_window.css" />
     <Content Include="static\content\style.css" />
+    <Content Include="static\images\ivan_dev_avatar.jpg" />
     <Content Include="static\scripts\boat_logic.js" />
     <Content Include="static\scripts\heat.js" />
     <Content Include="static\scripts\jquery-1.10.2.js" />
@@ -72,6 +73,7 @@
     <Folder Include="controller\" />
     <Folder Include="static\" />
     <Folder Include="static\content\" />
+    <Folder Include="static\images\" />
     <Folder Include="static\scripts\" />
     <Folder Include="views\" />
   </ItemGroup>
