@@ -1,4 +1,4 @@
-/* Модальное окно */
+/* ГЊГ®Г¤Г Г«ГјГ­Г®ГҐ Г®ГЄГ­Г® */
 .modal {
     display: none;
     position: fixed;
@@ -15,64 +15,40 @@
 }
 
 .modal-content {
-    max-width: 140vh;
-    width: 90%;
-    max-height: 80vh; 
     background-color: var(--bg-surface);
+    max-width: 500px;
+    width: 90%;
     border-radius: 12px;
     border: 1px solid var(--accent-bright);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden; 
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .modal-header {
-    flex-shrink: 0; 
     padding: 1rem 1.5rem;
     border-bottom: 1px solid var(--accent-muted);
     display: flex;
-    font-size: 1.2rem;
     justify-content: space-between;
     align-items: center;
 }
-.modal-header h3 {
-    color: white;
-}
 
-.modal-body {
-    flex: 1; /* занимает оставшееся пространство */
-    padding: 1.5rem;
-    font-size: 1.15rem;
-    overflow-y: auto; /* полоса прокрутки при переполнении */
-    line-height: 1.5;
-    color: #ddd;
-}
-
-    /* Настройки scroll-view */
-    .modal-body::-webkit-scrollbar {
-        width: 8px;
+    .modal-header h3 {
+        margin: 0;
+        color: var(--accent-bright);
     }
 
-    .modal-body::-webkit-scrollbar-track {
-        background: var(--bg-deep);
-        border-radius: 4px;
-    }
-
-    .modal-body::-webkit-scrollbar-thumb {
-        background: var(--accent-muted);
-        border-radius: 4px;
-    }
-
-        .modal-body::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-bright);
-        }
-
-    .modal-body p {
-        margin-bottom: 1.2rem; /* пустая строка между абзацами */
-    }
-
-/* Стилизация кнопки закрытия модального окна */
 .modal-close {
     background: none;
     border: none;
