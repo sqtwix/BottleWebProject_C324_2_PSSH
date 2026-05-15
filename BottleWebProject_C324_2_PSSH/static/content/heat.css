@@ -84,8 +84,8 @@ input:focus {
 }
 
 .rod-container:hover {
-        border-color: var(--accent-muted);
-        transform: scale(1.01);
+    border-color: var(--accent-muted);
+    transform: scale(1.01);
 }
 
 .rod-title {
