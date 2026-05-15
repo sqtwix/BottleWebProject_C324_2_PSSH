@@ -34,8 +34,7 @@
         <section class="fade-in">
             {{!base}}
         </section>
-        
-        <hr class="separator" />
+       
         
         <footer>
             <p>&copy; {{ year }} - Физическая лаборатория | Группа С324 | ГУАП</p>

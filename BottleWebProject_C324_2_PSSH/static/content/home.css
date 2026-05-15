@@ -112,6 +112,7 @@
     margin-bottom: 1.2rem;
     overflow: hidden; /* Важно: обрезает края картинки по кругу */
     border: 2px solid var(--accent-muted);
+    margin: 0 auto 1.2rem auto;
 }
 
 /* Новое правило для самой картинки */
