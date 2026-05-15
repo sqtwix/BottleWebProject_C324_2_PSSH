@@ -72,7 +72,7 @@ input {
                 margin-top: auto;
             }
 
-canvas-boat {
+.canvas-boat {
     background: var(--bg-deep);
     border-radius: 12px;
     border: 1px solid var(--accent-muted);

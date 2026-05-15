@@ -172,13 +172,5 @@
     </div>
 </div>
 
-<script src="/static/scripts/modal_logic.js?v=2"></script>
-<script>
-document.getElementById('scrollToInputsBtn').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.getElementById('inputsPanel').scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-});
-</script>
+<script src="/static/scripts/projectile.js"></script>
+<script src="/static/scripts/scroll_handler.js"></script>
