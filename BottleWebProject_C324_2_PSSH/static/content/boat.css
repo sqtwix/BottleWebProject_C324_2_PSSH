@@ -32,7 +32,9 @@ code {
     color: var(--accent-bright);
     padding: 0.2rem 0.4rem;
     border-radius: 4px;
-    font-family: monospace;
+    font-family: monospace;   
+    font-size: 1.15rem;
+    
 }
 
 input {

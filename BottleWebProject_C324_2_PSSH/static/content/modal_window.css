@@ -16,7 +16,7 @@
 
 .modal-content {
     background-color: var(--bg-surface);
-    max-width: 500px;
+    max-width: 700px;
     width: 90%;
     border-radius: 12px;
     border: 1px solid var(--accent-bright);
