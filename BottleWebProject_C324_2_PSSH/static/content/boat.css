@@ -77,3 +77,54 @@ canvas-boat {
     border-radius: 12px;
     border: 1px solid var(--accent-muted);
 }
+
+.btn-generator {
+    display: inline-block;
+    background-color: transparent;
+    color: var(--accent-bright);
+    padding: 12px 25px;
+    border: 1px solid var(--accent-muted);
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+    .btn-secondary:hover {
+        background-color: rgba(223, 208, 184, 0.1);
+        transform: translateY(-2px);
+    }
+
+.btn-result {
+    display: inline-block;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    padding: 12px 25px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    font-size: 16px;
+}
+
+    .btn-result:hover {
+        background-color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(223, 208, 184, 0.3);
+    }
+
+.nav-link {
+    display: inline-block;
+    color: var(--accent-bright);
+    background-color: transparent;
+    padding: 0.5rem 1.2rem;
+    font-size: 18px;
+}
+
+.link-to-form-wrapper {
+    text-align: center;
+    margin: 1rem 0 1.5rem;
+}
