@@ -17,6 +17,9 @@
         <button id="openExampleBtn" class="btn" type="button">Просмотрите пример</button>
     </section>
 </div>
+<div class="link-to-form-wrapper">
+    <a href="#calc-form" class="nav-link">Перейти к форме расчёта</a>
+</div>
 
 <div class="form-card-def">
     <h2> Модель парусной лодки </h2>
@@ -31,7 +34,7 @@
             <label>Оптимальный угол паруса (град):</label>
             <input type="number" step="1" name="theta_opt" value="">
     </div>
-        <div class="form-card">
+        <div class="form-card" id="calc-form">
         <h2>Рассчитать для своих параметров</h2>
         <form action="/boat/calculate" method="POST">
             <label>Скорость течения (м/с):</label>
@@ -46,7 +49,8 @@
             <label>Коэффициент парусности k<sub>wind</sub> (Н·с²/м²):</label>
             <input type="number" step="0.1" min="0.5" max="5" name="k_wind" value="1.2" required>
 
-            <button class="btn" type="submit">Рассчитать</button>
+            <button class="btn-result" type="submit">Рассчитать</button>
+            <button class="btn-generator" type="submit">Заполнить случайными</button>
         </form>
     </div>
 </div>
