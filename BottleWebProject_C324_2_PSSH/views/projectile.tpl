@@ -4,13 +4,17 @@
     <div class="hero-content">
         <h1>Баллистический калькулятор</h1>
         <p>Моделирование движения тела, брошенного под углом к горизонту, с учетом сопротивления воздуха</p>
+        <a href="#" class="scroll-link" id="scrollToInputsBtn">
+            <span class="scroll-arrow">↓</span>
+            <span>Перейти к параметрам расчета</span>
+            <span class="scroll-arrow">↓</span>
+        </a>
     </div>
 </div>
 
 <div class="graph-container">
     <div class="graph-header">
-        <h2>Траектория полета</h2>
-        <span class="coordinate-badge">Декартова система координат</span>
+        <h2>Траектория полета тела</h2>
     </div>
     <div class="graph-wrapper">
         <div class="graph-canvas-container">
@@ -19,7 +23,7 @@
     </div>
 </div>
 
-<div class="bottom-panels">
+<div class="bottom-panels" id="inputsPanel">
     <div class="results-panel">
         <div class="panel-header-custom">
             <h3>Результаты расчета</h3>
@@ -91,18 +95,22 @@
         </div>
         
         <div class="button-group-custom">
-            <button class="btn btn-primary" id="calculateBtn">Рассчитать траекторию</button>
-            <button class="btn btn-secondary" id="resetBtn">Сбросить параметры</button>
-            <button class="btn btn-accent" id="randomAllBtn">Заполнить случайными</button>
-            <button class="btn btn-primary" id="saveJsonBtn">Сохранить JSON</button>
-            <button class="btn btn-primary" id="loadJsonBtn">Загрузить JSON</button>
-            <input type="file" id="fileInput" accept=".json" style="display: none;">
-        </div>
+            <button class="btn btn-primary btn-large" id="calculateBtn">Рассчитать траекторию</button>
+            <div class="button-row">
+                <button class="btn btn-secondary" id="resetBtn">Сбросить</button>
+                <button class="btn btn-accent" id="randomAllBtn">Случайные</button>
+            </div>
+            <div class="button-row">
+                <button class="btn btn-secondary" id="saveJsonBtn">Сохранить JSON</button>
+                <button class="btn btn-secondary" id="loadJsonBtn">Загрузить JSON</button>
+                <input type="file" id="fileInput" accept=".json" style="display: none;">
+            </div>
+            <div class="button-row">
+                <button class="btn btn-theory" id="openTheoryBtn">Теория</button>
+                <button class="btn btn-practice" id="openPracticeBtn">Пример</button>
+            </div>
+        </div>  
         
-        <div class="action-buttons">
-            <button class="btn btn-theory" id="openTheoryBtn">Теория</button>
-            <button class="btn btn-practice" id="openPracticeBtn">Пример расчета</button>
-        </div>
     </div>
 </div>
 
@@ -164,5 +172,13 @@
     </div>
 </div>
 
-<script src="/static/scripts/plain.js?v=2"></script>
 <script src="/static/scripts/modal_logic.js?v=2"></script>
+<script>
+document.getElementById('scrollToInputsBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.getElementById('inputsPanel').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+});
+</script>

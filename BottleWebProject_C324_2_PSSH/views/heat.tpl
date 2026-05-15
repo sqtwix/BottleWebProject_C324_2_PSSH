@@ -119,8 +119,10 @@
                 </div>
             </div>
         </fieldset>
-        <button type="button" class="btn btn-calc" id="calcBtn">Рассчитать</button>
-        <button type="button" class="btn" id="loadDataBtn">Загрузить данные из файла</button>
+        <div class="button-group">
+            <button type="button" class="btn btn-calc" id="calcBtn">Рассчитать</button>
+            <button type="button" class="btn" id="loadDataBtn">Загрузить из файла</button>
+        </div>
     </form>
 </section>
 
@@ -139,7 +141,7 @@
 
 <!-- Место для графика температуры -->
 <div class="card">
-    <h2 style="margin-bottom: 1rem;">График T(x)</h2>
+    <h2 style="margin-bottom: 1rem;">График T(x) = T<sub>L</sub> + (T<sub>R</sub> - T<sub>L</sub>) · x / L</h2>
         <div class="chart-placeholder" id="chartPlaceholder">
             <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <rect x="10" y="70" width="80" height="5" fill="#948979"/>
