@@ -57,7 +57,7 @@ function drawLabels() {
     ctx.fillStyle = '#2c3e50';
     
     ctx.fillText('Расстояние X (м)', originX + width - 85, originY - 10);
-    ctx.fillText('Высота Y (м)', originX - 30, originY - height - 8);
+    ctx.fillText('Высота Y (м)', originX - 55, originY - height - 15);
     
     ctx.font = '12px "Segoe UI", Arial, sans-serif';
     ctx.fillStyle = '#7f8c8d';

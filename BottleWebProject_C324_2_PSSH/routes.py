@@ -2,8 +2,13 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view
+from bottle import route, view, static_file, response
 from datetime import datetime
+
+@route('/static/<filename:path>')
+def send_static(filename):
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    return static_file(filename, root='./static/')
 
 @route('/')
 @route('/home')

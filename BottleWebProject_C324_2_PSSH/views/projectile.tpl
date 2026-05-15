@@ -164,5 +164,4 @@
     </div>
 </div>
 
-<script src="/static/scripts/plain.js?v=2"></script>
 <script src="/static/scripts/modal_logic.js?v=2"></script>
