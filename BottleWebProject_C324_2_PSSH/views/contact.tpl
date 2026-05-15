@@ -7,7 +7,8 @@
 
 <div class="contacts-page">
     <div class="students-grid contacts-grid">
-        <div class="card card-inverse">
+        <!-- Левая карточка с реквизитами (темная) -->
+        <div class="card">
             <h3>Наши реквизиты</h3>
             <div class="requisites-content">
                 <div class="requisites-block">
@@ -23,7 +24,8 @@
             </div>
         </div>
 
-        <div class="card">
+        <!-- Правая карточка с формой (светлая, акцентная) -->
+        <div class="card card-inverse">
             <h3>Написать нам</h3>
             <form action="/send-message" method="post" class="contact-form">
                 <input type="text" id="name" name="name" placeholder="Ваше имя (Иванов Иван)" required>

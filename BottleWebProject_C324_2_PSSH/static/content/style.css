@@ -26,13 +26,20 @@
 
 */
 
+/* ========== ДОБАВИТЬ НЕДОСТАЮЩИЕ ПЕРЕМЕННЫЕ ========== */
 :root {
+    /* Существующие переменные */
     --bg-deep: #222831;
     --bg-surface: #393E46;
     --accent-muted: #948979;
     --accent-bright: #DFD0B8;
     --transition-fast: all 0.2s ease;
     --transition-slow: all 0.8s ease;
+    
+    /* НОВЫЕ ПЕРЕМЕННЫЕ для контактов */
+    --accent-color: #DFD0B8;     /* используем существующий цвет */
+    --accent-dark: #C4B49C;      /* темнее на 15% */
+    --border-color: #948979;     /* используем accent-muted */
 }
 
 * {
@@ -416,28 +423,47 @@ textarea::placeholder {
         padding: 1.5rem;
     }
 }
-/* ========== ДОБАВИТЬ НЕДОСТАЮЩИЕ ПЕРЕМЕННЫЕ ========== */
-:root {
-    /* Существующие переменные */
-    --bg-deep: #222831;
-    --bg-surface: #393E46;
-    --accent-muted: #948979;
-    --accent-bright: #DFD0B8;
-    --transition-fast: all 0.2s ease;
-    --transition-slow: all 0.8s ease;
-    
-    /* НОВЫЕ ПЕРЕМЕННЫЕ для контактов */
-    --accent-color: #DFD0B8;     /* используем существующий цвет */
-    --accent-dark: #C4B49C;      /* темнее на 15% */
-    --border-color: #948979;     /* используем accent-muted */
+
+//* ========== КОНТАКТЫ ========== */
+
+/* Сетка для контактов */
+.contacts-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
 }
 
-/* ========== ПЕРЕОПРЕДЕЛЯЕМ СТИЛИ ДЛЯ КОНТАКТОВ (без конфликтов) ========== */
+/* Контент реквизитов (левая темная карточка) */
+.requisites-content {
+    margin-top: 1.5rem;
+}
 
-/* Исправление для инверсивной карточки - отключаем scale, оставляем translateY */
+.requisites-block {
+    margin-top: 1.5rem;
+}
+
+.requisites-block:first-child {
+    margin-top: 0;
+}
+
+/* Левая карточка (темная, стандартная) */
+.contacts-grid .card:first-child {
+    background: var(--bg-surface);
+    color: var(--accent-bright);
+    border: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.contacts-grid .card:first-child h3 {
+    color: var(--accent-bright);
+}
+
+.contacts-grid .card:first-child strong {
+    color: var(--accent-bright);
+}
+
+/* Правая карточка (светлая, акцентная) */
 .card.card-inverse {
-    background: var(--accent-color);
-    color: var(--bg-deep);  /* темный текст на светлом фоне */
+    background: var(--accent-bright);
+    color: var(--bg-deep);
     border: none;
 }
 
@@ -448,7 +474,7 @@ textarea::placeholder {
 
 .card.card-inverse p,
 .card.card-inverse li {
-    color: rgba(34, 40, 49, 0.95);  /* темный цвет текста */
+    color: rgba(34, 40, 49, 0.95);
 }
 
 .card.card-inverse strong {
@@ -456,13 +482,47 @@ textarea::placeholder {
     font-weight: 600;
 }
 
-/* Отключаем scale для инверсивной карточки, оставляем только translateY */
-.card.card-inverse:hover {
-    transform: translateY(-5px);  /* переопределяем scale(1.01) */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+/* Стили для полей ввода внутри светлой карточки */
+.card.card-inverse input,
+.card.card-inverse textarea {
+    background: rgba(34, 40, 49, 0.1);
+    border: 1px solid var(--bg-deep);
+    color: var(--bg-deep);
 }
 
-/* Форма контактов - исправляем отступы */
+.card.card-inverse input::placeholder,
+.card.card-inverse textarea::placeholder {
+    color: rgba(34, 40, 49, 0.6);
+}
+
+.card.card-inverse input:focus,
+.card.card-inverse textarea:focus {
+    outline: none;
+    border-color: var(--bg-deep);
+    box-shadow: 0 0 8px rgba(34, 40, 49, 0.2);
+    background: rgba(34, 40, 49, 0.15);
+}
+
+/* Кнопка в светлой карточке */
+.card.card-inverse .btn-primary {
+    background: var(--bg-deep);
+    color: var(--accent-bright);
+    border: none;
+}
+
+.card.card-inverse .btn-primary:hover {
+    background: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(34, 40, 49, 0.3);
+}
+
+/* Эффект наведения для светлой карточки */
+.card.card-inverse:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(223, 208, 184, 0.3);
+}
+
+/* Форма контактов */
 .contact-form {
     display: flex;
     flex-direction: column;
@@ -474,43 +534,32 @@ textarea::placeholder {
 .contact-form textarea {
     width: 100%;
     padding: 0.75rem;
-    margin-bottom: 0;  /* ОТКЛЮЧАЕМ старый margin-bottom */
-    border: 1px solid var(--border-color);
+    margin-bottom: 0;
     border-radius: 6px;
     font-family: inherit;
     font-size: 1rem;
-    background: var(--bg-deep);  /* сохраняем темный фон */
-    color: #fff;  /* сохраняем светлый текст */
     transition: all 0.3s ease;
 }
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-    outline: none;
-    border-color: var(--accent-bright);  /* используем существующую переменную */
-    box-shadow: 0 0 8px rgba(223, 208, 184, 0.2);
+.contact-form textarea {
+    resize: vertical;
+    min-height: 100px;
 }
 
-/* Исправляем кнопку - используем существующий .btn, но добавляем модификатор */
+/* Кнопка */
 .btn-primary {
     background: var(--accent-color);
-    color: var(--bg-deep);
+    color: white;
     border: none;
-    padding: 12px 25px;  /* совпадает с .btn */
-    border-radius: 4px;  /* совпадает с .btn */
+    padding: 12px 25px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
     font-weight: bold;
     transition: var(--transition-fast);
 }
 
-.btn-primary:hover {
-    background: var(--accent-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(223, 208, 184, 0.3);
-}
-
-/* Карточка разработчиков */
+/* Карточка разработчиков (горизонтально) */
 .developers-card {
     margin-top: 2rem;
 }
@@ -540,7 +589,6 @@ textarea::placeholder {
         gap: 1.5rem;
     }
     
-    /* ТОЛЬКО на мобильных устройствах сетка становится вертикальной */
     .developers-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
@@ -553,19 +601,6 @@ textarea::placeholder {
     }
     
     .developer-item:last-child {
-        border-bottom: none;
-    }
-}
-
-/* Для экранов от 769px и выше - строго горизонтально */
-@media (min-width: 769px) {
-    .developers-grid {
-        grid-template-columns: repeat(3, 1fr) !important;
-        display: grid !important;
-    }
-    
-    .developer-item {
-        text-align: center;
         border-bottom: none;
     }
 }
