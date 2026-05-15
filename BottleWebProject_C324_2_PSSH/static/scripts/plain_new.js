@@ -14,7 +14,7 @@ var originY = canvas.height - padding;
 
 function drawAxes() {
     ctx.save();
-    ctx.strokeStyle = '#2c3e50';
+    ctx.strokeStyle = '#DFD0B8';
     ctx.lineWidth = 2.5;
 
     ctx.beginPath();
@@ -32,7 +32,7 @@ function drawAxes() {
 
 function drawArrows() {
     ctx.save();
-    ctx.fillStyle = '#2c3e50';
+    ctx.fillStyle = '#DFD0B8';
     
     var arrowSize = 8;
     
@@ -54,28 +54,30 @@ function drawArrows() {
 function drawLabels() {
     ctx.save();
     ctx.font = 'bold 14px "Segoe UI", Arial, sans-serif';
-    ctx.fillStyle = '#2c3e50';
+    ctx.fillStyle = '#DFD0B8';
     
-    ctx.fillText('Расстояние X (м)', originX + width - 85, originY - 10);
-    ctx.fillText('Высота Y (м)', originX - 55, originY - height - 15);
+    // Смещаем подписи осей
+    ctx.fillText('Расстояние X (м)', originX + width - 100, originY + 24);
+    ctx.fillText('Высота Y (м)', originX - 65, originY - height - 10);
     
     ctx.font = '12px "Segoe UI", Arial, sans-serif';
-    ctx.fillStyle = '#7f8c8d';
-    ctx.fillText('0', originX - 12, originY + 5);
+    ctx.fillStyle = '#DFD0B8';
+    ctx.fillText('0', originX - 15, originY + 5);
     
     ctx.restore();
 }
 
 function drawGridAndTicks() {
     ctx.save();
-    ctx.strokeStyle = '#e8ecef';
+    ctx.strokeStyle = 'rgba(223, 208, 184, 0.2)';
     ctx.lineWidth = 0.8;
     
-    // Динамический шаг сетки в зависимости от размера canvas
-    var step = Math.min(70, width / 8);
+    // Увеличиваем шаг сетки для уменьшения количества меток
+    var step = Math.min(100, width / 5);
     var tickLength = 6;
     
     // Вертикальные линии и засечки на оси X
+    var xCount = 0;
     for (var x = originX + step; x < originX + width; x += step) {
         ctx.beginPath();
         ctx.moveTo(x, originY);
@@ -87,15 +89,18 @@ function drawGridAndTicks() {
         ctx.lineTo(x, originY + tickLength / 2);
         ctx.stroke();
         
-        ctx.fillStyle = '#95a5a6';
-        ctx.font = '10px "Segoe UI", Arial, sans-serif';
-        var value = Math.round(((x - originX) / step) * 10);
-        if (value > 0 && value < 200) {
-            ctx.fillText(value, x - 5, originY + 18);
+        ctx.fillStyle = '#DFD0B8';
+        ctx.font = '11px "Segoe UI", Arial, sans-serif';
+        var value = Math.round(((x - originX) / width) * 100);
+        if (value > 0 && value <= 100 && xCount < 6) {
+            // Смещаем цифры под ось X и центрируем
+            ctx.fillText(value, x - 8, originY + 18);
+            xCount++;
         }
     }
     
     // Горизонтальные линии и засечки на оси Y
+    var yCount = 0;
     for (var y = originY - step; y > originY - height; y -= step) {
         ctx.beginPath();
         ctx.moveTo(originX, y);
@@ -107,11 +112,13 @@ function drawGridAndTicks() {
         ctx.lineTo(originX + tickLength / 2, y);
         ctx.stroke();
         
-        ctx.fillStyle = '#95a5a6';
-        ctx.font = '10px "Segoe UI", Arial, sans-serif';
-        var value = Math.round(((originY - y) / step) * 10);
-        if (value > 0 && value < 100) {
+        ctx.fillStyle = '#DFD0B8';
+        ctx.font = '11px "Segoe UI", Arial, sans-serif';
+        var value = Math.round(((originY - y) / height) * 20);
+        if (value > 0 && value <= 20 && yCount < 5) {
+            // Смещаем цифры влево от оси Y
             ctx.fillText(value, originX - 28, y + 4);
+            yCount++;
         }
     }
     
@@ -282,6 +289,78 @@ function calculateTrajectory() {
     document.getElementById('range').innerHTML = range.toFixed(2) + ' м';
     document.getElementById('flightTime').innerHTML = timeOfFlight.toFixed(2) + ' с';
     document.getElementById('finalSpeed').innerHTML = finalSpeed.toFixed(2) + ' м/с';
+    
+    // Рисуем траекторию
+    drawTrajectory(velocity, angle);
+}
+
+function drawTrajectory(velocity, angle) {
+    var g = 9.81;
+    var rad = angle * Math.PI / 180;
+    var vx0 = velocity * Math.cos(rad);
+    var vy0 = velocity * Math.sin(rad);
+    var timeOfFlight = (2 * vy0) / g;
+    var maxRange = vx0 * timeOfFlight;
+    var maxHeight = (vy0 * vy0) / (2 * g);
+    
+    // Масштабирование
+    var scaleX = width / maxRange;
+    var scaleY = height / maxHeight;
+    
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = '#E74C3C';
+    ctx.lineWidth = 2.5;
+    
+    var firstPoint = true;
+    for (var t = 0; t <= timeOfFlight; t += 0.02) {
+        var x = vx0 * t;
+        var y = vy0 * t - 0.5 * g * t * t;
+        
+        if (y < 0) break;
+        
+        var canvasX = originX + x * scaleX;
+        var canvasY = originY - y * scaleY;
+        
+        if (firstPoint) {
+            ctx.moveTo(canvasX, canvasY);
+            firstPoint = false;
+        } else {
+            ctx.lineTo(canvasX, canvasY);
+        }
+    }
+    ctx.stroke();
+    
+    // Рисуем точку старта со смещением подписи
+    ctx.beginPath();
+    ctx.arc(originX, originY, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#2ECC71';
+    ctx.fill();
+    ctx.fillStyle = '#DFD0B8';
+    ctx.font = 'bold 11px "Segoe UI", Arial, sans-serif';
+    ctx.fillText('Старт', originX - 48, originY - 8);
+    
+    // Рисуем точку финиша со смещением подписи
+    var endX = originX + maxRange * scaleX;
+    ctx.beginPath();
+    ctx.arc(endX, originY, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#3498DB';
+    ctx.fill();
+    ctx.fillStyle = '#DFD0B8';
+    ctx.fillText('Финиш', endX + 10, originY - 8);
+    
+    // Точка максимальной высоты
+    var maxHeightPointX = originX + (maxRange / 2) * scaleX;
+    var maxHeightPointY = originY - maxHeight * scaleY;
+    ctx.beginPath();
+    ctx.arc(maxHeightPointX, maxHeightPointY, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = '#F39C12';
+    ctx.fill();
+    ctx.fillStyle = '#DFD0B8';
+    ctx.font = '10px "Segoe UI", Arial, sans-serif';
+    ctx.fillText('Макс. высота', maxHeightPointX + 10, maxHeightPointY - 8);
+    
+    ctx.restore();
 }
 
 var calculateBtn = document.getElementById('calculateBtn');
