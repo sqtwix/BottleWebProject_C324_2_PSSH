@@ -47,7 +47,7 @@
 ### Необходимые библиотеки
 
 ```bash
-pip install bottle matplotlib numpy
+pip install bottle numpy
 ```
 
 ### Инструкция по установке и запуску
