@@ -210,3 +210,176 @@ footer {
     transform: scale(0.96);
 }
 
+/* ============================================
+   СТИЛИ ДЛЯ СТРАНИЦЫ "О ЛАБОРАТОРИИ"
+   ============================================ */
+
+.hero-section {
+    background: linear-gradient(135deg, var(--bg-surface) 0%, #1e242c 100%);
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.hero-section h1 {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+    color: var(--accent-bright);
+}
+
+.hero-section p {
+    color: var(--accent-muted);
+    font-size: 1rem;
+}
+
+/* Сетка верхних карточек */
+.about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Акцентные карточки (светлый фон, темный текст) */
+.accent-card {
+    background: var(--accent-bright);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition-fast);
+    border: none;
+}
+
+.accent-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(223, 208, 184, 0.3);
+}
+
+.accent-card h3 {
+    font-size: 1.5rem;
+    color: var(--bg-deep);
+    margin-bottom: 0.8rem;
+    font-weight: 700;
+}
+
+.accent-card p {
+    color: var(--bg-surface);
+    line-height: 1.5;
+    font-weight: 500;
+}
+
+/* Секция руководителей */
+.supervisors-section {
+    margin-bottom: 2rem;
+}
+
+.supervisors-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+    color: var(--accent-bright);
+    text-align: center;
+}
+
+.supervisors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+/* Обычные карточки (темный фон, светлый текст) */
+.supervisor-card {
+    background: var(--bg-surface);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: var(--transition-fast);
+    border: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.supervisor-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent-bright);
+    background: rgba(57, 62, 70, 0.9);
+}
+
+.supervisor-name {
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--accent-bright);
+    margin-bottom: 0.4rem;
+}
+
+.supervisor-role {
+    font-size: 0.8rem;
+    color: var(--accent-muted);
+}
+
+/* Секция контактов */
+.contact-section {
+    background: var(--bg-surface);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(148, 137, 121, 0.2);
+}
+
+.contact-section h2 {
+    font-size: 1.4rem;
+    color: var(--accent-bright);
+    margin-bottom: 0.8rem;
+}
+
+.contact-section p {
+    color: var(--accent-muted);
+    margin-bottom: 1rem;
+}
+
+.contact-email {
+    display: inline-block;
+    background: rgba(223, 208, 184, 0.1);
+    padding: 0.8rem 1.5rem;
+    border-radius: 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent-bright);
+    border: 1px solid var(--accent-bright);
+    letter-spacing: 0.5px;
+    transition: var(--transition-fast);
+}
+
+.contact-email:hover {
+    background: rgba(223, 208, 184, 0.2);
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .supervisors-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .hero-section {
+        padding: 1.5rem;
+    }
+    
+    .accent-card {
+        padding: 1.5rem;
+    }
+    
+    .accent-card h3 {
+        font-size: 1.3rem;
+    }
+    
+    .contact-section {
+        padding: 1.5rem;
+    }
+}
