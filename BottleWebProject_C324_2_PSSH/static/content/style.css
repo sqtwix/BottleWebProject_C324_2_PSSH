@@ -416,3 +416,156 @@ textarea::placeholder {
         padding: 1.5rem;
     }
 }
+/* ========== ДОБАВИТЬ НЕДОСТАЮЩИЕ ПЕРЕМЕННЫЕ ========== */
+:root {
+    /* Существующие переменные */
+    --bg-deep: #222831;
+    --bg-surface: #393E46;
+    --accent-muted: #948979;
+    --accent-bright: #DFD0B8;
+    --transition-fast: all 0.2s ease;
+    --transition-slow: all 0.8s ease;
+    
+    /* НОВЫЕ ПЕРЕМЕННЫЕ для контактов */
+    --accent-color: #DFD0B8;     /* используем существующий цвет */
+    --accent-dark: #C4B49C;      /* темнее на 15% */
+    --border-color: #948979;     /* используем accent-muted */
+}
+
+/* ========== ПЕРЕОПРЕДЕЛЯЕМ СТИЛИ ДЛЯ КОНТАКТОВ (без конфликтов) ========== */
+
+/* Исправление для инверсивной карточки - отключаем scale, оставляем translateY */
+.card.card-inverse {
+    background: var(--accent-color);
+    color: var(--bg-deep);  /* темный текст на светлом фоне */
+    border: none;
+}
+
+.card.card-inverse h3,
+.card.card-inverse h4 {
+    color: var(--bg-deep);
+}
+
+.card.card-inverse p,
+.card.card-inverse li {
+    color: rgba(34, 40, 49, 0.95);  /* темный цвет текста */
+}
+
+.card.card-inverse strong {
+    color: var(--bg-deep);
+    font-weight: 600;
+}
+
+/* Отключаем scale для инверсивной карточки, оставляем только translateY */
+.card.card-inverse:hover {
+    transform: translateY(-5px);  /* переопределяем scale(1.01) */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Форма контактов - исправляем отступы */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    margin-bottom: 0;  /* ОТКЛЮЧАЕМ старый margin-bottom */
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: var(--bg-deep);  /* сохраняем темный фон */
+    color: #fff;  /* сохраняем светлый текст */
+    transition: all 0.3s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--accent-bright);  /* используем существующую переменную */
+    box-shadow: 0 0 8px rgba(223, 208, 184, 0.2);
+}
+
+/* Исправляем кнопку - используем существующий .btn, но добавляем модификатор */
+.btn-primary {
+    background: var(--accent-color);
+    color: var(--bg-deep);
+    border: none;
+    padding: 12px 25px;  /* совпадает с .btn */
+    border-radius: 4px;  /* совпадает с .btn */
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: var(--transition-fast);
+}
+
+.btn-primary:hover {
+    background: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(223, 208, 184, 0.3);
+}
+
+/* Карточка разработчиков */
+.developers-card {
+    margin-top: 2rem;
+}
+
+.developers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.developer-item {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+.developer-role {
+    font-size: 0.85rem;
+    color: var(--accent-muted);
+    margin-top: 0.25rem;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .contacts-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* ТОЛЬКО на мобильных устройствах сетка становится вертикальной */
+    .developers-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .developer-item {
+        text-align: left;
+        padding: 0.75rem;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .developer-item:last-child {
+        border-bottom: none;
+    }
+}
+
+/* Для экранов от 769px и выше - строго горизонтально */
+@media (min-width: 769px) {
+    .developers-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+        display: grid !important;
+    }
+    
+    .developer-item {
+        text-align: center;
+        border-bottom: none;
+    }
+}
