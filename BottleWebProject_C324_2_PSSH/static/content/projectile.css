@@ -1,84 +1,7 @@
-/*
-
-    ОПИСАНИЕ СТИЛЕЙ projectile.css
-
-    .hero-section                - основной блок с заголовком страницы
-    .hero-content                - контент внутри hero-блока
-    .hero-content h1             - заголовок в hero-блоке
-    .hero-content p              - подзаголовок в hero-блоке
-
-    .graph-container             - контейнер для графика траектории
-    .graph-header                - шапка контейнера графика
-    .graph-header h2             - заголовок блока графика
-    .coordinate-badge            - бейдж статуса системы координат
-    .graph-wrapper               - обертка для canvas с отступами
-    .graph-canvas-container      - контейнер с тенью и скруглением для canvas
-    #coordinateCanvas            - само поле canvas для отрисовки графика
-
-    .bottom-panels               - сетка из двух колонок (результаты + ввод)
-    .results-panel               - панель с результатами расчетов
-    .input-panel                 - панель с полями ввода параметров
-    .panel-header-custom         - шапка панелей результатов и ввода
-    .panel-header-custom h3      - заголовок панели
-
-    .results-grid-custom         - сетка 2x2 для отображения результатов
-    .result-item                 - карточка отдельного результата
-    .result-item:hover           - анимация карточки результата при наведении
-    .result-label                - подпись результата (тип параметра)
-    .result-number               - числовое значение результата
-
-    .inputs-grid                 - сетка 2x2 для полей ввода
-    .input-field                 - контейнер одного поля с меткой
-    .input-field label           - текстовая метка поля ввода
-    .input-with-button           - контейнер поля ввода с кнопкой "Слч"
-    .input-with-button input     - стили текстового поля ввода
-    .input-with-button input:focus - фокус на поле ввода
-    .input-btn                   - кнопка "Слч" (случайное значение)
-    .input-btn:hover             - анимация кнопки при наведении
-    .input-btn:active            - анимация кнопки при нажатии
-
-    .button-group-custom         - контейнер для группы основных кнопок
-    .button-group-custom .btn    - стили кнопок внутри контейнера
-    .action-buttons              - контейнер для кнопок "Теория" и "Пример"
-
-    .btn-theory                  - кнопка открытия теории
-    .btn-theory:hover            - анимация кнопки теории
-    .btn-practice                - кнопка открытия примера расчета
-    .btn-practice:hover          - анимация кнопки примера
-
-    .btn-primary                 - основная кнопка (Рассчитать траекторию)
-    .btn-primary:hover           - анимация основной кнопки
-    .btn-secondary               - второстепенная кнопка (Сбросить параметры)
-    .btn-secondary:hover         - анимация второстепенной кнопки
-    .btn-accent                  - акцентная кнопка (Заполнить случайными)
-    .btn-accent:hover            - анимация акцентной кнопки
-
-    .separator-light             - тонкий разделитель в модальных окнах
-
-    .modal                       - затемненный фон модального окна
-    .modal-content               - содержимое модального окна
-    .modal-large                 - широкое модальное окно
-    .modal-header                - шапка модального окна
-    .modal-header h3             - заголовок модального окна
-    .modal-close                 - кнопка закрытия модального окна (крестик)
-    .modal-close:hover           - анимация кнопки закрытия
-    .modal-body                  - тело модального окна с контентом
-    .modal-body h4               - подзаголовок в теле модального окна
-    .modal-body p                - параграф в теле модального окна
-
-    .formula                     - стили для формул (моноширинный шрифт)
-    .formula-list                - маркированный список формул
-    .formula-list li             - элемент списка формул
-
-    @media (max-width: 1200px)   - адаптация для планшетов и ноутбуков
-    @media (max-width: 768px)    - адаптация для мобильных устройств
-
-    .header, .header-center       - общие стили заголовков
-    .paragraph, .paragraph-center - общие стили параграфов
-
-    @keyframes slideUp            - анимация появления модального окна
-
-*/
+/* ============================================
+   СПЕЦИФИЧНЫЕ СТИЛИ ДЛЯ projectile.css
+   (дополняют глобальные стили из style.css)
+   ============================================ */
 
 .hero-section {
     background: linear-gradient(135deg, var(--bg-surface) 0%, #1e242c 100%);
@@ -99,6 +22,7 @@
 .hero-content p {
     color: var(--accent-muted);
     font-size: 1rem;
+    margin-bottom: 1.5rem;
 }
 
 .graph-container {
@@ -121,14 +45,6 @@
 .graph-header h2 {
     font-size: 1.3rem;
     margin: 0;
-}
-
-.coordinate-badge {
-    background: rgba(223, 208, 184, 0.15);
-    padding: 0.25rem 0.75rem;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    color: var(--accent-bright);
 }
 
 .graph-wrapper {
@@ -195,7 +111,7 @@
     border-radius: 12px;
     padding: 1rem;
     text-align: center;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
 }
 
 .result-item:hover {
@@ -261,19 +177,21 @@
     outline: none;
 }
 
+/* Стили кнопок "Слч" - переопределяем глобальный .btn */
 .input-btn {
-    min-width: 52px;
-    height: 42px;
+    min-width: 44px;
+    height: 36px;
     background: var(--bg-deep);
     border: 1px solid var(--accent-muted);
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
     color: var(--accent-bright);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    padding: 0 0.5rem;
 }
 
 .input-btn:hover {
@@ -287,6 +205,7 @@
     transform: translateY(1px);
 }
 
+/* Layout для группы кнопок */
 .button-group-custom {
     display: flex;
     flex-direction: column;
@@ -294,124 +213,133 @@
     padding: 0 1.5rem 1.5rem 1.5rem;
 }
 
-.button-group-custom .btn {
-    width: 100%;
-    text-align: center;
-    display: block;
-    padding: 0.8rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-sizing: border-box;
-}
-
-.action-buttons {
+.button-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0.7rem;
-    padding: 0 1.5rem 1.5rem 1.5rem;
-    border-top: 1px solid rgba(148, 137, 121, 0.2);
 }
 
-.btn-theory {
-    background: rgba(52, 152, 219, 0.2);
-    border: 1px solid #3498db;
-    color: #3498db;
+/* Переопределяем глобальный .btn для кнопок в панели */
+.button-group-custom .btn {
+    width: 100% !important;
+    text-align: center;
+    padding: 0.5rem 0.6rem !important;
+    border-radius: 8px;
+    font-size: 0.8rem !important;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    box-sizing: border-box;
+    margin: 0;
 }
 
-.btn-theory:hover {
-    background: rgba(52, 152, 219, 0.35);
-    transform: translateY(-2px);
+/* Увеличенная кнопка Рассчитать */
+.button-group-custom .btn-large {
+    padding: 0.8rem 1rem !important;
+    font-size: 1rem !important;
 }
 
-.btn-practice {
-    background: rgba(46, 204, 113, 0.2);
-    border: 1px solid #2ecc71;
-    color: #2ecc71;
-}
-
-.btn-practice:hover {
-    background: rgba(46, 204, 113, 0.35);
-    transform: translateY(-2px);
-}
-
-.btn-primary {
+/* Специфичные стили для типов кнопок (пов Поверх глобального .btn) */
+.button-group-custom .btn-primary {
     background: var(--accent-bright);
     color: var(--bg-deep);
-    font-weight: bold;
     border: none;
 }
 
-.btn-primary:hover {
+.button-group-custom .btn-primary:hover {
     background: #ffffff;
     transform: translateY(-2px);
 }
 
-.btn-secondary {
+.button-group-custom .btn-secondary {
     background: transparent;
     border: 1px solid var(--accent-muted);
     color: var(--accent-bright);
 }
 
-.btn-secondary:hover {
+.button-group-custom .btn-secondary:hover {
     background: rgba(148, 137, 121, 0.2);
     transform: translateY(-2px);
 }
 
-.btn-accent {
+.button-group-custom .btn-accent {
     background: rgba(223, 208, 184, 0.15);
     border: 1px solid var(--accent-bright);
     color: var(--accent-bright);
 }
 
-.btn-accent:hover {
+.button-group-custom .btn-accent:hover {
     background: rgba(223, 208, 184, 0.25);
     transform: translateY(-2px);
 }
 
-.btn-theory, .btn-practice,
-.btn-primary, .btn-secondary, .btn-accent {
-    padding: 0.7rem;
-    font-size: 0.9rem;
-    font-weight: bold;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-align: center;
+.button-group-custom .btn-theory {
+    background: rgba(52, 152, 219, 0.2);
+    border: 1px solid #3498db;
+    color: #3498db;
 }
 
+.button-group-custom .btn-theory:hover {
+    background: rgba(52, 152, 219, 0.35);
+    transform: translateY(-2px);
+}
+
+.button-group-custom .btn-practice {
+    background: rgba(46, 204, 113, 0.2);
+    border: 1px solid #2ecc71;
+    color: #2ecc71;
+}
+
+.button-group-custom .btn-practice:hover {
+    background: rgba(46, 204, 113, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Стили SYMLINK (используем глобальные стили ссылок) */
+.scroll-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(223, 208, 184, 0.15);
+    border: 1px solid var(--accent-bright);
+    border-radius: 40px;
+    color: var(--accent-bright);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    cursor: pointer;
+    margin-top: 0.5rem;
+}
+
+.scroll-link:hover {
+    background: var(--accent-bright);
+    color: var(--bg-deep);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(223, 208, 184, 0.3);
+    text-decoration: none;
+}
+
+.scroll-link:active {
+    transform: scale(0.96);
+}
+
+.scroll-arrow {
+    font-size: 0.8rem;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+}
+
+/* Модальные окна */
 .separator-light {
     height: 1px;
     background: rgba(148, 137, 121, 0.2);
     margin: 1rem 0;
-}
-
-.modal-body h4 {
-    color: var(--accent-bright);
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.formula {
-    font-family: 'Courier New', monospace;
-    background: rgba(0, 0, 0, 0.3);
-    padding: 0.6rem;
-    border-radius: 8px;
-    text-align: center;
-    margin: 0.7rem 0;
-    font-size: 1rem;
-}
-
-.formula-list {
-    margin-left: 1.5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.formula-list li {
-    margin: 0.4rem 0;
-    font-size: 0.95rem;
 }
 
 .modal {
@@ -472,7 +400,7 @@
     font-size: 2rem;
     cursor: pointer;
     color: var(--accent-muted);
-    transition: all 0.2s ease;
+    transition: var(--transition-fast);
     line-height: 1;
     padding: 0;
     width: 36px;
@@ -497,10 +425,38 @@
     overflow-y: auto;
 }
 
+.modal-body h4 {
+    color: var(--accent-bright);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
 .modal-body p {
     margin-bottom: 0.8rem;
 }
 
+.formula {
+    font-family: 'Courier New', monospace;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 0.6rem;
+    border-radius: 8px;
+    text-align: center;
+    margin: 0.7rem 0;
+    font-size: 1rem;
+}
+
+.formula-list {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.formula-list li {
+    margin: 0.4rem 0;
+    font-size: 0.95rem;
+}
+
+/* Адаптация */
 @media (max-width: 1200px) {
     .bottom-panels {
         grid-template-columns: 1fr;
@@ -527,7 +483,7 @@
         grid-template-columns: 1fr;
     }
     
-    .action-buttons {
+    .button-row {
         grid-template-columns: 1fr;
     }
     
@@ -548,12 +504,4 @@
     .modal-header h3 {
         font-size: 1.2rem;
     }
-}
-
-.header, .header-center, .paragraph, .paragraph-center {
-    margin-bottom: 20px;
-}
-
-.header-center, .paragraph-center {
-    text-align: center;
 }
