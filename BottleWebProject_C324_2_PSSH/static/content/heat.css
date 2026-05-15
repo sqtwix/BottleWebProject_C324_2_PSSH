@@ -187,84 +187,54 @@ input:focus {
     margin: 10px 0;
 }
 
-/* Кнопка и модификации */
-.btn-calc, #loadDataBtn {
-    padding: 12px;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 6px;
-    transition: var(--transition-fast);
-}
-
-.btn-calc {
-    width: 100%;
-    background-color: var(--accent-bright);
-    color: var(--bg-deep);
-    border: none;
-    margin-top: 0.8rem;
-    font-weight: bold;
-}
-
-#loadDataBtn {
-    margin-top: 1rem;
-    width: 100%;
-    flex: 1;
-    
-}
-
-/* Переопределяем ширину для кнопок внутри группы */
-.button-group .btn {
-    flex: none; /* отключаем автоматическое растяжение */
-    width: auto; /* сбрасываем width: 100% */
-}
-
-/* Кнопка и модификации */
+/* Кнопка расчета и выгрузки данных */
 .button-group {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
 }
 
-    .button-group button {
-        font-size: 1rem; /* одинаковый размер */
-        line-height: 1.2; /* одинаковая высота строки */
-        border: 1px solid transparent; /* одинаковый border (прозрачный) */
-        padding: 12px 16px;
-        font-size: 1rem;
-        cursor: pointer;
-        border-radius: 6px;
-        transition: var(--transition-fast);
-        min-height: 48px;
-        box-sizing: border-box;
-        width: auto;
-    }
+.button-group button {
+    font-size: 1rem; 
+    line-height: 1.2; 
+    border: 1px solid transparent; 
+    padding: 12px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: var(--transition-fast);
+    min-height: 48px;
+    box-sizing: border-box;
+    width: auto;
+}
 
-    .button-group .btn-calc {
-        flex: 2;
-        background-color: var(--accent-bright);
-        color: var(--bg-deep);
-        font-weight: bold;
-        font-size: 1.1rem;
-        border: none;
-    }
+.button-group .btn-calc {
+    flex: 2;
+    background-color: var(--accent-bright);
+    color: var(--bg-deep);
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: none;
+}
 
-    .button-group #loadDataBtn {
-        flex: 1;
-        min-height: 48px;
-        background-color: var(--bg-surface);
-        color: var(--accent-bright);
-        border: 1px solid var(--accent-muted);
-    }
+.button-group #loadDataBtn {
+    flex: 1;
+    min-height: 48px;
+    background-color: var(--bg-surface);
+    color: var(--accent-bright);
+    border: 1px solid var(--accent-muted);
+}
 
-    .button-group .btn-calc:hover {
+.button-group .btn-calc:hover {
         background-color: #fff;
         transform: translateY(-2px);
-    }
+}
 
 .button-group #loadDataBtn:hover {
         background-color: var(--accent-muted);
         color: var(--bg-deep);
-    }
+}
+
 /* Дополнительно: красивое оформление fieldset и legend */
 fieldset {
     border: 1px solid var(--accent-muted);
