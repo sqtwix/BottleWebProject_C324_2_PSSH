@@ -126,13 +126,21 @@ body {
     padding: 1.5rem;
     border-radius: 8px;
     border: 1px solid rgba(148, 137, 121, 0.2);
-    margin: 1rem 0;
+    margin: 1.5rem 0;
     transition: var(--transition-fast);
 }
 
 .card:hover {
     border-color: var(--accent-muted);
     transform: scale(1.01);
+}
+
+.contacts-page .students-grid {
+    gap: 4rem; 
+}
+
+.contacts-page .card {
+    margin: 0; /* убираем внутренние отступы карточек, которые мешают gap */
 }
 
 input, textarea {
@@ -195,6 +203,31 @@ footer {
     color: #fff;
     border-color: var(--accent-bright);
     background-color: rgba(223, 208, 184, 0.1);
+}
+
+form label {
+    display: block;
+    margin-bottom: 0.75rem; /* можно увеличить до 1rem или 1.25rem */
+    font-weight: 500;
+}
+
+/* Стили для карточки с реквизитами */
+.requisites-card p,
+.requisites-card strong {
+    font-size: 1.2rem; /* увеличьте нужное значение (1.2rem, 1.3rem и т.д.) */
+    line-height: 1.5;
+}
+
+/* Можно также увеличить размер самого заголовка h3 */
+.requisites-card h3 {
+    font-size: 1.8rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: var(--accent-muted);
+    opacity: 0.7;
+    font-style: italic;
 }
 
 .nav-link.active::after {

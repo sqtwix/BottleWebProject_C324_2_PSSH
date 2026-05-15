@@ -5,21 +5,19 @@
     <p>Свяжитесь с нами по любым вопросам</p>
 </div>
 
+<div class="contacts-page">
 <div class="students-grid" style="grid-template-columns: 1fr 1fr; gap: 2rem;">
-    <div class="card" style="height: 100%;">
+    <div class="card requisites-card" style="height: 100%;">
         <h3>Наши реквизиты</h3>
         <div style="margin-top: 1.5rem;">
             <p><strong>Адрес:</strong></p>
             <p>190000, г. Санкт-Петербург,<br>Московский проспект 149 ВА</p>
         </div>
         <div style="margin-top: 1.5rem;">
-            <p><strong>Телефон:</strong></p>
-            <p>+7 (811) 223 11 55</p>
+            <p><strong>🕿: +7 (811) 223 11 55</strong></p>
         </div>
         <div style="margin-top: 1.5rem;">
-            <p><strong>Email:</strong></p>
-            <p>info@physlab.guap.ru</p>
-            <p>support@physlab.guap.ru</p>
+            <p><strong>📧: info@physlab.guap.ru</strong></p>
         </div>
     </div>
 
@@ -38,6 +36,7 @@
             <button type="submit" class="btn">Отправить</button>
         </form>
     </div>
+</div>
 </div>
 
 <div class="card">
