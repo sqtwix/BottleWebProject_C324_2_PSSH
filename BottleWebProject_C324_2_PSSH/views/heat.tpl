@@ -118,6 +118,7 @@
                     <input type="number" min="2" max="200" value="50" id="nodes" placeholder="50">
                 </div>
             </div>
+            <div id="errorMessage" class="error-message" style="color: #ff6b6b; font-size: 1.2rem; margin-top: 1rem; text-align: center;"></div>
         </fieldset>
         <div class="button-group">
             <button type="button" class="btn btn-calc" id="calcBtn">Рассчитать</button>
@@ -141,7 +142,6 @@
 <div class="card">
     <h2>График T(x)</h2>
     <canvas id="tempChart" width="800" height="400" style="width:100%; height:auto; background: #222831; border-radius:8px; border:1px solid #948979;"></canvas>
-    <div id="errorMessage" class="error-message" style="color: #ff6b6b; margin-top: 1rem; text-align: center;"></div>
 </div>
 
 <!--Подключение скрипта для обработкий действия на странице-->

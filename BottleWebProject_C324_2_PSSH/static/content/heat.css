@@ -283,3 +283,9 @@ canvas {
     background-color: var(--bg-deep);
     border-radius: 12px;
 }
+
+.error-input {
+    border-color: #ff6b6b !important;
+    background-color: rgba(255, 107, 107, 0.1) !important;
+    box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
