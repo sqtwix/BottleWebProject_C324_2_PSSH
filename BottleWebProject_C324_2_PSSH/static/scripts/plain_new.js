@@ -1,57 +1,344 @@
 /**
- * Баллистический калькулятор - обработка форм и UI
+ * Баллистический калькулятор - координатная плоскость и UI
  */
 
-let ballisticAnimation = null;
+class CoordinatePlane {
+    constructor(canvasId) {
+        this.canvas = document.getElementById(canvasId);
+        this.ctx = this.canvas.getContext('2d');
+        
+        // Настройки отступов
+        this.padding = {
+            left: 70,
+            right: 50,
+            top: 50,
+            bottom: 60
+        };
+        
+        this.canvas.width = 900;
+        this.canvas.height = 500;
+        
+        this.originX = this.padding.left;
+        this.originY = this.canvas.height - this.padding.bottom;
+        this.width = this.canvas.width - this.padding.left - this.padding.right;
+        this.height = this.canvas.height - this.padding.top - this.padding.bottom;
+        
+        // Динамические масштабы
+        this.maxRange = 100;
+        this.maxHeight = 40;
+        this.scaleX = this.width / this.maxRange;
+        this.scaleY = this.height / this.maxHeight;
+        
+        this.init();
+    }
+    
+    init() {
+        this.drawPlane();
+    }
+    
+    updateScale(range, height) {
+        // Добавляем запас 10%
+        this.maxRange = Math.max(range * 1.1, 50);
+        this.maxHeight = Math.max(height * 1.2, 30);
+        
+        // Ограничиваем максимум
+        this.maxRange = Math.min(this.maxRange, 300);
+        this.maxHeight = Math.min(this.maxHeight, 100);
+        
+        this.scaleX = this.width / this.maxRange;
+        this.scaleY = this.height / this.maxHeight;
+        
+        // Округляем для красивых цифр на осях
+        this.maxRange = Math.ceil(this.maxRange / 10) * 10;
+        this.maxHeight = Math.ceil(this.maxHeight / 5) * 5;
+        
+        this.scaleX = this.width / this.maxRange;
+        this.scaleY = this.height / this.maxHeight;
+    }
+    
+    drawPlane() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.drawGrid();
+        this.drawAxes();
+        this.drawArrows();
+        this.drawLabels();
+        this.drawAxisNumbers();
+    }
+    
+    drawGrid() {
+        this.ctx.save();
+        this.ctx.strokeStyle = 'rgba(148, 137, 121, 0.2)';
+        this.ctx.lineWidth = 0.8;
+        
+        // Вертикальные линии (адаптивный шаг)
+        let xStep = this.getOptimalXStep();
+        for (let x = 0; x <= this.maxRange; x += xStep) {
+            const screenX = this.originX + x * this.scaleX;
+            if (screenX <= this.originX + this.width) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(screenX, this.originY);
+                this.ctx.lineTo(screenX, this.originY - this.height);
+                this.ctx.stroke();
+            }
+        }
+        
+        // Горизонтальные линии (адаптивный шаг)
+        let yStep = this.getOptimalYStep();
+        for (let y = 0; y <= this.maxHeight; y += yStep) {
+            const screenY = this.originY - y * this.scaleY;
+            if (screenY >= this.originY - this.height) {
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.originX, screenY);
+                this.ctx.lineTo(this.originX + this.width, screenY);
+                this.ctx.stroke();
+            }
+        }
+        
+        this.ctx.restore();
+    }
+    
+    getOptimalXStep() {
+        if (this.maxRange <= 50) return 10;
+        if (this.maxRange <= 100) return 20;
+        if (this.maxRange <= 200) return 40;
+        return 50;
+    }
+    
+    getOptimalYStep() {
+        if (this.maxHeight <= 20) return 5;
+        if (this.maxHeight <= 50) return 10;
+        if (this.maxHeight <= 100) return 20;
+        return 25;
+    }
+    
+    drawAxes() {
+        this.ctx.save();
+        this.ctx.strokeStyle = '#DFD0B8';
+        this.ctx.lineWidth = 2.5;
+        
+        // Ось X
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.originX, this.originY);
+        this.ctx.lineTo(this.originX + this.width, this.originY);
+        this.ctx.stroke();
+        
+        // Ось Y
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.originX, this.originY);
+        this.ctx.lineTo(this.originX, this.originY - this.height);
+        this.ctx.stroke();
+        
+        this.ctx.restore();
+    }
+    
+    drawArrows() {
+        this.ctx.save();
+        this.ctx.fillStyle = '#DFD0B8';
+        const arrowSize = 8;
+        
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.originX + this.width, this.originY);
+        this.ctx.lineTo(this.originX + this.width - arrowSize, this.originY - arrowSize / 2);
+        this.ctx.lineTo(this.originX + this.width - arrowSize, this.originY + arrowSize / 2);
+        this.ctx.fill();
+        
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.originX, this.originY - this.height);
+        this.ctx.lineTo(this.originX - arrowSize / 2, this.originY - this.height + arrowSize);
+        this.ctx.lineTo(this.originX + arrowSize / 2, this.originY - this.height + arrowSize);
+        this.ctx.fill();
+        
+        this.ctx.restore();
+    }
+    
+    drawLabels() {
+        this.ctx.save();
+        this.ctx.font = 'bold 14px "Segoe UI", Arial, sans-serif';
+        this.ctx.fillStyle = '#DFD0B8';
+        this.ctx.fillText('Расстояние X (м)', this.originX + this.width - 120, this.originY + 35);
+        this.ctx.fillText('Высота Y (м)', this.originX - 55, this.originY - this.height - 10);
+        this.ctx.restore();
+    }
+    
+    drawAxisNumbers() {
+        this.ctx.save();
+        this.ctx.font = '11px "Segoe UI", Arial, sans-serif';
+        this.ctx.fillStyle = '#DFD0B8';
+        this.ctx.textAlign = 'center';
+        
+        // Подписи на оси X
+        let xStep = this.getOptimalXStep();
+        for (let x = 0; x <= this.maxRange; x += xStep) {
+            const screenX = this.originX + x * this.scaleX;
+            if (screenX <= this.originX + this.width) {
+                let textX = screenX;
+                if (x === this.maxRange) textX = screenX - 15;
+                this.ctx.fillText(x.toString(), textX, this.originY + 18);
+            }
+        }
+        
+        // Подписи на оси Y
+        let yStep = this.getOptimalYStep();
+        for (let y = 0; y <= this.maxHeight; y += yStep) {
+            const screenY = this.originY - y * this.scaleY;
+            if (screenY >= this.originY - this.height) {
+                let textY = screenY + 4;
+                if (y === 0) textY = screenY + 8;
+                if (y === this.maxHeight) textY = screenY - 5;
+                this.ctx.fillText(y.toString(), this.originX - 20, textY);
+            }
+        }
+        
+        this.ctx.restore();
+    }
+    
+    drawFullTrajectory(trajectory) {
+        if (!trajectory || trajectory.length < 2) return;
+        
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = 'rgba(52, 152, 219, 0.6)';
+        this.ctx.lineWidth = 2.5;
+        this.ctx.setLineDash([8, 6]);
+        
+        let firstPoint = true;
+        for (const point of trajectory) {
+            let x = Math.min(point.x, this.maxRange);
+            let y = Math.min(point.y, this.maxHeight);
+            const screenX = this.originX + x * this.scaleX;
+            const screenY = this.originY - y * this.scaleY;
+            
+            if (firstPoint) {
+                this.ctx.moveTo(screenX, screenY);
+                firstPoint = false;
+            } else {
+                this.ctx.lineTo(screenX, screenY);
+            }
+        }
+        this.ctx.stroke();
+        this.ctx.setLineDash([]);
+        this.ctx.restore();
+    }
+    
+    drawTrail(trailPoints) {
+        if (!trailPoints || trailPoints.length < 2) return;
+        
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.strokeStyle = '#3498db';
+        this.ctx.lineWidth = 3;
+        this.ctx.shadowBlur = 4;
+        this.ctx.shadowColor = '#3498db';
+        
+        let firstPoint = true;
+        for (const point of trailPoints) {
+            let x = Math.min(point.x, this.maxRange);
+            let y = Math.min(point.y, this.maxHeight);
+            const screenX = this.originX + x * this.scaleX;
+            const screenY = this.originY - y * this.scaleY;
+            
+            if (firstPoint) {
+                this.ctx.moveTo(screenX, screenY);
+                firstPoint = false;
+            } else {
+                this.ctx.lineTo(screenX, screenY);
+            }
+        }
+        this.ctx.stroke();
+        this.ctx.shadowBlur = 0;
+        this.ctx.restore();
+    }
+    
+    drawProjectile(point) {
+        if (!point) return;
+        
+        let x = Math.min(point.x, this.maxRange);
+        let y = Math.min(point.y, this.maxHeight);
+        const screenX = this.originX + x * this.scaleX;
+        const screenY = this.originY - y * this.scaleY;
+        
+        if (screenX >= this.originX && screenX <= this.originX + this.width &&
+            screenY >= this.originY - this.height && screenY <= this.originY) {
+            
+            this.ctx.save();
+            this.ctx.shadowBlur = 15;
+            this.ctx.shadowColor = '#e74c3c';
+            
+            this.ctx.fillStyle = 'rgba(231, 76, 60, 0.3)';
+            this.ctx.beginPath();
+            this.ctx.arc(screenX, screenY, 8, 0, 2 * Math.PI);
+            this.ctx.fill();
+            
+            this.ctx.fillStyle = '#e74c3c';
+            this.ctx.beginPath();
+            this.ctx.arc(screenX, screenY, 6, 0, 2 * Math.PI);
+            this.ctx.fill();
+            
+            this.ctx.fillStyle = '#ff6b6b';
+            this.ctx.beginPath();
+            this.ctx.arc(screenX - 1.5, screenY - 1.5, 2, 0, 2 * Math.PI);
+            this.ctx.fill();
+            
+            this.ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            this.ctx.beginPath();
+            this.ctx.arc(screenX - 1, screenY - 1, 1, 0, 2 * Math.PI);
+            this.ctx.fill();
+            
+            this.ctx.restore();
+        }
+    }
+    
+    drawStartPoint() {
+        this.ctx.fillStyle = '#2ecc71';
+        this.ctx.beginPath();
+        this.ctx.arc(this.originX, this.originY, 6, 0, 2 * Math.PI);
+        this.ctx.fill();
+        this.ctx.fillStyle = '#fff';
+        this.ctx.beginPath();
+        this.ctx.arc(this.originX, this.originY, 3, 0, 2 * Math.PI);
+        this.ctx.fill();
+    }
+    
+    reset() {
+        this.drawPlane();
+    }
+}
 
-// Функция валидации и ограничения значений
+let coordinatePlane = null;
+
+// Функция валидации
 function validateAndLimitInputs() {
-    // Масса (0.5 - 50 кг)
     let mass = parseFloat(document.getElementById('mass').value);
     if (isNaN(mass)) mass = 1.0;
     mass = Math.max(0.5, Math.min(50, mass));
     document.getElementById('mass').value = mass.toFixed(2);
     
-    // Коэффициент сопротивления (0.001 - 5)
     let drag = parseFloat(document.getElementById('drag').value);
     if (isNaN(drag)) drag = 0.1;
     drag = Math.max(0.001, Math.min(5, drag));
     document.getElementById('drag').value = drag.toFixed(4);
     
-    // Скорость (10 - 100 м/с)
     let velocity = parseFloat(document.getElementById('velocity').value);
     if (isNaN(velocity)) velocity = 20;
     velocity = Math.max(10, Math.min(100, velocity));
     document.getElementById('velocity').value = velocity.toFixed(1);
     
-    // Угол (10 - 80 градусов)
     let angle = parseFloat(document.getElementById('angle').value);
     if (isNaN(angle)) angle = 45;
-    angle = Math.max(10, Math.min(80, angle));
+    angle = Math.max(5, Math.min(85, angle));
     document.getElementById('angle').value = Math.round(angle);
     
-    // Шаг времени (0.01 - 0.05)
     let deltaTime = parseFloat(document.getElementById('deltaTime').value);
     if (isNaN(deltaTime)) deltaTime = 0.02;
     deltaTime = Math.max(0.01, Math.min(0.05, deltaTime));
     document.getElementById('deltaTime').value = deltaTime.toFixed(3);
     
-    return {
-        mass: mass,
-        drag: drag,
-        velocity: velocity,
-        angle: angle,
-        deltaTime: deltaTime
-    };
+    return { mass, drag, velocity, angle, deltaTime };
 }
 
 // Функция расчета
 async function calculateTrajectory() {
-    console.log("calculateTrajectory called");
-    
-    // Валидируем и получаем параметры
     const params = validateAndLimitInputs();
-    console.log("Validated params:", params);
     
     try {
         const response = await fetch('/api/calculate', {
@@ -61,69 +348,33 @@ async function calculateTrajectory() {
         });
         
         const data = await response.json();
-        console.log("Response data:", data);
         
         if (data.success) {
-            // Обновляем результаты
             document.getElementById('maxHeight').innerHTML = data.max_height.toFixed(2) + ' м';
             document.getElementById('range').innerHTML = data.range.toFixed(2) + ' м';
             document.getElementById('flightTime').innerHTML = data.flight_time.toFixed(2) + ' с';
             document.getElementById('finalSpeed').innerHTML = data.final_speed.toFixed(2) + ' м/с';
             
-            // Обновляем подписи на осях с реальными значениями
-            updateAxesLabels(data.range, data.max_height);
-            
-            // Запускаем анимацию только если есть данные и не при загрузке
-            if (ballisticAnimation && data.trajectory && data.trajectory.length > 0) {
-                // Не запускаем анимацию при первом открытии
-                if (window.isFirstLoad) {
-                    window.isFirstLoad = false;
-                    // Просто отрисовываем траекторию без анимации
-                    ballisticAnimation.trajectory = data.trajectory;
-                    ballisticAnimation.maxRange = Math.max(data.range, 10);
-                    ballisticAnimation.maxHeight = Math.max(data.max_height, 10);
-                    ballisticAnimation.scaleX = ballisticAnimation.width / ballisticAnimation.maxRange;
-                    ballisticAnimation.scaleY = ballisticAnimation.height / ballisticAnimation.maxHeight;
-                    ballisticAnimation.drawCoordinateSystem();
-                    ballisticAnimation.drawFullTrajectory();
-                } else {
-                    ballisticAnimation.updateTrajectory(
-                        data.trajectory,
-                        data.range,
-                        data.max_height
-                    );
+            if (window.projectileAnimation && data.trajectory) {
+                // Обновляем масштаб перед анимацией
+                if (coordinatePlane) {
+                    coordinatePlane.updateScale(data.range, data.max_height);
                 }
+                window.projectileAnimation.updateTrajectory(
+                    data.trajectory,
+                    data.range,
+                    data.max_height
+                );
             }
         } else {
             console.error('Ошибка:', data.error);
-            // Не показываем alert при первой загрузке
-            if (!window.isFirstLoad) {
-                alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
-            }
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        if (!window.isFirstLoad) {
-            alert('Ошибка при соединении с сервером');
-        }
     }
 }
 
-// Обновление подписей на осях
-function updateAxesLabels(maxRange, maxHeight) {
-    const canvas = document.getElementById('coordinateCanvas');
-    const ctx = canvas.getContext('2d');
-    
-    // Сохраняем текущее состояние
-    ctx.save();
-    
-    // Очищаем старые подписи (перерисовываем только подписи)
-    // Подписи будут обновлены при следующей перерисовке
-    
-    ctx.restore();
-}
-
-// Сброс параметров
+// Сброс
 function resetParams() {
     document.getElementById('mass').value = '1.0';
     document.getElementById('drag').value = '0.1';
@@ -133,7 +384,7 @@ function resetParams() {
     calculateTrajectory();
 }
 
-// Случайные параметры
+// Случайные
 async function randomAll() {
     try {
         const response = await fetch('/api/random-all');
@@ -151,7 +402,6 @@ async function randomAll() {
     }
 }
 
-// Случайный параметр
 async function randomParameter(target) {
     try {
         const response = await fetch(`/api/random/${target}`);
@@ -163,7 +413,7 @@ async function randomParameter(target) {
     }
 }
 
-// Сохранение в JSON
+// JSON
 function saveToJSON() {
     const data = {
         mass: parseFloat(document.getElementById('mass').value),
@@ -185,7 +435,6 @@ function saveToJSON() {
     URL.revokeObjectURL(url);
 }
 
-// Загрузка из JSON
 function loadFromJSON(file) {
     if (file) {
         const reader = new FileReader();
@@ -207,23 +456,15 @@ function loadFromJSON(file) {
     }
 }
 
-// Инициализация модальных окон
+// Модальные окна
 function initModals() {
     const theoryModal = document.getElementById('theoryModal');
     const practiceModal = document.getElementById('practiceModal');
     
-    if (document.getElementById('openTheoryBtn')) {
-        document.getElementById('openTheoryBtn').onclick = () => theoryModal.style.display = 'flex';
-    }
-    if (document.getElementById('closeTheoryBtn')) {
-        document.getElementById('closeTheoryBtn').onclick = () => theoryModal.style.display = 'none';
-    }
-    if (document.getElementById('openPracticeBtn')) {
-        document.getElementById('openPracticeBtn').onclick = () => practiceModal.style.display = 'flex';
-    }
-    if (document.getElementById('closePracticeBtn')) {
-        document.getElementById('closePracticeBtn').onclick = () => practiceModal.style.display = 'none';
-    }
+    document.getElementById('openTheoryBtn').onclick = () => theoryModal.style.display = 'flex';
+    document.getElementById('closeTheoryBtn').onclick = () => theoryModal.style.display = 'none';
+    document.getElementById('openPracticeBtn').onclick = () => practiceModal.style.display = 'flex';
+    document.getElementById('closePracticeBtn').onclick = () => practiceModal.style.display = 'none';
     
     window.onclick = (event) => {
         if (event.target === theoryModal) theoryModal.style.display = 'none';
@@ -231,99 +472,55 @@ function initModals() {
     };
 }
 
-// Добавление обработчиков ввода для ограничения значений
-function addInputHandlers() {
-    const inputs = ['mass', 'drag', 'velocity', 'angle', 'deltaTime'];
-    inputs.forEach(id => {
-        const input = document.getElementById(id);
-        if (input) {
-            input.addEventListener('change', () => {
-                validateAndLimitInputs();
-                calculateTrajectory();
-            });
-        }
+// Плавный скролл с отступом
+function smoothScrollTo(element, offset = 100) {
+    const elementPosition = element.getBoundingClientRect().top;
+    const offsetPosition = elementPosition + window.pageYOffset - offset;
+    
+    window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
     });
 }
 
-// Инициализация при загрузке
+// Инициализация
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM loaded, initializing...");
+    coordinatePlane = new CoordinatePlane('coordinateCanvas');
+    window.coordinatePlane = coordinatePlane;
     
-    // Флаг для определения первого запуска
-    window.isFirstLoad = true;
+    // Обработчики кнопок
+    document.getElementById('calculateBtn').addEventListener('click', calculateTrajectory);
+    document.getElementById('resetBtn').addEventListener('click', resetParams);
+    document.getElementById('randomAllBtn').addEventListener('click', randomAll);
+    document.getElementById('saveJsonBtn').addEventListener('click', saveToJSON);
+    document.getElementById('loadJsonBtn').addEventListener('click', () => {
+        document.getElementById('fileInput').click();
+    });
+    document.getElementById('fileInput').addEventListener('change', (e) => {
+        loadFromJSON(e.target.files[0]);
+    });
     
-    // Создаем экземпляр анимации
-    if (typeof BallisticAnimation !== 'undefined') {
-        ballisticAnimation = new BallisticAnimation();
-        console.log("Animation created:", ballisticAnimation);
-    } else {
-        console.error("BallisticAnimation class not found!");
-    }
-    
-    // Добавляем обработчики ввода
-    addInputHandlers();
-    
-    // Назначаем обработчики кнопок
-    const calculateBtn = document.getElementById('calculateBtn');
-    if (calculateBtn) {
-        calculateBtn.addEventListener('click', calculateTrajectory);
-        console.log("Calculate button handler attached");
-    }
-    
-    const resetBtn = document.getElementById('resetBtn');
-    if (resetBtn) {
-        resetBtn.addEventListener('click', resetParams);
-    }
-    
-    const randomAllBtn = document.getElementById('randomAllBtn');
-    if (randomAllBtn) {
-        randomAllBtn.addEventListener('click', randomAll);
-    }
-    
-    const saveJsonBtn = document.getElementById('saveJsonBtn');
-    if (saveJsonBtn) {
-        saveJsonBtn.addEventListener('click', saveToJSON);
-    }
-    
-    const loadJsonBtn = document.getElementById('loadJsonBtn');
-    if (loadJsonBtn) {
-        loadJsonBtn.addEventListener('click', () => {
-            document.getElementById('fileInput').click();
-        });
-    }
-    
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput) {
-        fileInput.addEventListener('change', (e) => {
-            loadFromJSON(e.target.files[0]);
-        });
-    }
-    
-    // Кнопки "Слч"
     document.querySelectorAll('.random-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             randomParameter(btn.getAttribute('data-target'));
         });
     });
     
-    // Скролл к панели
+    // Скролл с отступом
     const scrollBtn = document.getElementById('scrollToInputsBtn');
     if (scrollBtn) {
         scrollBtn.addEventListener('click', (e) => {
             e.preventDefault();
             const inputsPanel = document.getElementById('inputsPanel');
             if (inputsPanel) {
-                inputsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                smoothScrollTo(inputsPanel, 80);
             }
         });
     }
     
-    // Инициализация модальных окон
     initModals();
     
-    // Первоначальный расчет
     setTimeout(() => {
-        console.log("Initial calculation");
         calculateTrajectory();
-    }, 500);
+    }, 100);
 });
