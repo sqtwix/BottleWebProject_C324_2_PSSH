@@ -273,3 +273,13 @@ legend {
 .two-columns .form-card form button {
     margin-top: auto;
 }
+
+canvas {
+    display: block;
+    margin: 0 auto;
+}
+
+#rodCanvas {
+    background-color: var(--bg-deep);
+    border-radius: 12px;
+}

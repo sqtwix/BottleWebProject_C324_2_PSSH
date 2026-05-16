@@ -1,78 +1,187 @@
-// Смена цвета стержня
-// Пока без логики, просто изменение при нажатии кнопки "Рассчитать"
-const calcButton = document.getElementById('calcBtn');
-const rod = document.getElementById('rodVisual');
-const leftTempInput = document.getElementById('tempLeft');
-const rightTempInput = document.getElementById('tempRight');
+// Отрисовка графика 
+function drawChart(x, T) {
+    const canvas = document.getElementById('tempChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
 
-calcButton.addEventListener('click', () => {
-    // Демонстрация: меняем градиент стержня в зависимости от введённых температур
-    let leftVal = parseFloat(leftTempInput.value) || 0;
-    let rightVal = parseFloat(rightTempInput.value) || 0;
-    // Ограничим яркость для наглядности
-    let leftColor, rightColor;
+    // Устанавливаем реальные размеры canvas (чтобы не было размытия)
+    const container = canvas.parentElement;
+    const width = container.clientWidth - 40;
+    const height = 400;
+    canvas.width = width;
+    canvas.height = height;
 
-    // Преобразуем температуру в RGB-оттенок (условно, только для демо)
+    ctx.clearRect(0, 0, width, height);
+    if (!x || !T || x.length < 2) return;
+
+    // Поля для осей
+    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
+    const plotWidth = width - margin.left - margin.right;
+    const plotHeight = height - margin.top - margin.bottom;
+
+    // Масштабирование
+    const xMin = 0, xMax = Math.max(...x);
+    const tMin = Math.min(...T), tMax = Math.max(...T);
+    const tRange = tMax - tMin === 0 ? 1 : tMax - tMin;
+
+    const scaleX = (val) => margin.left + (val / xMax) * plotWidth;
+    const scaleY = (val) => margin.top + plotHeight - ((val - tMin) / tRange) * plotHeight;
+
+    // Рисуем оси
+    ctx.beginPath();
+    ctx.strokeStyle = '#948979';
+    ctx.fillStyle = '#DFD0B8';
+    ctx.font = '12px sans-serif';
+
+    // Ось X
+    ctx.moveTo(margin.left, margin.top + plotHeight);
+    ctx.lineTo(margin.left + plotWidth, margin.top + plotHeight);
+    // Ось Y
+    ctx.moveTo(margin.left, margin.top);
+    ctx.lineTo(margin.left, margin.top + plotHeight);
+    ctx.stroke();
+
+    // Подписи осей
+    ctx.fillText('x (м)', width - 25, height - 5);
+    ctx.fillText('T (°C)', 15, margin.top - 5);
+    ctx.fillText('0', margin.left - 10, margin.top + plotHeight + 5);
+    ctx.fillText(xMax.toFixed(1), margin.left + plotWidth - 10, margin.top + plotHeight + 15);
+    ctx.fillText(tMin.toFixed(0), margin.left - 25, margin.top + plotHeight);
+    ctx.fillText(tMax.toFixed(0), margin.left - 25, margin.top);
+
+    // Рисуем линию графика
+    ctx.beginPath();
+    ctx.strokeStyle = '#DFD0B8';
+    ctx.lineWidth = 2;
+    for (let i = 0; i < x.length; i++) {
+        const canvasX = scaleX(x[i]);
+        const canvasY = scaleY(T[i]);
+        if (i === 0) ctx.moveTo(canvasX, canvasY);
+        else ctx.lineTo(canvasX, canvasY);
+    }
+    ctx.stroke();
+
+    // Точки-узлы (не обязательно)
+    ctx.fillStyle = '#DFD0B8';
+    for (let i = 0; i < x.length; i++) {
+        ctx.beginPath();
+        ctx.arc(scaleX(x[i]), scaleY(T[i]), 3, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+}
+
+// Отрисовка стержня цветными сегментами 
+function drawRod(T) {
+    const canvas = document.getElementById('rodCanvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const width = canvas.clientWidth;
+    const height = 80;
+    canvas.width = width;
+    canvas.height = height;
+
+    const n = T.length;
+    const segmentWidth = width / (n - 1);
+
+    // Функция преобразования температуры в цвет (синий -> красный)
     const tMin = -50, tMax = 200;
-    let normLeft = Math.min(1, Math.max(0, (leftVal - tMin) / (tMax - tMin)));
-    let normRight = Math.min(1, Math.max(0, (rightVal - tMin) / (tMax - tMin)));
+    const getColor = (t) => {
+        let norm = (t - tMin) / (tMax - tMin);
+        norm = Math.min(1, Math.max(0, norm));
+        const r = Math.floor(255 * norm);
+        const b = Math.floor(255 * (1 - norm));
+        return `rgb(${r}, 50, ${b})`;
+    };
 
-    // Синий (холодно) -> Красный (горячо)
-    const rLeft = Math.floor(255 * normLeft);
-    const bLeft = Math.floor(255 * (1 - normLeft));
-    const rRight = Math.floor(255 * normRight);
-    const bRight = Math.floor(255 * (1 - normRight));
+    for (let i = 0; i < n - 1; i++) {
+        const x1 = i * segmentWidth;
+        const x2 = (i + 1) * segmentWidth;
+        const color = getColor((T[i] + T[i + 1]) / 2); // средняя температура на сегменте
+        ctx.fillStyle = color;
+        ctx.fillRect(x1, 0, x2 - x1, height);
+    }
+}
 
-    rod.style.background = `linear-gradient(90deg, rgb(${rLeft}, 50, ${bLeft}), rgb(${rRight}, 50, ${bRight}))`;
+// Отправка запроса на расчёт 
+async function calculate() {
+    const length = document.getElementById('length').value;
+    const tempLeft = document.getElementById('tempLeft').value;
+    const tempRight = document.getElementById('tempRight').value;
+    const nodes = document.getElementById('nodes').value;
+    const errorDiv = document.getElementById('errorMessage');
+    errorDiv.textContent = '';
 
-    const chartDiv = document.getElementById('chartPlaceholder');
-    chartDiv.innerHTML = `
-                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="70" width="80" height="5" fill="#948979"/>
-                    <polyline points="10,70 30,30 50,50 70,20 90,40" stroke="#DFD0B8" stroke-width="2" fill="none"/>
-                    <circle cx="30" cy="30" r="3" fill="#DFD0B8"/>
-                    <circle cx="70" cy="20" r="3" fill="#DFD0B8"/>
-                </svg>
-                <p style="margin-top: 10px;">Демо-режим: при вводе T<sub>L</sub>=${leftVal}°C, T<sub>R</sub>=${rightVal}°C стержень меняет цвет.<br>Полноценный график будет построен позже.</p>
-            `;
-});
+    try {
+        const formData = new URLSearchParams();
+        formData.append('length', length);
+        formData.append('tempLeft', tempLeft);
+        formData.append('tempRight', tempRight);
+        formData.append('nodes', nodes);
 
-// Загрузка данных из файла
-const loadBtn = document.getElementById('loadDataBtn');
-if (loadBtn) {
-    // Создаём скрытый input для выбора файла
+        const response = await fetch('/api/heat/calculate/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData
+        });
+        const data = await response.json();
+
+        if (data.success) {
+            drawChart(data.x, data.T);
+            drawRod(data.T);
+        } else {
+            errorDiv.textContent = data.error;
+        }
+    } catch (err) {
+        errorDiv.textContent = 'Ошибка соединения с сервером';
+    }
+}
+
+// Загрузка файла 
+function setupFileUpload() {
+    const loadBtn = document.getElementById('loadDataBtn');
+    if (!loadBtn) return;
+
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = '.json, .txt, .csv'; 
+    fileInput.accept = '.json,.csv';
     fileInput.style.display = 'none';
 
-    loadBtn.addEventListener('click', () => {
-        fileInput.click();
-    });
+    loadBtn.addEventListener('click', () => fileInput.click());
 
-    fileInput.addEventListener('change', (event) => {
+    fileInput.addEventListener('change', async (event) => {
         const file = event.target.files[0];
         if (!file) return;
+        const formData = new FormData();
+        formData.append('dataFile', file);
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const content = e.target.result;
-                // Предполагаем, что файл в формате JSON
-                const data = JSON.parse(content);
-                // Заполняем поля формы, если данные есть
-                if (data.length !== undefined) document.getElementById('length').value = data.length;
-                if (data.tempLeft !== undefined) document.getElementById('tempLeft').value = data.tempLeft;
-                if (data.tempRight !== undefined) document.getElementById('tempRight').value = data.tempRight;
-                if (data.nodes !== undefined) document.getElementById('nodes').value = data.nodes;
-                // Можно вызвать автоматический расчёт (если есть функция)
-                // calcAndRender(); 
-            } catch (err) {
-                // Если не JSON, попробуем разобрать как CSV или просто текст
-                console.warn('Не удалось распарсить JSON, попробуйте другой формат');
-                alert('Ошибка чтения файла. Файл должен быть в формате JSON:\n{"length":1.0, "tempLeft":100, "tempRight":20, "nodes":50}');
+        const errorDiv = document.getElementById('errorMessage');
+        errorDiv.textContent = '';
+
+        try {
+            const response = await fetch('/api/heat/upload', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await response.json();
+            if (data.success) {
+                document.getElementById('length').value = data.length;
+                document.getElementById('tempLeft').value = data.tempLeft;
+                document.getElementById('tempRight').value = data.tempRight;
+                document.getElementById('nodes').value = data.nodes;
+                // Автоматически запустить расчёт
+                calculate();
+            } else {
+                errorDiv.textContent = data.error;
             }
-        };
-        reader.readAsText(file);
+        } catch (err) {
+            errorDiv.textContent = 'Ошибка при загрузке файла';
+        }
     });
 }
+
+// Инициализация 
+document.addEventListener('DOMContentLoaded', () => {
+    const calcBtn = document.getElementById('calcBtn');
+    if (calcBtn) calcBtn.addEventListener('click', calculate);
+    setupFileUpload();
+});

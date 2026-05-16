@@ -129,9 +129,7 @@
 <!-- Визуализация стержня (figure + figcaption) -->
 <figure class="rod-container" aria-label="Визуализация температурного градиента стержня">
     <h2 class="rod-title">Распределение температуры</h2>
-    <div class="rod-wrapper">
-        <div class="rod" id="rodVisual" style="background: linear-gradient(90deg, #ff4d4d, #4d4dff);"></div>
-    </div>
+    <canvas id="rodCanvas" width="800" height="80" style="width:100%; height:80px; background:#222; border-radius:12px;"></canvas>
     <figcaption class="rod-labels">
         <span>❄️ Холодный конец (T<sub>L</sub>)</span>
         <span>🔥 Горячий конец (T<sub>R</sub>)</span>
@@ -141,16 +139,9 @@
 
 <!-- Место для графика температуры -->
 <div class="card">
-    <h2 style="margin-bottom: 1rem;">График T(x) = T<sub>L</sub> + (T<sub>R</sub> - T<sub>L</sub>) · x / L</h2>
-        <div class="chart-placeholder" id="chartPlaceholder">
-            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="10" y="70" width="80" height="5" fill="#948979"/>
-                <polyline points="10,70 30,30 50,50 70,20 90,40" stroke="#DFD0B8" stroke-width="2" fill="none"/>
-                <circle cx="30" cy="30" r="3" fill="#DFD0B8"/>
-                <circle cx="70" cy="20" r="3" fill="#DFD0B8"/>
-            </svg>
-
-        </div>
+    <h2>График T(x)</h2>
+    <canvas id="tempChart" width="800" height="400" style="width:100%; height:auto; background: #222831; border-radius:8px; border:1px solid #948979;"></canvas>
+    <div id="errorMessage" class="error-message" style="color: #ff6b6b; margin-top: 1rem; text-align: center;"></div>
 </div>
 
 <!--Подключение скрипта для обработкий действия на странице-->
