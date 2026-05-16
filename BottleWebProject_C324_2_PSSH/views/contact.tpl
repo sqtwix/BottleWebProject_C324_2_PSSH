@@ -12,7 +12,7 @@
             <h3>Наши реквизиты</h3>
             <div class="requisites-content">
                 <div class="requisites-block">
-                    <p><strong>Адрес:</strong></p>
+                    <p><strong>Адрес:</strong></p> <!-- тег strong - это тег стилевой, лучше его не использовать --> 
                     <p>190000, г. Санкт-Петербург,<br>Московский проспект 149 ВА</p>
                 </div>
                 <div class="requisites-block">
