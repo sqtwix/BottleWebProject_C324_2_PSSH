@@ -21,6 +21,9 @@ class HeatRodSolver:
             raise ValueError("Длина стержня должна быть положительной")
         if nodes < 2:
             raise ValueError("Количество узлов должно быть не менее 2")
+        if temp_left < -273.5 or temp_right < -273.5:
+            raise ValueError("Температура не может быть меньше -273.5 С")
+
         self.L = length
         self.TL = temp_left
         self.TR = temp_right
