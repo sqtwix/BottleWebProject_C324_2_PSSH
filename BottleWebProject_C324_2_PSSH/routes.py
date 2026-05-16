@@ -2,13 +2,8 @@
 Routes and views for the bottle application.
 """
 
-from bottle import route, view, static_file, response
+from bottle import route, view
 from datetime import datetime
-
-@route('/static/<filename:path>')
-def send_static(filename):
-    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-    return static_file(filename, root='./static/')
 
 @route('/')
 @route('/home')
@@ -50,7 +45,7 @@ def projectile():
 @route('/heat')
 @view('heat')
 def heat():
-     return dict(
+    return dict(
         title='Теплопроводность стержня',
         year=datetime.now().year
     )
@@ -60,4 +55,5 @@ def heat():
 def boat():
     return dict(
         title='Boat',
-        year=datetime.now().year)
+        year=datetime.now().year
+    )

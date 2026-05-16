@@ -173,4 +173,4 @@
 </div>
 
 <script src="/static/scripts/projectile.js"></script>
-<script src="/static/scripts/scroll_handler.js"></script>
+<script src="/static/scripts/plain_new.js"></script>

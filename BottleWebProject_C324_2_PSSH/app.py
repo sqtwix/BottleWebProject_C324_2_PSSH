@@ -6,17 +6,16 @@ import bottle
 import os
 import sys
 
-# routes contains the HTTP handlers for our server and must be imported.
+# Импортируем routes (страницы)
 import routes
 
+# Импортируем контроллеры
+from controller import projectile_controller
+
 if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
-    # Debug mode will enable more verbose output in the console window.
-    # It must be set at the beginning of the script.
     bottle.debug(True)
 
 def wsgi_app():
-    """Returns the application to make available through wfastcgi. This is used
-    when the site is published to Microsoft Azure."""
     return bottle.default_app()
 
 if __name__ == '__main__':
@@ -30,10 +29,12 @@ if __name__ == '__main__':
 
     @bottle.route('/static/<filepath:path>')
     def server_static(filepath):
-        """Handler for static files, used with the development server.
-        When running under a production server such as IIS or Apache,
-        the server should be configured to serve the static files."""
         return bottle.static_file(filepath, root=STATIC_ROOT)
 
-    # Starts a local test server.
+    # Регистрируем API маршруты из контроллера
+    bottle.route('/api/calculate', method='POST')(projectile_controller.api_calculate)
+    bottle.route('/api/random/<param_name>', method='GET')(projectile_controller.api_random)
+    bottle.route('/api/random-all', method='GET')(projectile_controller.api_random_all)
+
+    # Запускаем сервер
     bottle.run(server='wsgiref', host=HOST, port=PORT)
