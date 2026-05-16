@@ -6,10 +6,11 @@ import bottle
 import os
 import sys
 
-# Импортируем routes (страницы)
+# routes contains the HTTP handlers for our server and must be imported.
+import controller.boat_controller
 import routes
 
-# Импортируем контроллеры
+# ����������� �����������
 from controller import projectile_controller
 
 if '--debug' in sys.argv[1:] or 'SERVER_DEBUG' in os.environ:
@@ -31,10 +32,10 @@ if __name__ == '__main__':
     def server_static(filepath):
         return bottle.static_file(filepath, root=STATIC_ROOT)
 
-    # Регистрируем API маршруты из контроллера
+    # ������������ API �������� �� �����������
     bottle.route('/api/calculate', method='POST')(projectile_controller.api_calculate)
     bottle.route('/api/random/<param_name>', method='GET')(projectile_controller.api_random)
     bottle.route('/api/random-all', method='GET')(projectile_controller.api_random_all)
 
-    # Запускаем сервер
+    # ��������� ������
     bottle.run(server='wsgiref', host=HOST, port=PORT)

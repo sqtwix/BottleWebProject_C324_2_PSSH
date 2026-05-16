@@ -21,7 +21,7 @@
     <a href="#calc-form" class="nav-link">Перейти к форме расчёта</a>
 </div>
 
-<div class="form-card-def">
+<div class="form-card-def" id="form-boat">
     <h2> Модель парусной лодки </h2>
      <canvas class="canvas-boat" width="900" height="300"></canvas>
 </div>
@@ -30,27 +30,30 @@
     <div class="form-card">
         <h2>Результаты оптимизации</h2>
             <label>Максимальная скорость (м/с):</label>
-            <input type="number" step="1" name="v_max" value="" readonly>
+            <input type="number" step="0.01" name="v_max" value="{{ v_max or '' }}" readonly>
             <label>Оптимальный угол паруса (град):</label>
-            <input type="number" step="1" name="theta_opt" value="">
+            <input type="number" step="1" name="theta_opt" value="{{ theta_opt or '' }}" readonly>
     </div>
         <div class="form-card" id="calc-form">
         <h2>Рассчитать для своих параметров</h2>
-        <form action="/boat/calculate" method="POST">
+        % if error:
+            <div class="error-message">{{ error}}</div>
+        % end
+        <form action="/boat/calculate#calc-form" method="POST">
             <label>Скорость течения (м/с):</label>
-            <input type="number" step="0.1" min="0.5" max="5" name="v_cur" value="1.0" required>
+            <input type="number" step="0.1" name="v_cur" value="{{ v_cur or '1.0' }}" >
 
             <label>Скорость ветра (м/с):</label>
-            <input type="number" step="1" min="0" max="20" name="v_wind" value="5.0" required>
+            <input type="number" step="1" name="v_wind" value="{{ v_wind or '5.0' }}">
 
-            <label>Коэффициент сопротивления воды c (Н·с²/м²):</label>
-            <input type="number" step="1" min="5" max="20" name="c" value="10" required>
+            <label>Коэффициент сопротивления воды c (Н·с<sup>2</sup>/м²):</label>
+            <input type="number" step="1" name="c" value="{{ c or '10' }}">
 
             <label>Коэффициент парусности k<sub>wind</sub> (Н·с²/м²):</label>
-            <input type="number" step="0.1" min="0.5" max="5" name="k_wind" value="1.2" required>
+            <input type="number" step="0.1" name="k_wind" value="{{ k_wind or '1.2' }}">
 
-            <button class="btn-result" type="submit">Рассчитать</button>
-            <button class="btn-generator" type="submit">Заполнить случайными</button>
+            <button class="btn-result" type="submit" name="action" value="calculate">Рассчитать</button>
+            <button class="btn-generator" type="submit" name="action" value="random">Заполнить случайными</button>
         </form>
     </div>
 </div>

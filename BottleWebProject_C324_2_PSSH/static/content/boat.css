@@ -73,9 +73,7 @@ input {
             }
 
 .canvas-boat {
-    background: var(--bg-deep);
-    border-radius: 12px;
-    border: 1px solid var(--accent-muted);
+    background-color: transparent;
 }
 
 .btn-generator {
@@ -91,7 +89,7 @@ input {
     transition: var(--transition-fast);
 }
 
-    .btn-secondary:hover {
+    .btn-generator:hover {
         background-color: rgba(223, 208, 184, 0.1);
         transform: translateY(-2px);
     }
@@ -127,4 +125,10 @@ input {
 .link-to-form-wrapper {
     text-align: center;
     margin: 1rem 0 1.5rem;
+}
+
+.error-message {
+    background-color: transparent;
+    color: red;
+    padding: 0.2rem 0.4rem;
 }
