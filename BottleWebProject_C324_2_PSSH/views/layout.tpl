@@ -45,7 +45,7 @@
     <script src="/static/scripts/navigation.js"></script>
     <script src="/static/scripts/modal_logic.js"></script>
     <script src="/static/scripts/boat_logic.js"></script>
-    <script src="/static/scripts/plain_new.js?v=2"></script>
     <script src="/static/scripts/projectile.js"></script>
+    <script src="/static/scripts/plain_new.js"></script>
 </body>
 </html>

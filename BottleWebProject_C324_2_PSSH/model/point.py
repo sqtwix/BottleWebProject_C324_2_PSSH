@@ -1,4 +1,10 @@
 class Point:
-    def __init__(x: float, y: float, self):
+    def __init__(self, x, y):
         self.x = x
         self.y = y
+    
+    def get_x(self):
+        return self.x
+    
+    def get_y(self):
+        return self.y

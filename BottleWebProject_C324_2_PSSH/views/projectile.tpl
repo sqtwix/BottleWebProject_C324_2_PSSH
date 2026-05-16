@@ -171,6 +171,3 @@
         </div>
     </div>
 </div>
-
-<script src="/static/scripts/projectile.js"></script>
-<script src="/static/scripts/plain_new.js"></script>

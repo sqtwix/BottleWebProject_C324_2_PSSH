@@ -125,6 +125,10 @@ class BallisticAnimation {
     }
     
     updateTrajectory(trajectory, maxRange, maxHeight) {
+        console.log("updateTrajectory called with", trajectory.length, "points");
+        console.log("First point:", trajectory[0]);
+        console.log("Last point:", trajectory[trajectory.length - 1]);
+        
         this.trajectory = trajectory;
         this.maxRange = Math.max(maxRange, 10);
         this.maxHeight = Math.max(maxHeight, 10);
@@ -240,8 +244,12 @@ class BallisticAnimation {
     
     startAnimation() {
         if (this.isAnimating) return;
-        if (!this.trajectory || this.trajectory.length === 0) return;
+        if (!this.trajectory || this.trajectory.length === 0) {
+            console.log("No trajectory to animate");
+            return;
+        }
         
+        console.log("Starting animation with", this.trajectory.length, "points");
         this.isAnimating = true;
         this.currentPointIndex = 0;
         this.trailPoints = [];
@@ -252,6 +260,7 @@ class BallisticAnimation {
         if (!this.isAnimating) return;
         
         if (this.currentPointIndex >= this.trajectory.length) {
+            console.log("Animation finished");
             this.stopAnimation();
             return;
         }

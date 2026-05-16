@@ -6,6 +6,8 @@ let ballisticAnimation = null;
 
 // Функция расчета
 async function calculateTrajectory() {
+    console.log("calculateTrajectory called"); // Отладка
+    
     const params = {
         mass: parseFloat(document.getElementById('mass').value),
         drag: parseFloat(document.getElementById('drag').value),
@@ -13,6 +15,8 @@ async function calculateTrajectory() {
         angle: parseFloat(document.getElementById('angle').value),
         deltaTime: parseFloat(document.getElementById('deltaTime').value)
     };
+    
+    console.log("Params:", params); // Отладка
     
     // Валидация угла
     if (params.angle < 0) params.angle = 0;
@@ -27,6 +31,7 @@ async function calculateTrajectory() {
         });
         
         const data = await response.json();
+        console.log("Response data:", data); // Отладка
         
         if (data.success) {
             // Обновляем результаты
@@ -36,12 +41,15 @@ async function calculateTrajectory() {
             document.getElementById('finalSpeed').innerHTML = data.final_speed.toFixed(2) + ' м/с';
             
             // Запускаем анимацию
-            if (ballisticAnimation && data.trajectory) {
+            if (ballisticAnimation && data.trajectory && data.trajectory.length > 0) {
+                console.log("Starting animation with", data.trajectory.length, "points");
                 ballisticAnimation.updateTrajectory(
                     data.trajectory,
                     data.range,
                     data.max_height
                 );
+            } else {
+                console.error("Animation not initialized or no trajectory data");
             }
         } else {
             alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
@@ -141,10 +149,18 @@ function initModals() {
     const theoryModal = document.getElementById('theoryModal');
     const practiceModal = document.getElementById('practiceModal');
     
-    document.getElementById('openTheoryBtn').onclick = () => theoryModal.style.display = 'flex';
-    document.getElementById('closeTheoryBtn').onclick = () => theoryModal.style.display = 'none';
-    document.getElementById('openPracticeBtn').onclick = () => practiceModal.style.display = 'flex';
-    document.getElementById('closePracticeBtn').onclick = () => practiceModal.style.display = 'none';
+    if (document.getElementById('openTheoryBtn')) {
+        document.getElementById('openTheoryBtn').onclick = () => theoryModal.style.display = 'flex';
+    }
+    if (document.getElementById('closeTheoryBtn')) {
+        document.getElementById('closeTheoryBtn').onclick = () => theoryModal.style.display = 'none';
+    }
+    if (document.getElementById('openPracticeBtn')) {
+        document.getElementById('openPracticeBtn').onclick = () => practiceModal.style.display = 'flex';
+    }
+    if (document.getElementById('closePracticeBtn')) {
+        document.getElementById('closePracticeBtn').onclick = () => practiceModal.style.display = 'none';
+    }
     
     window.onclick = (event) => {
         if (event.target === theoryModal) theoryModal.style.display = 'none';
@@ -154,20 +170,51 @@ function initModals() {
 
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', () => {
+    console.log("DOM loaded, initializing...");
+    
     // Создаем экземпляр анимации
-    ballisticAnimation = new window.BallisticAnimation();
+    if (typeof BallisticAnimation !== 'undefined') {
+        ballisticAnimation = new BallisticAnimation();
+        console.log("Animation created:", ballisticAnimation);
+    } else {
+        console.error("BallisticAnimation class not found!");
+    }
     
     // Назначаем обработчики
-    document.getElementById('calculateBtn').addEventListener('click', calculateTrajectory);
-    document.getElementById('resetBtn').addEventListener('click', resetParams);
-    document.getElementById('randomAllBtn').addEventListener('click', randomAll);
-    document.getElementById('saveJsonBtn').addEventListener('click', saveToJSON);
-    document.getElementById('loadJsonBtn').addEventListener('click', () => {
-        document.getElementById('fileInput').click();
-    });
-    document.getElementById('fileInput').addEventListener('change', (e) => {
-        loadFromJSON(e.target.files[0]);
-    });
+    const calculateBtn = document.getElementById('calculateBtn');
+    if (calculateBtn) {
+        calculateBtn.addEventListener('click', calculateTrajectory);
+        console.log("Calculate button handler attached");
+    }
+    
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetParams);
+    }
+    
+    const randomAllBtn = document.getElementById('randomAllBtn');
+    if (randomAllBtn) {
+        randomAllBtn.addEventListener('click', randomAll);
+    }
+    
+    const saveJsonBtn = document.getElementById('saveJsonBtn');
+    if (saveJsonBtn) {
+        saveJsonBtn.addEventListener('click', saveToJSON);
+    }
+    
+    const loadJsonBtn = document.getElementById('loadJsonBtn');
+    if (loadJsonBtn) {
+        loadJsonBtn.addEventListener('click', () => {
+            document.getElementById('fileInput').click();
+        });
+    }
+    
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+        fileInput.addEventListener('change', (e) => {
+            loadFromJSON(e.target.files[0]);
+        });
+    }
     
     // Кнопки "Слч"
     document.querySelectorAll('.random-btn').forEach(btn => {
@@ -177,14 +224,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     
     // Скролл к панели
-    document.getElementById('scrollToInputsBtn').addEventListener('click', (e) => {
-        e.preventDefault();
-        document.getElementById('inputsPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
+    const scrollBtn = document.getElementById('scrollToInputsBtn');
+    if (scrollBtn) {
+        scrollBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const inputsPanel = document.getElementById('inputsPanel');
+            if (inputsPanel) {
+                inputsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    }
     
     // Инициализация модальных окон
     initModals();
     
-    // Первоначальный расчет
-    setTimeout(calculateTrajectory, 100);
+    // Первоначальный расчет через небольшую задержку
+    setTimeout(() => {
+        console.log("Initial calculation");
+        calculateTrajectory();
+    }, 500);
 });
