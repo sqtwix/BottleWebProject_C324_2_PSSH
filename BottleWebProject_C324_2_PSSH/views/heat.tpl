@@ -69,7 +69,7 @@
 
             <p><strong>График</strong></p>
             <p>Зависимость линейная: от 100 °C на левом конце до 20 °C на правом. В узлах стержня (при N=6) температуры:</p>
-            <ul style="margin-left: 1.5rem; color: #ddd;">
+            <ul>
                 <li>x = 0.0 м → 100 °C</li>
                 <li>x = 0.2 м → 84 °C</li>
                 <li>x = 0.4 м → 68 °C</li>
@@ -149,7 +149,7 @@
                 <circle cx="30" cy="30" r="3" fill="#DFD0B8"/>
                 <circle cx="70" cy="20" r="3" fill="#DFD0B8"/>
             </svg>
-        <p style="margin-top: 10px;">Здесь будет построен график T(x) после ввода данных</p>
+
         </div>
 </div>
 
