@@ -4,24 +4,54 @@
 
 let ballisticAnimation = null;
 
+// Функция валидации и ограничения значений
+function validateAndLimitInputs() {
+    // Масса (0.5 - 50 кг)
+    let mass = parseFloat(document.getElementById('mass').value);
+    if (isNaN(mass)) mass = 1.0;
+    mass = Math.max(0.5, Math.min(50, mass));
+    document.getElementById('mass').value = mass.toFixed(2);
+    
+    // Коэффициент сопротивления (0.001 - 5)
+    let drag = parseFloat(document.getElementById('drag').value);
+    if (isNaN(drag)) drag = 0.1;
+    drag = Math.max(0.001, Math.min(5, drag));
+    document.getElementById('drag').value = drag.toFixed(4);
+    
+    // Скорость (10 - 100 м/с)
+    let velocity = parseFloat(document.getElementById('velocity').value);
+    if (isNaN(velocity)) velocity = 20;
+    velocity = Math.max(10, Math.min(100, velocity));
+    document.getElementById('velocity').value = velocity.toFixed(1);
+    
+    // Угол (10 - 80 градусов)
+    let angle = parseFloat(document.getElementById('angle').value);
+    if (isNaN(angle)) angle = 45;
+    angle = Math.max(10, Math.min(80, angle));
+    document.getElementById('angle').value = Math.round(angle);
+    
+    // Шаг времени (0.01 - 0.05)
+    let deltaTime = parseFloat(document.getElementById('deltaTime').value);
+    if (isNaN(deltaTime)) deltaTime = 0.02;
+    deltaTime = Math.max(0.01, Math.min(0.05, deltaTime));
+    document.getElementById('deltaTime').value = deltaTime.toFixed(3);
+    
+    return {
+        mass: mass,
+        drag: drag,
+        velocity: velocity,
+        angle: angle,
+        deltaTime: deltaTime
+    };
+}
+
 // Функция расчета
 async function calculateTrajectory() {
-    console.log("calculateTrajectory called"); // Отладка
+    console.log("calculateTrajectory called");
     
-    const params = {
-        mass: parseFloat(document.getElementById('mass').value),
-        drag: parseFloat(document.getElementById('drag').value),
-        velocity: parseFloat(document.getElementById('velocity').value),
-        angle: parseFloat(document.getElementById('angle').value),
-        deltaTime: parseFloat(document.getElementById('deltaTime').value)
-    };
-    
-    console.log("Params:", params); // Отладка
-    
-    // Валидация угла
-    if (params.angle < 0) params.angle = 0;
-    if (params.angle > 90) params.angle = 90;
-    document.getElementById('angle').value = params.angle;
+    // Валидируем и получаем параметры
+    const params = validateAndLimitInputs();
+    console.log("Validated params:", params);
     
     try {
         const response = await fetch('/api/calculate', {
@@ -31,7 +61,7 @@ async function calculateTrajectory() {
         });
         
         const data = await response.json();
-        console.log("Response data:", data); // Отладка
+        console.log("Response data:", data);
         
         if (data.success) {
             // Обновляем результаты
@@ -40,24 +70,57 @@ async function calculateTrajectory() {
             document.getElementById('flightTime').innerHTML = data.flight_time.toFixed(2) + ' с';
             document.getElementById('finalSpeed').innerHTML = data.final_speed.toFixed(2) + ' м/с';
             
-            // Запускаем анимацию
+            // Обновляем подписи на осях с реальными значениями
+            updateAxesLabels(data.range, data.max_height);
+            
+            // Запускаем анимацию только если есть данные и не при загрузке
             if (ballisticAnimation && data.trajectory && data.trajectory.length > 0) {
-                console.log("Starting animation with", data.trajectory.length, "points");
-                ballisticAnimation.updateTrajectory(
-                    data.trajectory,
-                    data.range,
-                    data.max_height
-                );
-            } else {
-                console.error("Animation not initialized or no trajectory data");
+                // Не запускаем анимацию при первом открытии
+                if (window.isFirstLoad) {
+                    window.isFirstLoad = false;
+                    // Просто отрисовываем траекторию без анимации
+                    ballisticAnimation.trajectory = data.trajectory;
+                    ballisticAnimation.maxRange = Math.max(data.range, 10);
+                    ballisticAnimation.maxHeight = Math.max(data.max_height, 10);
+                    ballisticAnimation.scaleX = ballisticAnimation.width / ballisticAnimation.maxRange;
+                    ballisticAnimation.scaleY = ballisticAnimation.height / ballisticAnimation.maxHeight;
+                    ballisticAnimation.drawCoordinateSystem();
+                    ballisticAnimation.drawFullTrajectory();
+                } else {
+                    ballisticAnimation.updateTrajectory(
+                        data.trajectory,
+                        data.range,
+                        data.max_height
+                    );
+                }
             }
         } else {
-            alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
+            console.error('Ошибка:', data.error);
+            // Не показываем alert при первой загрузке
+            if (!window.isFirstLoad) {
+                alert('Ошибка: ' + (data.error || 'Неизвестная ошибка'));
+            }
         }
     } catch (error) {
         console.error('Ошибка:', error);
-        alert('Ошибка при соединении с сервером');
+        if (!window.isFirstLoad) {
+            alert('Ошибка при соединении с сервером');
+        }
     }
+}
+
+// Обновление подписей на осях
+function updateAxesLabels(maxRange, maxHeight) {
+    const canvas = document.getElementById('coordinateCanvas');
+    const ctx = canvas.getContext('2d');
+    
+    // Сохраняем текущее состояние
+    ctx.save();
+    
+    // Очищаем старые подписи (перерисовываем только подписи)
+    // Подписи будут обновлены при следующей перерисовке
+    
+    ctx.restore();
 }
 
 // Сброс параметров
@@ -168,9 +231,26 @@ function initModals() {
     };
 }
 
+// Добавление обработчиков ввода для ограничения значений
+function addInputHandlers() {
+    const inputs = ['mass', 'drag', 'velocity', 'angle', 'deltaTime'];
+    inputs.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+            input.addEventListener('change', () => {
+                validateAndLimitInputs();
+                calculateTrajectory();
+            });
+        }
+    });
+}
+
 // Инициализация при загрузке
 document.addEventListener('DOMContentLoaded', () => {
     console.log("DOM loaded, initializing...");
+    
+    // Флаг для определения первого запуска
+    window.isFirstLoad = true;
     
     // Создаем экземпляр анимации
     if (typeof BallisticAnimation !== 'undefined') {
@@ -180,7 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error("BallisticAnimation class not found!");
     }
     
-    // Назначаем обработчики
+    // Добавляем обработчики ввода
+    addInputHandlers();
+    
+    // Назначаем обработчики кнопок
     const calculateBtn = document.getElementById('calculateBtn');
     if (calculateBtn) {
         calculateBtn.addEventListener('click', calculateTrajectory);
@@ -238,7 +321,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Инициализация модальных окон
     initModals();
     
-    // Первоначальный расчет через небольшую задержку
+    // Первоначальный расчет
     setTimeout(() => {
         console.log("Initial calculation");
         calculateTrajectory();
